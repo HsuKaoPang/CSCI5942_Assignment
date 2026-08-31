@@ -39,28 +39,46 @@ class CausalSelfAttention(nn.Module):
         self.n_head = config.n_head
         self.n_embd = config.n_embd
         self.dropout = config.dropout
+        # --- YOUR IMPLEMENTATION HERE ---
+        
         # one projection for q, k, v combined, split apart in forward()
+        # self.c_proj is the output projection back to embedding dimension
         self.c_attn = nn.Linear(config.n_embd, 3 * config.n_embd, bias=config.bias)
         self.c_proj = nn.Linear(config.n_embd, config.n_embd, bias=config.bias)
+        # Dropout layers for attention weights and residual connection
         self.attn_dropout = nn.Dropout(config.dropout)
         self.resid_dropout = nn.Dropout(config.dropout)
+        # lower-triangular mask: causal_mask[i, j] == 1 means "position i may see position j"
+        causal_mask = torch.tril(torch.ones(config.block_size, config.block_size))
+        self.register_buffer("causal_mask", causal_mask.view(1, 1, config.block_size, config.block_size))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         B, T, C = x.shape
+        # B: batch size, T: sequence length, C: embedding dimension
+        # --- YOUR IMPLEMENTATION HERE ---      
+        # --- 1. fused qkv projection ---
         q, k, v = self.c_attn(x).split(self.n_embd, dim=2)
-        head_size = C // self.n_head
-        # (B, T, C) -> (B, n_head, T, head_size) so attention is batched per head
+        head_size = C // self.n_head #Int
+        # 2. head reshape: (B, T, C) -> （B, T, n_head, head_size）
+        # transpose-> (B, n_head, T, head_size)
         q = q.view(B, T, self.n_head, head_size).transpose(1, 2)
         k = k.view(B, T, self.n_head, head_size).transpose(1, 2)
         v = v.view(B, T, self.n_head, head_size).transpose(1, 2)
 
-        y = F.scaled_dot_product_attention(
-            q, k, v,
-            attn_mask=None,
-            dropout_p=self.dropout if self.training else 0.0,
-            is_causal=True,
-        )
+        # --- 3. scaled dot-product scores ---
+        att = (q @ k.transpose(-1, -2)) / math.sqrt(head_size)  # (B, n_head, T, T)
 
+        # --- 4. causal mask, applied BEFORE softmax ---
+        att = att.masked_fill(self.causal_mask[:, :, :T, :T] == 0, float("-inf"))
+
+        # --- 5. softmax turns masked scores into a probability distribution per row ---
+        att = F.softmax(att, dim=-1)
+        att = self.attn_dropout(att)
+
+        # --- 6. value mix: weighted average of V using the attention weights ---
+        y = att @ v  # (B, n_head, T, head_size)
+
+        # --- 7. head merge + output projection ---
         y = y.transpose(1, 2).contiguous().view(B, T, C)
         return self.resid_dropout(self.c_proj(y))
 
@@ -70,12 +88,17 @@ class MLP(nn.Module):
 
     def __init__(self, config: GPTConfig):
         super().__init__()
-        # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        self.c_fc = nn.Linear(config.n_embd, 4 * config.n_embd, bias=config.bias)
+        self.gelu = nn.ReLU()
+        self.c_proj = nn.Linear(4 * config.n_embd, config.n_embd, bias=config.bias)
+        self.dropout = nn.Dropout(config.dropout)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        x = self.c_fc(x)
+        x = self.gelu(x)
+        x = self.c_proj(x)
+        x = self.dropout(x)
+        return x
 
 
 class Block(nn.Module):
@@ -84,11 +107,17 @@ class Block(nn.Module):
     def __init__(self, config: GPTConfig):
         super().__init__()
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        self.ln_1 = nn.LayerNorm(config.n_embd)
+        self.attn = CausalSelfAttention(config)
+        self.ln_2 = nn.LayerNorm(config.n_embd)
+        self.mlp = MLP(config)
 
+        
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        x = x + self.attn(self.ln_1(x))
+        x = x + self.mlp(self.ln_2(x))
+        return x
 
 
 class GPT(nn.Module):
