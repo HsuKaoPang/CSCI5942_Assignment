@@ -88,12 +88,14 @@ class MLP(nn.Module):
 
     def __init__(self, config: GPTConfig):
         super().__init__()
+        # --- YOUR IMPLEMENTATION HERE ---
         self.c_fc = nn.Linear(config.n_embd, 4 * config.n_embd, bias=config.bias)
-        self.gelu = nn.ReLU()
+        self.gelu = nn.GELU()
         self.c_proj = nn.Linear(4 * config.n_embd, config.n_embd, bias=config.bias)
         self.dropout = nn.Dropout(config.dropout)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # --- YOUR IMPLEMENTATION HERE ---
         x = self.c_fc(x)
         x = self.gelu(x)
         x = self.c_proj(x)
@@ -166,7 +168,14 @@ class GPT(nn.Module):
         assert T <= self.config.block_size
         pos = torch.arange(T, device=idx.device)
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        tok_emb = self.transformer.wte(idx)  # token embeddings (B, T, C)
+        pos_emb = self.transformer.wpe(pos)  # position embeddings (T, C)
+        x = tok_emb + pos_emb  # broadcasting, (B, T, C)
+        x = self.transformer.drop(x)
+            for block in self.transformer.h:
+                x = block(x)
+        x = self.transformer.ln_f(x)
+        logits = self.lm_head(x)  # (B, T, vocab_size)
         loss = None
         if targets is not None:
             loss = F.cross_entropy(logits.reshape(-1, logits.size(-1)), targets.reshape(-1))
