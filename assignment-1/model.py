@@ -172,8 +172,11 @@ class GPT(nn.Module):
         pos_emb = self.transformer.wpe(pos)  # position embeddings (T, C)
         x = tok_emb + pos_emb  # broadcasting, (B, T, C)
         x = self.transformer.drop(x)
-            for block in self.transformer.h:
-                x = block(x)
+
+        # apply each transformer block in sequence
+        for block in self.transformer.h:
+            x = block(x)
+
         x = self.transformer.ln_f(x)
         logits = self.lm_head(x)  # (B, T, vocab_size)
         loss = None
