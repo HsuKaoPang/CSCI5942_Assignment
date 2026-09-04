@@ -66,7 +66,8 @@ class CausalSelfAttention(nn.Module):
         v = v.view(B, T, self.n_head, head_size).transpose(1, 2)
 
         # --- 3. scaled dot-product scores ---
-        att = (q @ k.transpose(-1, -2)) / math.sqrt(head_size)  # (B, n_head, T, T)
+        # att: q @ k.transpose(-1, -2)  gives (B, n_head, T, T）
+        att = (q @ k.transpose(-1, -2)) / math.sqrt(head_size)
 
         # --- 4. causal mask, applied BEFORE softmax ---
         att = att.masked_fill(self.causal_mask[:, :, :T, :T] == 0, float("-inf"))
@@ -76,10 +77,17 @@ class CausalSelfAttention(nn.Module):
         att = self.attn_dropout(att)
 
         # --- 6. value mix: weighted average of V using the attention weights ---
-        y = att @ v  # (B, n_head, T, head_size)
+        # att @ v gives (B, n_head, T, head_size)
+        y = att @ v
 
         # --- 7. head merge + output projection ---
+        # contiguous() ensures that the tensor is stored in a contiguous chunk of memory, 
+        # which is required for the view operation to work correctly.
+
         y = y.transpose(1, 2).contiguous().view(B, T, C)
+        # given the output of the attention mechanism, apply a linear projection to map it back 
+        # to the original embedding dimension using the c_proj layer, 
+        # followed by dropout for regularization.
         return self.resid_dropout(self.c_proj(y))
 
 
@@ -171,7 +179,7 @@ class GPT(nn.Module):
         tok_emb = self.transformer.wte(idx)  # token embeddings (B, T, C)
         pos_emb = self.transformer.wpe(pos)  # position embeddings (T, C)
         x = tok_emb + pos_emb  # broadcasting, (B, T, C)
-        x = self.transformer.drop(x)
+        x = self.transformer.drop(x) # apply dropout
 
         # apply each transformer block in sequence
         for block in self.transformer.h:
