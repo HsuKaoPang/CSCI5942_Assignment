@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1788489350.63262 "/home/bill-hsu/AI Engineering/assignments/assignment-1/assignment1.tex" "assignment1.pdf" "assignment1" 1788489351.06286 0
+["pdflatex"] 1788492145.91635 "/home/bill-hsu/AI Engineering/assignments/assignment-1/assignment1.tex" "assignment1.pdf" "assignment1" 1788492146.34559 0
   "/etc/texmf/web2c/texmf.cnf" 1788484480.46166 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/bill-hsu/AI Engineering/assignments/assignment-1/assignment1.tex" 1788489350.46804 1131 36788e6f786b7c90285056c41936258d ""
+  "/home/bill-hsu/AI Engineering/assignments/assignment-1/assignment1.tex" 1788492145.32482 1329 c3e21e579667ec4065eccd2950a299d1 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -72,9 +72,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1788484486.6398 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1788484537 6800793 83496f5e9ba6a1624a9b03359bb79b97 ""
-  "assignment1.aux" 1788489351.02771 576 372625e330b9c6fcfd0953bcbc35e58f "pdflatex"
-  "assignment1.out" 1788489351.02871 453 07082e14ffd73404d66f43e1a03d41ea "pdflatex"
-  "assignment1.tex" 1788489350.46804 1131 36788e6f786b7c90285056c41936258d ""
+  "assignment1.aux" 1788492146.31083 577 7e45aac87946a83066088fcbd68ced74 "pdflatex"
+  "assignment1.out" 1788492146.31183 458 509850ad41c5403f5f2470f895729f0c "pdflatex"
+  "assignment1.tex" 1788492145.32482 1329 c3e21e579667ec4065eccd2950a299d1 ""
   "scaling_law.png" 1788330836.65015 68769 34799ccac19aa9a3367995a914820750 ""
   (generated)
   "assignment1.aux"
