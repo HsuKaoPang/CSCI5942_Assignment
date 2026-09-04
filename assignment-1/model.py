@@ -186,6 +186,7 @@ class GPT(nn.Module):
             x = block(x)
 
         x = self.transformer.ln_f(x)
+
         logits = self.lm_head(x)  # (B, T, vocab_size)
         loss = None
         if targets is not None:

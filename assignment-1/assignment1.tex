@@ -1,0 +1,38 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{CSCI 5942: AI Engineering Assignment 1}
+\author{Bill Hsu}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Deliverables:}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\textwidth]{scaling_law.png}
+    \label{fig:scaling_law}
+\end{figure}
+
+\section{URL of model.py}
+
+\url{https://www.example.com}
+
+\section{Answer to the question in Part 3}
+
+\begin{enumerate}
+    \item The token/N of base is about 7.69, way more lower than the token/N of 20, which Chinchilla found to be optimal. 
+    In other words, the base model is not fully leveraged due to insufficient 82M-token training data.
+    \item From the plotting, C is about 1.4668. This floor reflects the fact that entropy of the model cannot be reduced further.
+    \item The fit result shows that adding parameters at a fixed token budget (mini to base) produced almost no improvement in loss. 
+    Based on the fit, If we could double the training data rather than parameters, we have higher potential to reduce the loss.
+\end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,222 @@
+\documentclass[11pt]{article}
+
+% ---------- Packages ----------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+
+% ---------- Hyperlink setup ----------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% ---------- Code style ----------
+\lstset{
+    basicstyle=\ttfamily\small,
+    frame=single,
+    breaklines=true,
+    columns=fullflexible
+}
+
+% ---------- Document Info ----------
+\title{Assignment 1}
+\author{Bill Hsu}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =========================
+\section{Introduction}
+% =========================
+
+This is a basic LaTeX template for homework and technical reports.
+
+Inline math looks like this: $y = Wx + b$.
+
+A standalone equation:
+
+\[
+y = Wx + b
+\]
+
+% =========================
+\section{Equations}
+% =========================
+
+A numbered equation:
+
+\begin{equation}
+    E = mc^2
+    \label{eq:energy}
+\end{equation}
+
+Refer to it using Equation~\ref{eq:energy}.
+
+Multiple aligned equations:
+
+\begin{align}
+    Q &= XW_Q \\
+    K &= XW_K \\
+    V &= XW_V
+\end{align}
+
+Transformer attention:
+
+\begin{equation}
+    \mathrm{Attention}(Q,K,V)
+    =
+    \mathrm{softmax}
+    \left(
+    \frac{QK^\top}{\sqrt{d_k}}
+    \right)V
+\end{equation}
+
+Common math symbols:
+\begin{itemize}
+    \item Fractions: $\frac{a}{b}$
+    \item Square roots: $\sqrt{x}$
+    \item Subscripts: $x_i$
+    \item Superscripts: $x^2$
+    \item Transpose: $A^\top$
+    \item Bold vectors: $\mathbf{x}$
+    \item Summation: $\sum_{i=1}^{n} x_i$
+    \item Softmax function: $\mathrm{softmax}(z)$
+\end{itemize}
+
+
+% =========================
+\section{Matrices and Vectors}
+% =========================
+
+A vector:
+
+\[
+\mathbf{x}
+=
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+x_3
+\end{bmatrix}
+\]
+
+A matrix:
+
+\[
+A
+=
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+\]
+
+Useful notation:
+
+\[
+A^\top,
+\qquad
+A^{-1},
+\qquad
+\|\mathbf{x}\|_2,
+\qquad
+\sum_{i=1}^{n} x_i
+\]
+
+% =========================
+\section{Lists}
+% =========================
+
+Bullet list:
+
+\begin{itemize}
+    \item First item
+    \item Second item
+    \item Third item
+\end{itemize}
+
+Numbered list:
+
+\begin{enumerate}
+    \item First step
+    \item Second step
+    \item Third step
+\end{enumerate}
+
+% =========================
+\section{Figures}
+% =========================
+
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{example.png}
+%     \caption{Example figure.}
+%     \label{fig:example}
+% \end{figure}
+
+% Refer to it using Figure~\ref{fig:example}.
+
+% =========================
+\section{Tables}
+% =========================
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        Model & Accuracy & Loss \\
+        \midrule
+        Model A & 92.1\% & 0.31 \\
+        Model B & 94.5\% & 0.24 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Example results.}
+    \label{tab:results}
+\end{table}
+
+% =========================
+\section{Code}
+% =========================
+
+\begin{lstlisting}[language=Python]
+import torch
+
+x = torch.randn(4, 8)
+y = x @ x.T
+
+print(y.shape)
+\end{lstlisting}
+
+% =========================
+\section{Useful Formatting}
+% =========================
+
+\textbf{Bold text}
+
+\textit{Italic text}
+
+\texttt{monospace text}
+
+A URL:
+
+\url{https://www.example.com}
+
+% =========================
+\section{Conclusion}
+% =========================
+
+Write your conclusion here.
+
+\end{document}
