@@ -111,7 +111,8 @@ def log_to_opik(project, run_name, ckpt, losses, blocks, samples, corpora):
         def __init__(self):
             super().__init__(name="nats_per_char")
 
-        def score(self, output, **kwargs):
+        def score(self, **kwargs):
+            output = kwargs.get("output", kwargs)
             return score_result.ScoreResult(
                 name="nats_per_char", value=output["nats_per_char"],
                 reason=f"{output['n_blocks']} blocks of {protocol.BLOCK} chars")

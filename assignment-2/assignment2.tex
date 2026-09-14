@@ -1,0 +1,177 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\title{CSCI 5942: AI Engineering Assignment 2}
+\author{Bill Hsu}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Part 1: Wire in your base checkpoint}
+
+Base model, nats/char on the four corpora (400 non-overlapping 256-char
+blocks each):
+
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Corpus & nats/char \\
+\midrule
+shakespeare & 1.4321 \\
+tinystories & 2.1625 \\
+wikipedia   & 2.4880 \\
+python-code & 4.8962 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Sanity check: shakespeare (1.4321) lands within a few hundredths of the
+A1 base training val loss (1.4668), as expected.
+
+\begin{figure}[ht]
+    \centering
+    % TODO: replace with your screenshot of the Opik traces view (50 generations)
+    \includegraphics[width=0.9\textwidth]{screenshots/part1_traces.png}
+    \caption{Opik traces view showing the 50 base-model generations.}
+    \label{fig:part1-traces}
+\end{figure}
+
+\section{Part 2: The grid}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{results/heatmap.png}
+    \caption{nats/char, 5 model sizes (pico--base) $\times$ 4 corpora.}
+    \label{fig:heatmap}
+\end{figure}
+
+OOV fractions (from \texttt{corpora/README.md}):
+
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Corpus & OOV deleted \\
+\midrule
+shakespeare.filtered.txt   & 0.00\% \\
+tinystories.filtered.txt   & 0.98\% \\
+wikipedia.filtered.txt     & 2.30\% \\
+python-code.filtered.txt   & 7.69\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% TODO: revise these two sentences to match what your own heatmap shows
+Only the shakespeare column improves monotonically with model size; the
+python-code column is the worst regression, with our small pico model
+outscoring several larger rungs. A bigger Shakespeare-trained model
+learns more about Shakespeare's specific character distribution, but
+that specialization does not transfer to a domain (Python source, with
+its underscores, parentheses, and digits deleted as OOV) whose
+character statistics look nothing like Elizabethan verse.
+
+\section{Part 3: The twin}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{results/twin_curves.png}
+    \caption{Twin (base config trained on TinyStories) train/val curves.}
+    \label{fig:twin-curves}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{results/heatmap_twin.png}
+    \caption{Part 2 heatmap with the twin's row appended.}
+    \label{fig:heatmap-twin}
+\end{figure}
+
+Predicted vs.\ measured:
+
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Corpus & Predicted & Measured & Error \\
+\midrule
+tinystories & 1.46 & 0.6868 & 0.77 \\
+shakespeare & 2.58 & 2.6345 & 0.05 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% TODO: revise to match your own reasoning
+The larger miss was on tinystories: TinyStories' simple, highly
+repetitive sentence structure makes it far more predictable at the
+character level than the prediction assumed, and that low intrinsic
+entropy outweighs the disadvantage of the twin seeing each character
+only once (vs.\ the base model's roughly 74 epochs over Shakespeare).
+
+\section{Part 4: The judge}
+
+Pointwise means with 95\% CIs, $n=50$:
+
+\begin{center}
+\begin{tabular}{llrrr}
+\toprule
+Model & Rubric & grammar & coherence & style\_match \\
+\midrule
+base             & shakespeare & 2.24 $\pm$ 0.143 & 1.20 $\pm$ 0.112 & 4.30 $\pm$ 0.405 \\
+base             & tinystories & 1.56 $\pm$ 0.139 & 1.00 $\pm$ 0.000 & 1.00 $\pm$ 0.000 \\
+base-tinystories & shakespeare & 5.02 $\pm$ 0.477 & 2.84 $\pm$ 0.523 & 1.00 $\pm$ 0.000 \\
+base-tinystories & tinystories & 5.08 $\pm$ 0.454 & 2.80 $\pm$ 0.336 & 4.70 $\pm$ 0.469 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Pairwise win rates (base vs.\ base-tinystories), with 95\% CIs and order-swap flip counts, $n=50$ pairs each:
+
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Rubric & base win rate & base-tinystories win rate & flips \\
+\midrule
+shakespeare & 1.00 $\pm$ 0.00 (n=49) & 0.00 $\pm$ 0.00 (n=49) & 1 \\
+tinystories & 0.00 $\pm$ 0.00 (n=50) & 1.00 $\pm$ 0.00 (n=50) & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{figure}[ht]
+    \centering
+    % TODO: replace with your screenshot of the scored traces
+    \includegraphics[width=0.9\textwidth]{screenshots/part4_scored_traces.png}
+    \caption{Opik traces view with judge feedback scores attached.}
+    \label{fig:part4-scored-traces}
+\end{figure}
+
+\section{Part 5: Perturbing the judge}
+
+% TODO: fill in after running the shakespeare_v2 and axes-reordered judge.py commands
+\begin{center}
+\begin{tabular}{llrrr}
+\toprule
+Prompt version & Rubric & grammar & coherence & style\_match \\
+\midrule
+original (Part 4)  & shakespeare & 2.24 $\pm$ 0.143 & 1.20 $\pm$ 0.112 & 4.30 $\pm$ 0.405 \\
+paraphrase          & shakespeare\_v2 & TODO & TODO & TODO \\
+axes-reordered       & shakespeare & TODO & TODO & TODO \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% TODO: two-sentence verdict
+TODO: do the Part 4 conclusions survive a paraphrase of the rubric? If
+not, which claims were within the noise?
+
+\section{The Question}
+
+% TODO: half a page max. Cite the Part 2 grid for the loss claim and the
+% Part 4 judge tables for the quality claim, and point at where they disagree.
+TODO: which model is better, and on what exam?
+
+\end{document}
