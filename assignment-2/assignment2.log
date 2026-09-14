@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.3)  13 SEP 2026 21:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.3)  13 SEP 2026 22:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -330,11 +330,16 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Overfull \hbox (16.98967pt too wide) in paragraph at lines 156--165
+Overfull \hbox (16.98967pt too wide) in paragraph at lines 157--166
  [] 
  []
 
-[3 <./results/heatmap.png>] [4 <./results/twin_curves.png>] [5 <./results/heatmap_twin.png>] [6] (./assignment2.aux)
+[3 <./results/heatmap.png>]
+Overfull \hbox (0.6561pt too wide) in paragraph at lines 169--178
+[]\OT1/cmr/m/n/10 style[]match and co-her-ence stay within over-lap-ping con-fi-dence in-ter-vals across
+ []
+
+[4 <./results/twin_curves.png>] [5 <./results/heatmap_twin.png>] [6] (./assignment2.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -361,7 +366,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  75i,7n,79p,315b,508s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on assignment2.pdf (6 pages, 197559 bytes).
+Output written on assignment2.pdf (6 pages, 198373 bytes).
 PDF statistics:
  89 PDF objects out of 1000 (max. 8388607)
  60 compressed objects within 1 object stream

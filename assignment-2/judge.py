@@ -52,6 +52,10 @@ RUBRICS = {
         "Elizabethan verse drama in the style of Shakespeare's plays: "
         "speaker headings in capitals, dialogue in short verse-like lines, "
         "archaic English (thou, hath, doth)."),
+    "shakespeare_v2": (
+        "A poetic stage-play voice reminiscent of Renaissance England, "
+        "with each character identified by an uppercase name before speaking, "
+        "brief rhythmic speeches, and old-fashioned forms of English."),    
     "tinystories": (
         "A simple children's story in plain modern English: short "
         "sentences, small everyday vocabulary, named characters, a clear "
@@ -73,9 +77,9 @@ Target style: {rubric}
 
 Score three axes, each an integer from 1 (complete failure) to 10
 (indistinguishable from real text in the target style):
-- grammar: well-formed words and sentences (or valid-looking code)
-- coherence: stays on topic; each part follows from what came before
 - style_match: closeness to the target style described above
+- coherence: stays on topic; each part follows from what came before
+- grammar: well-formed words and sentences (or valid-looking code)
 
 Reply with JSON only, no other text:
 {{"grammar": <int>, "coherence": <int>, "style_match": <int>, "comment": "<one sentence>"}}

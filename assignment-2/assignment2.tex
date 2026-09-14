@@ -151,22 +151,30 @@ tinystories & 0.00 $\pm$ 0.00 (n=50) & 1.00 $\pm$ 0.00 (n=50) & 0 \\
 
 \section{Part 5: Perturbing the judge}
 
-% TODO: fill in after running the shakespeare_v2 and axes-reordered judge.py commands
+All three runs score the same 50 base-model samples ($n=50$); only the judge prompt changes.
+
 \begin{center}
 \begin{tabular}{llrrr}
 \toprule
 Prompt version & Rubric & grammar & coherence & style\_match \\
 \midrule
 original (Part 4)  & shakespeare & 2.24 $\pm$ 0.143 & 1.20 $\pm$ 0.112 & 4.30 $\pm$ 0.405 \\
-paraphrase          & shakespeare\_v2 & TODO & TODO & TODO \\
-axes-reordered       & shakespeare & TODO & TODO & TODO \\
+paraphrase          & shakespeare\_v2 & 2.56 $\pm$ 0.187 & 1.38 $\pm$ 0.147 & 4.42 $\pm$ 0.400 \\
+axes-reordered       & shakespeare & 1.80 $\pm$ 0.186 & 1.40 $\pm$ 0.137 & 4.32 $\pm$ 0.377 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-% TODO: two-sentence verdict
-TODO: do the Part 4 conclusions survive a paraphrase of the rubric? If
-not, which claims were within the noise?
+% TODO: revise to match your own framing
+style\_match and coherence stay within overlapping confidence intervals
+across all three prompt versions, so the Part 4 quality comparison
+(which rests on style\_match) survives both perturbations. grammar does
+not: its confidence interval under axes-reordered (1.61--1.99) does not
+overlap the original (2.10--2.38), so simply moving grammar from first
+to last in the axis list significantly lowers its score even though the
+axis description itself never changed -- any Part 4 claim resting on the
+grammar number specifically should be treated as within the judge's own
+prompt-order noise.
 
 \section{The Question}
 
