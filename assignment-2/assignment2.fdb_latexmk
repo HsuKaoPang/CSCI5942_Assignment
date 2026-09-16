@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1789533260.01505 "/home/bill-hsu/AI Engineering/assignments/assignment-2/assignment2.tex" "assignment2.pdf" "assignment2" 1789533261.29913 0
+["pdflatex"] 1789533741.21678 "/home/bill-hsu/AI Engineering/assignments/assignment-2/assignment2.tex" "assignment2.pdf" "assignment2" 1789533742.48393 0
   "/etc/texmf/web2c/texmf.cnf" 1788484480.46166 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/bill-hsu/AI Engineering/assignments/assignment-2/assignment2.tex" 1789533258.59015 6000 ceeb4526b25199322caa97717bc5e933 ""
+  "/home/bill-hsu/AI Engineering/assignments/assignment-2/assignment2.tex" 1789533740.99789 6000 c180457d1e33a2cd81d7f7ee0d906f37 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -75,9 +75,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1788484486.6398 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1788484537 6800793 83496f5e9ba6a1624a9b03359bb79b97 ""
-  "assignment2.aux" 1789533261.25888 2430 9cd2245fb105ecb0b5c4f7b39f1451b6 "pdflatex"
-  "assignment2.out" 1789533261.25888 882 602f24fe755251c2b07cf5c1595307fe "pdflatex"
-  "assignment2.tex" 1789533258.59015 6000 ceeb4526b25199322caa97717bc5e933 ""
+  "assignment2.aux" 1789533742.44083 2430 9cd2245fb105ecb0b5c4f7b39f1451b6 "pdflatex"
+  "assignment2.out" 1789533742.44083 882 602f24fe755251c2b07cf5c1595307fe "pdflatex"
+  "assignment2.tex" 1789533740.99789 6000 c180457d1e33a2cd81d7f7ee0d906f37 ""
   "results/heatmap.png" 1789108173.57961 43167 10044e1c83acb25e16e67da8f83de156 ""
   "results/heatmap_twin.png" 1789352781.3959 45902 631b9dc6146813c29d1ac1474cc66e7f ""
   "results/twin_curves.png" 1789353220.8444 33591 f83392347d0d0c41ff0b27caf3e06815 ""

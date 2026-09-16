@@ -123,10 +123,10 @@ Pointwise means with 95\% CIs, $n=50$:
 \toprule
 Model & Rubric & grammar & coherence & style\_match \\
 \midrule
-base             & shakespeare & 2.24 $\pm$ 0.143 & 1.20 $\pm$ 0.112 & 4.30 $\pm$ 0.405 \\
-base             & tinystories & 1.56 $\pm$ 0.139 & 1.00 $\pm$ 0.000 & 1.00 $\pm$ 0.000 \\
-base-tinystories & shakespeare & 5.02 $\pm$ 0.477 & 2.84 $\pm$ 0.523 & 1.00 $\pm$ 0.000 \\
-base-tinystories & tinystories & 5.08 $\pm$ 0.454 & 2.80 $\pm$ 0.336 & 4.70 $\pm$ 0.469 \\
+base             & shakespeare & 2.20 $\pm$ 0.137 & 1.12 $\pm$ 0.091 & 4.02 $\pm$ 0.369 \\
+base             & tinystories & 1.68 $\pm$ 0.142 & 1.02 $\pm$ 0.039 & 1.00 $\pm$ 0.000 \\
+base-tinystories & shakespeare & 4.98 $\pm$ 0.515 & 2.74 $\pm$ 0.478 & 1.00 $\pm$ 0.000 \\
+base-tinystories & tinystories & 4.86 $\pm$ 0.445 & 2.72 $\pm$ 0.269 & 4.64 $\pm$ 0.429 \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -162,7 +162,7 @@ All three runs score the same 50 base-model samples ($n=50$); only the judge pro
 \toprule
 Prompt version & Rubric & grammar & coherence & style\_match \\
 \midrule
-original (Part 4)  & shakespeare & 2.24 $\pm$ 0.143 & 1.20 $\pm$ 0.112 & 4.30 $\pm$ 0.405 \\
+original (Part 4)  & shakespeare & 2.20 $\pm$ 0.137 & 1.12 $\pm$ 0.091 & 4.02 $\pm$ 0.369 \\
 paraphrase          & shakespeare\_v2 & 2.56 $\pm$ 0.187 & 1.38 $\pm$ 0.147 & 4.42 $\pm$ 0.400 \\
 axes-reordered       & shakespeare & 1.80 $\pm$ 0.186 & 1.40 $\pm$ 0.137 & 4.32 $\pm$ 0.377 \\
 \bottomrule
@@ -173,7 +173,7 @@ When we paraphrased the rubric (shakespeare\_v2), all three scores
 stayed about the same as the original, so the judge is not very
 sensitive to how the rubric is worded. style\_match and coherence also
 stayed about the same when the axes were reordered, but grammar
-changed a lot: it dropped from 2.24 to 1.80 when the axes were reordered.
+changed a lot: it dropped from 2.20 to 1.80 when the axes were reordered.
 This shows that the judge is sensitive to where the questions are placed, not just on the text.
 It also shows that the judge is not very reliable on grammar score.
 
