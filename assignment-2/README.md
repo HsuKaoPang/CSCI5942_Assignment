@@ -89,7 +89,7 @@ to Opik. The numbers and samples output to `results/base.json`.
 Sanity check: the shakespeare number should be within a few
 hundredths of your A1 best val loss. Ours is 1.43 against a training
 val loss of 1.46 (training eval used random crops of the same split;
-this pass uses non-overlapping blocks). If yours is off by tenths,
+thiSs pass uses non-overlapping blocks). If yours is off by tenths,
 something is wrong and you should check to make sure there's no bug crawling
 around (e.g., sample generations, OOV char deletion operator).
 

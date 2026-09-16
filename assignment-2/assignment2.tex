@@ -13,7 +13,7 @@
 
 \maketitle
 
-\section{Part 1: Wire in your base checkpoint}
+\section{Part 1: The base model}
 
 Base model, nats/char on the four corpora (400 non-overlapping 256-char
 blocks each):
@@ -36,14 +36,21 @@ A1 base training val loss (1.4668), as expected.
 
 \begin{figure}[ht]
     \centering
-    % TODO: replace with your screenshot of the Opik traces view (50 generations)
-    \includegraphics[width=0.9\textwidth]{screenshots/part1_traces.png}
-    \caption{Opik traces view showing the 50 base-model generations.}
-    \label{fig:part1-traces}
+    \includegraphics[width=0.9\textwidth]{screenshots/part1-traces-2.png}
+    \caption{Opik traces view, filtered to the 50 base-model generations.}
+    \label{fig:part1-traces-list}
 \end{figure}
 
-\section{Part 2: The grid}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{screenshots/part1-traces-1.png}
+    \caption{Opik trace view-continued}
+    \label{fig:part1-traces-detail}
+\end{figure}
 
+\clearpage
+
+\section{Part 2: The heatmap}
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\textwidth]{results/heatmap.png}
@@ -66,15 +73,12 @@ python-code.filtered.txt   & 7.69\% \\
 \end{tabular}
 \end{center}
 
-% TODO: revise these two sentences to match what your own heatmap shows
-Only the shakespeare column improves monotonically with model size; the
-python-code column is the worst regression, with our small pico model
-outscoring several larger rungs. A bigger Shakespeare-trained model
-learns more about Shakespeare's specific character distribution, but
-that specialization does not transfer to a domain (Python source, with
-its underscores, parentheses, and digits deleted as OOV) whose
-character statistics look nothing like Elizabethan verse.
 
+% TODO: revise these two sentences to match what your own heatmap shows
+Only the shakespeare column get better as the model size grows; the python-code column get worse. Even the pico model beats nano, micro, and mini models on python score.
+A bigger model just get better at learning the shakespeare patterns, but this skill does not transfer to Python code, since Python code looks nothing alike Shakespeare's text.
+
+\newpage
 \section{Part 3: The twin}
 
 \begin{figure}[ht]
@@ -96,7 +100,7 @@ Predicted vs.\ measured:
 \begin{center}
 \begin{tabular}{lrrr}
 \toprule
-Corpus & Predicted & Measured & Error \\
+  & My guess & Measured & Error \\
 \midrule
 tinystories & 1.46 & 0.6868 & 0.77 \\
 shakespeare & 2.58 & 2.6345 & 0.05 \\
@@ -104,13 +108,12 @@ shakespeare & 2.58 & 2.6345 & 0.05 \\
 \end{tabular}
 \end{center}
 
-% TODO: revise to match your own reasoning
-The larger miss was on tinystories: TinyStories' simple, highly
-repetitive sentence structure makes it far more predictable at the
-character level than the prediction assumed, and that low intrinsic
-entropy outweighs the disadvantage of the twin seeing each character
-only once (vs.\ the base model's roughly 74 epochs over Shakespeare).
+The larger miss was on tinystories. TinyStories has very simple,
+repetitive sentences, which made it much easier to predict than
+expected -- even though the twin only saw each character once, unlike
+the base model, which saw Shakespeare about 74 times.
 
+\clearpage
 \section{Part 4: The judge}
 
 Pointwise means with 95\% CIs, $n=50$:
@@ -143,11 +146,12 @@ tinystories & 0.00 $\pm$ 0.00 (n=50) & 1.00 $\pm$ 0.00 (n=50) & 0 \\
 
 \begin{figure}[ht]
     \centering
-    % TODO: replace with your screenshot of the scored traces
-    \includegraphics[width=0.9\textwidth]{screenshots/part4_scored_traces.png}
+    \includegraphics[width=0.9\textwidth]{screenshots/2026-09-15_22-28_1.png}
     \caption{Opik traces view with judge feedback scores attached.}
     \label{fig:part4-scored-traces}
 \end{figure}
+
+\clearpage
 
 \section{Part 5: Perturbing the judge}
 
@@ -165,21 +169,24 @@ axes-reordered       & shakespeare & 1.80 $\pm$ 0.186 & 1.40 $\pm$ 0.137 & 4.32 
 \end{tabular}
 \end{center}
 
-% TODO: revise to match your own framing
-style\_match and coherence stay within overlapping confidence intervals
-across all three prompt versions, so the Part 4 quality comparison
-(which rests on style\_match) survives both perturbations. grammar does
-not: its confidence interval under axes-reordered (1.61--1.99) does not
-overlap the original (2.10--2.38), so simply moving grammar from first
-to last in the axis list significantly lowers its score even though the
-axis description itself never changed -- any Part 4 claim resting on the
-grammar number specifically should be treated as within the judge's own
-prompt-order noise.
+When we paraphrased the rubric (shakespeare\_v2), all three scores
+stayed about the same as the original, so the judge is not very
+sensitive to how the rubric is worded. style\_match and coherence also
+stayed about the same when the axes were reordered, but grammar
+changed a lot: it dropped from 2.24 to 1.80 when the axes were reordered.
+This shows that the judge is sensitive to where the questions are placed, not just on the text.
+It also shows that the judge is not very reliable on grammar score.
 
 \section{The Question}
 
-% TODO: half a page max. Cite the Part 2 grid for the loss claim and the
-% Part 4 judge tables for the quality claim, and point at where they disagree.
-TODO: which model is better, and on what exam?
+There is no single best model. On the loss grid (Part 2/3), base has the lowest nats/char on shakespeare (1.4321)
+while the twin has the lowest nats/char on tinystories (0.6868), far below base's 2.1625 on the same corpus.
+The judge results agree completely: base wins 49/50 pairwise comparisons on the shakespeare rubric, and the
+twin wins 50/50 on the tinystories rubric, with the losing model's style\_match score hitting the floor (1.00)
+in each case. Loss and judge tell the same story -- each model is best at the corpus it was trained on, and
+neither wins outside its own domain.
+
+
+
 
 \end{document}

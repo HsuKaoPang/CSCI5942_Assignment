@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.3)  13 SEP 2026 22:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.3)  15 SEP 2026 22:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -277,99 +277,77 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring OFF on input line 12.
+ (./assignment2.out) (./assignment2.out)
 \@outlinefile=\write3
 \openout3 = `assignment2.out'.
 
+<screenshots/part1-traces-2.png, id=28, 1927.2pt x 1096.095pt>
+File: screenshots/part1-traces-2.png Graphic file (type png)
+<use screenshots/part1-traces-2.png>
+Package pdftex.def Info: screenshots/part1-traces-2.png  used on input line 39.
+(pdftex.def)             Requested size: 310.4979pt x 176.58298pt.
+<screenshots/part1-traces-1.png, id=30, 1927.2pt x 1096.095pt>
+File: screenshots/part1-traces-1.png Graphic file (type png)
+<use screenshots/part1-traces-1.png>
+Package pdftex.def Info: screenshots/part1-traces-1.png  used on input line 46.
+(pdftex.def)             Requested size: 310.4979pt x 176.58298pt.
+ [1
 
-
-LaTeX Warning: File `screenshots/part1_traces.png' not found on input line 40.
-
-
-/home/bill-hsu/AI Engineering/assignments/assignment-2/assignment2.tex:40: Package pdftex.def Error: File `screenshots/part1_traces.png' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.40 ...9\textwidth]{screenshots/part1_traces.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-<results/heatmap.png, id=4, 578.16pt x 433.62pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./screenshots/part1-traces-2.png>] [2 <./screenshots/part1-traces-1.png>]
+<results/heatmap.png, id=48, 578.16pt x 433.62pt>
 File: results/heatmap.png Graphic file (type png)
 <use results/heatmap.png>
-Package pdftex.def Info: results/heatmap.png  used on input line 49.
+Package pdftex.def Info: results/heatmap.png  used on input line 56.
 (pdftex.def)             Requested size: 310.4979pt x 232.87433pt.
-<results/twin_curves.png, id=6, 578.16pt x 433.62pt>
+ [3
+
+ <./results/heatmap.png>]
+<results/twin_curves.png, id=57, 578.16pt x 433.62pt>
 File: results/twin_curves.png Graphic file (type png)
 <use results/twin_curves.png>
-Package pdftex.def Info: results/twin_curves.png  used on input line 82.
+Package pdftex.def Info: results/twin_curves.png  used on input line 86.
 (pdftex.def)             Requested size: 310.4979pt x 232.87433pt.
-<results/heatmap_twin.png, id=7, 578.16pt x 433.62pt>
+<results/heatmap_twin.png, id=58, 578.16pt x 433.62pt>
 File: results/heatmap_twin.png Graphic file (type png)
 <use results/heatmap_twin.png>
-Package pdftex.def Info: results/heatmap_twin.png  used on input line 89.
+Package pdftex.def Info: results/heatmap_twin.png  used on input line 93.
 (pdftex.def)             Requested size: 310.4979pt x 232.87433pt.
-[1
+ [4 <./results/twin_curves.png>] [5 <./results/heatmap_twin.png>]
+<screenshots/2026-09-15_22-28_1.png, id=71, 1005.7575pt x 434.22224pt>
+File: screenshots/2026-09-15_22-28_1.png Graphic file (type png)
+<use screenshots/2026-09-15_22-28_1.png>
+Package pdftex.def Info: screenshots/2026-09-15_22-28_1.png  used on input line 149.
+(pdftex.def)             Requested size: 310.4979pt x 134.05093pt.
+ [6
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-
-LaTeX Warning: File `screenshots/part4_scored_traces.png' not found on input line 147.
-
-
-/home/bill-hsu/AI Engineering/assignments/assignment-2/assignment2.tex:147: Package pdftex.def Error: File `screenshots/part4_scored_traces.png' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.147 ...dth]{screenshots/part4_scored_traces.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (16.98967pt too wide) in paragraph at lines 157--166
+ <./screenshots/2026-09-15_22-28_1.png (PNG copy)>]
+Overfull \hbox (16.98967pt too wide) in paragraph at lines 161--170
  [] 
  []
 
-[3 <./results/heatmap.png>]
-Overfull \hbox (0.6561pt too wide) in paragraph at lines 169--178
-[]\OT1/cmr/m/n/10 style[]match and co-her-ence stay within over-lap-ping con-fi-dence in-ter-vals across
- []
+[7
 
-[4 <./results/twin_curves.png>] [5 <./results/heatmap_twin.png>] [6] (./assignment2.aux)
+] (./assignment2.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `assignment2.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `assignment2.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  86841519C8A4E12EA641932DF284FEEA;943.
+Package rerunfilecheck Info: File `assignment2.out' has not changed.
+(rerunfilecheck)             Checksum: 602F24FE755251C2B07CF5C1595307FE;882.
  ) 
 Here is how much of TeX's memory you used:
- 9175 strings out of 476182
- 142344 string characters out of 5795596
- 1933975 words of memory out of 5000000
- 31073 multiletter control sequences out of 15000+600000
+ 9151 strings out of 476182
+ 140852 string characters out of 5795596
+ 1929975 words of memory out of 5000000
+ 31043 multiletter control sequences out of 15000+600000
  563005 words of font info for 54 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,7n,79p,315b,508s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,7n,79p,315b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on assignment2.pdf (6 pages, 198373 bytes).
+Output written on assignment2.pdf (7 pages, 827205 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 60 compressed objects within 1 object stream
- 18 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 121 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
+ 20 named destinations out of 1000 (max. 500000)
+ 79 words of extra memory for PDF output out of 10000 (max. 10000000)
 

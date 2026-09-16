@@ -77,9 +77,9 @@ Target style: {rubric}
 
 Score three axes, each an integer from 1 (complete failure) to 10
 (indistinguishable from real text in the target style):
-- style_match: closeness to the target style described above
-- coherence: stays on topic; each part follows from what came before
 - grammar: well-formed words and sentences (or valid-looking code)
+- coherence: stays on topic; each part follows from what came before
+- style_match: closeness to the target style described above
 
 Reply with JSON only, no other text:
 {{"grammar": <int>, "coherence": <int>, "style_match": <int>, "comment": "<one sentence>"}}
