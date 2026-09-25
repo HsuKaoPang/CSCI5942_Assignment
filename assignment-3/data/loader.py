@@ -123,9 +123,27 @@ class MixDataset(torch.utils.data.IterableDataset):
         `block_size` long and `torch.int64`, with `y` being `x` shifted
         one step left.
         """
+
         import pyarrow.parquet as pq
-        # TODO: implement this stage.
-        raise NotImplementedError("stage not implemented")
+        # debugging note:
+        # pack() once per shard, not once for all of them: 
+        # it glues its input into one token stream, so a shared stream 
+        # would glue each shard's tail onto the next -- 
+        # and which shard is next depends on how many workers there are.
+        for path in self._my_paths():
+            table = pq.read_table(path, columns=["text"])
+
+            def token_stream():
+
+                for text in table.column("text").to_pylist():
+                    idx = encode(text,self.stoi)
+                    yield idx
+
+            for block in pack(token_stream(), self.block_size):
+                x = torch.tensor(block[:-1], dtype=torch.int64)
+                y = torch.tensor(block[1:], dtype=torch.int64)
+                yield x, y
+
 
 
 # =====================================================================

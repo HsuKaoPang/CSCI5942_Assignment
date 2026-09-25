@@ -1,0 +1,10 @@
+{
+  "name": "english_pages",
+  "seed": 1337,
+  "iters": 3000,
+  "mix": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/raw/mix_english_pages",
+  "n_params": 10651776,
+  "final_train_loss": 2.0129978447347305,
+  "tokens_seen": 49152000,
+  "wall_seconds": 810.1
+}

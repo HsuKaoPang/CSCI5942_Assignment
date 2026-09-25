@@ -157,8 +157,55 @@ def stage_01_ingest(spark: SparkSession, path: str) -> DataFrame:
     or else you may see extraneous matches (e.g., " a " instead of "a").
     """
     pages = read_wet(spark, path)
-    # TODO: implement this stage.
-    raise NotImplementedError("stage not implemented")
+
+    # ChatGPT helped me with this comment block
+
+    #  --- doc_stopwords: how "English" does this page look? ---
+    # A "stopword" is a very common, low-content word (the/and/of/a/...) --
+    # normally people filter stopwords OUT because they carry no topic
+    # information. Here we use them the opposite way: since almost every long
+    # stretch of English prose contains all six of them, their PRESENCE is
+    # a cheap language detector. A page with 0 hits is probably not English.
+    #
+    # Pad the whole page's text with a leading/trailing space and lowercase
+    # it, so a plain substring search for " the " only matches the standalone
+    # word "the" -- not the "the" inside e.g. "theater".
+    padded_text = F.concat(F.lit(" "), F.lower(F.col("text")), F.lit(" "))
+
+    # For each of the 6 stopwords, build a 0/1 column: 1 if F.instr finds a
+    # padded copy of the word somewhere in padded_text, 0 if F.instr returns 0
+    # (not found). This list holds 6 *column expressions*, not 6 numbers --
+    # nothing is computed yet.
+    hit_flags = []
+
+    for word in STOPWORDS:
+        found = F.instr(padded_text, f" {word} ") > 0
+        found_as_int = found.cast("int")
+        hit_flags.append(found_as_int)
+
+    # Add the 6 flag-columns together elementwise -> one column, values 0..6.
+    doc_stopwords = sum(hit_flags[1:], start=hit_flags[0])
+
+    # --- doc_lines / doc_mean_line: the page's "shape" ---
+    # Split the page into an array column: one array per row, one string
+    # per line of the page.
+    line_array = F.split(F.col("text"), LINE_SPLIT)
+    doc_lines = F.size(line_array)
+
+    # F.transform maps a function over every element of an array column
+    # here, replace each line-string with its character length.
+    line_lengths = F.transform(line_array, lambda line: F.length(line))
+    
+    # F.aggregate folds an array column down to one value: start at 0.0,
+    # and add each element's length into the running total.
+    total_chars = F.aggregate(
+        line_lengths, F.lit(0.0), lambda running_total, n: running_total + n)
+    doc_mean_line = total_chars / doc_lines
+
+    # Attach three new columns
+    return pages.withColumn("doc_stopwords", doc_stopwords) \
+                .withColumn("doc_lines", doc_lines) \
+                .withColumn("doc_mean_line", doc_mean_line)
 
 
 def stage_02_chunk(pages: DataFrame) -> DataFrame:
@@ -174,8 +221,22 @@ def stage_02_chunk(pages: DataFrame) -> DataFrame:
 
     Hint: `LINE_SPLIT` may be helpful.
     """
-    # TODO: implement this stage.
-    raise NotImplementedError("stage not implemented")
+    # split the text into an array of lines, 
+    # then explode that array into one row per line
+    lines = F.split(F.col("text"), LINE_SPLIT)
+
+    # create one raw for each line and keep the line index
+    # F.posexplode returns two columns: the index and the value
+    # named here as "line_ix" and "text"
+    lines=pages.select(
+        "host", "doc_stopwords", "doc_lines", "doc_mean_line",
+        F.posexplode(lines).alias("line_ix", "text")
+    )
+    # filter out lines that are empty or whitespace-only
+    # .rlike(): returns True if the column matches the regex pattern
+    lines = lines.filter(F.col("text").rlike(r"\S"))
+
+    return lines
 
 
 def stage_03_normalize(lines: DataFrame) -> DataFrame:
@@ -193,8 +254,36 @@ def stage_03_normalize(lines: DataFrame) -> DataFrame:
 
     Drop anything that ends up empty.
     """
-    # TODO: implement this stage.
-    raise NotImplementedError("stage not implemented")
+    # Step 1: collapse whitespace to single spaces
+    lines = lines.withColumn("text", 
+        F.trim(F.regexp_replace(F.col("text"), r"\s+", " "))
+        )
+    # trim leading/trailing whitespace
+    lines = lines.withColumn("text", F.trim(F.col("text")))
+
+    # Step 2: restrict to A1_VOCAB
+    # The regex pattern [^...] matches any character NOT in the brackets.
+    # re.escape() escapes any special regex characters in A1_VOCAB, so they
+    # are treated literally.
+
+    escaped_vocab = re.escape(A1_VOCAB)
+
+    # remove any character not in the escaped A1_VOCAB
+    lines=lines.withColumn("text",
+        F.regexp_replace(F.col("text"), f"[^{escaped_vocab}]", "")
+    )
+    
+    # Step 3:check if there are any double whitespace left
+    lines = lines.withColumn("text", 
+        F.trim(F.regexp_replace(F.col("text"), r"\s+", " "))
+        )
+    lines = lines.withColumn("text", F.trim(F.col("text")))
+
+    # Step 4: drop empty lines
+    lines = lines.filter(F.length(F.col("text")) > 0)
+    
+    return lines
+
 
 
 def stage_04_features(paras: DataFrame) -> DataFrame:
@@ -217,9 +306,65 @@ def stage_04_features(paras: DataFrame) -> DataFrame:
          rel_pos       double  where the line sits in its page, 0..1.
             (hint: Headers and footers cluster at the ends)
     """
-    # TODO: implement this stage.
-    raise NotImplementedError("stage not implemented")
+    #number of characters
+    paras = paras.withColumn("n_chars", F.length(F.col("text")))
+    #number of words
+    paras = paras.withColumn("n_words", F.size(F.split(F.col("text"), " ")))
+    # alpha ratio
+    alpha_count = F.length(
+        F.regexp_replace(F.col("text"), r"[^A-Za-z]", "")
+    )
+    paras = paras.withColumn("alpha_ratio", alpha_count / F.col("n_chars"))
+    # upper ratio
+    upper_count = F.length(
+        F.regexp_replace(F.col("text"), r"[^A-Z]", "")
+    )
+    paras = paras.withColumn("upper_ratio", upper_count / F.col("n_chars"))
+    # stop hits, copy from stage 1
+    padded_text = F.concat(F.lit(" "), F.lower(F.col("text")), F.lit(" "))
+    
+    hit_flags = []
+    
+    for word in STOPWORDS:
+        found = F.instr(padded_text, f" {word} ") > 0
+        found_as_int = found.cast("int")
+        hit_flags.append(found_as_int)
+    
+    stop_hits = sum(hit_flags[1:], start=hit_flags[0])
+    paras = paras.withColumn("stop_hits", stop_hits)
 
+    # ends sentence
+    paras = paras.withColumn("ends_sentence", F.col("text").rlike(r"[.!?]$"))
+
+    # mean word length, similar to stage 1
+    words = F.split(F.col("text"), " ")
+    word_lengths = F.transform(words, lambda word: F.length(word))
+    
+    total_word_length = F.aggregate(
+        word_lengths, F.lit(0.0), lambda running_total, n: running_total + n
+    )
+    paras = paras.withColumn("word_len_mean", total_word_length / F.col("n_words"))
+
+    # relative position
+    paras = paras.withColumn("rel_pos",
+        F.when(F.col("doc_lines") > 1,
+                F.col("line_ix") / (F.col("doc_lines") - 1)
+            ).otherwise(F.lit(0.0))
+        )
+    return paras
+    
+def stage_user_line_freq(paras: DataFrame) -> DataFrame:
+    """Custom feature: how boilerplate is this line?
+
+    In:  the DataFrame from stage 4
+    Out: the same rows plus `line_freq: long`, how many times this exact
+         text occurs anywhere in the corpus. Row count must not change.
+
+    Must run before exact dedup
+    """
+    counts = (paras.groupBy("text").count()
+                   .withColumnRenamed("count", "line_freq"))
+    return paras.join(counts, on="text", how="inner")
 
 def stage_05_exact_dedup(paras: DataFrame) -> DataFrame:
     """Deduplicate byte-identical lines.
@@ -228,8 +373,10 @@ def stage_05_exact_dedup(paras: DataFrame) -> DataFrame:
     Out: the same columns plus `doc_id: string`, which is a hash (e.g., SHA-256)
         of the line's text, with at most one row per distinct `text`
     """
-    # TODO: implement this stage.
-    raise NotImplementedError("stage not implemented")
+    paras = paras.withColumn("doc_id", F.sha2(F.col("text"), 256))
+    paras = paras.dropDuplicates(["doc_id"])
+    return paras
+
 
 
 def stage_06_write(paras: DataFrame, out_dir: str, shards: int) -> DataFrame:
@@ -240,8 +387,9 @@ def stage_06_write(paras: DataFrame, out_dir: str, shards: int) -> DataFrame:
     Out: return the DataFrame unchanged so the harness can count it.
          Side effect: Parquet under `<out_dir>/corpus`.
     """
-    # TODO: implement this stage.
-    raise NotImplementedError("stage not implemented")
+    paras.repartition(shards).write.mode("overwrite").parquet(f"{out_dir}/corpus")
+
+    return paras
 
 
 # =====================================================================
@@ -291,8 +439,8 @@ def main() -> int:
                          "The fastest way to see what a stage actually did")
     ap.add_argument("--limit", type=int, default=0, metavar="N",
                     help="use only the first N pages, for quick iteration")
-    ap.add_argument("--stages", type=int, default=6, metavar="N",
-                    choices=range(1, 7),
+    ap.add_argument("--stages", type=int, default=7, metavar="N",
+                    choices=range(1, 8),
                     help="run only stages 1..N and stop. Use this while "
                          "working on one stage")
     args = ap.parse_args()
@@ -326,8 +474,9 @@ def main() -> int:
         ("2 chunk", stage_02_chunk),
         ("3 normalize", stage_03_normalize),
         ("4 features", stage_04_features),
-        ("5 exact dedup", stage_05_exact_dedup),
-        ("6 write", lambda d: stage_06_write(d, args.out, args.shards)),
+        ("5 line freq", stage_user_line_freq),
+        ("6 exact dedup", stage_05_exact_dedup),
+        ("7 write", lambda d: stage_06_write(d, args.out, args.shards)),
     ]
     for name, fn in rest:
         if int(name.split()[0]) > args.stages:
@@ -335,7 +484,7 @@ def main() -> int:
         t = time.time()
         df = measure(fn(df), name, funnel, t, args.peek)
 
-    if args.stages < 6:
+    if args.stages < 7:
         print(f"\n  stopped after stage {args.stages} (--stages); "
               "no Parquet written")
 

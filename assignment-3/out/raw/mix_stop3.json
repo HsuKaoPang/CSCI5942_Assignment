@@ -1,0 +1,8 @@
+{
+  "name": "stop3",
+  "shards": 16,
+  "path": "out/raw/mix_stop3",
+  "rows": 628179,
+  "tokens": 49758591,
+  "fingerprint": "aeec859e0c5afa15"
+}

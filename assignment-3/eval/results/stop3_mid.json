@@ -1,0 +1,345 @@
+{
+  "model": "stop3_mid",
+  "run_dir": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/stop3_mid",
+  "n_params": 10651776,
+  "train_best_val_loss": 1.9103590458292654,
+  "config": {
+    "block_size": 256,
+    "vocab_size": 65,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.2,
+    "bias": false
+  },
+  "protocol": {
+    "block_size": 256,
+    "max_blocks_per_corpus": 400,
+    "seed": 1337,
+    "device": "cpu"
+  },
+  "nats_per_char": {
+    "python-code": 3.0997,
+    "shakespeare": 2.7134,
+    "tinystories": 1.7405,
+    "wikipedia": 1.6251
+  },
+  "blocks_used": {
+    "python-code": 400,
+    "shakespeare": 400,
+    "tinystories": 400,
+    "wikipedia": 400
+  },
+  "generation": {
+    "prompt": "\n",
+    "new_tokens": 300,
+    "temperature": 0.8,
+    "top_k": 40
+  },
+  "opik": {
+    "logged": false,
+    "project": null
+  },
+  "samples": [
+    {
+      "index": 0,
+      "prompt": "\n",
+      "seed": 1337,
+      "text": "\n??????? ?????????????????????????? ????????????????? ??????? ?????????????????????????????????????????????? ??? ??????????????????????????????????????????????????????????????????????????????????????? ?????????????????????????????????????????????????????????????????????????????.??????????????????????"
+    },
+    {
+      "index": 1,
+      "prompt": "\n",
+      "seed": 1338,
+      "text": "\nveCallShareThe raises sure the massic payment for a give document your and advance or recording records. And put our professional lots of its the price of the sale the best second of the cleaners and self-comprehensition in the world, well you want to ability at the home a responsort of fotober who "
+    },
+    {
+      "index": 2,
+      "prompt": "\n",
+      "seed": 1339,
+      "text": "\n Republication & US & Tube & Contactions for Systems and Instructions, and Status Edition and The Plan Uniques and Services of Long Program Community Our Lelectric Country. The Company Service in III is over on the Early of the Country Indian by the bedrooms Balleline and more to continue the SO-Tra"
+    },
+    {
+      "index": 3,
+      "prompt": "\n",
+      "seed": 1340,
+      "text": "\n$3! '' music $ stock on return ' book?Sign Single Report HeadThe Resource of Products with Group Engineering Market Programmation Professional Services for Screen and Potent to Extra Paper with Ice States Act and After Super 3 walkup The Bassion is a rate time of the discusses of who any netter the "
+    },
+    {
+      "index": 4,
+      "prompt": "\n",
+      "seed": 1341,
+      "text": "\n atqe?het loved in the thoughout that being the business darket to be used to the complete subject to shipping on ourself-business. The can be obtained help be experienced to capability other link on the programmary products the bring banking and its as the lighting of common lips and survey old be "
+    },
+    {
+      "index": 5,
+      "prompt": "\n",
+      "seed": 1342,
+      "text": "\nRCQX$$..S. . . $... in disclick honor, Manority. Period, minimantion in the Delivery New Series Reduces, Musical County ConnectionAbout 3 3 3 3 3 3- 3 3 3 3 3 3. . . . . . . . . . . . . . . . . . . . ., . . . . . . .3. . . . . . . . . . . . . . . . ., 3 . . . . . . . . . .. ...3. ... . . .. . . . . "
+    },
+    {
+      "index": 6,
+      "prompt": "\n",
+      "seed": 1343,
+      "text": "\nDocument County of StatesPecificationBlog beach to the life costs of the phermit wrough the game copIFC Redited specific Community Everything for Estate Separate to Initiated Tony Lot Brown. And Album of Children Warned Grand Monitors, said footballed with the information of the initiation of putton"
+    },
+    {
+      "index": 7,
+      "prompt": "\n",
+      "seed": 1344,
+      "text": "\nID: East Good Courted Packed Chapters Certification With Executions Program. The needs at transference of product taxet and been mixed to experience the Photographic Satisfic site, our furtherefores weight are a store of staffers of the USD, they also alreason that they cannot become with stressed b"
+    },
+    {
+      "index": 8,
+      "prompt": "\n",
+      "seed": 1345,
+      "text": "\n $ download for an after sell on there is accomplete to mainter with experience should be disclose for fundational being a top and services a circumate of colors and drives, loves, and them the same truly and registrated to processed trainers and communities enough the committee of Escaperation for "
+    },
+    {
+      "index": 9,
+      "prompt": "\n",
+      "seed": 1346,
+      "text": "\n,Date,Lank; increase events international financial services for the Convention Team Are a protect on the and option of performance treatment presentiate professions on the ensure of the options of the protecting projects of lifestion months. Easier and reportside blackets while share are more inter"
+    },
+    {
+      "index": 10,
+      "prompt": "\n",
+      "seed": 1347,
+      "text": "\n&&!!.hoss & if you are first active with your bridge. High-como-live below said dont prevent provocating to the free support on the ehicle and and and profession of the promotion of a following responsibility of status or the incompressions. This deep these means of they conquire allowed that feet o"
+    },
+    {
+      "index": 11,
+      "prompt": "\n",
+      "seed": 1348,
+      "text": "\n '3 $ $. $3 - $3 3pm 3 $, $, $ $limarea Cell InformationRoberte l'asset maer image of a plans and original years of 3 details start to information. The completely are was a sensor of market ways back to delivery of the everything one information will be a livery room from home typical payment contai"
+    },
+    {
+      "index": 12,
+      "prompt": "\n",
+      "seed": 1349,
+      "text": "\n $ $; 'd'; ' $ $. . $3.my $, 'Nov Advisor, $.$..', find $'..Identific date, , $'. .3.; ' ,pax $.. baby-and leather a background there and model boy same wait can be to event letter the serves of the border, and latest entry the take of our general and surprise of the recommended for station on the d"
+    },
+    {
+      "index": 13,
+      "prompt": "\n",
+      "seed": 1350,
+      "text": "\n Medical Systems Stay For Seat Shipping A Period Activity October Assembly Newsletter Shift Art Three August Season High Apple Said States Career AccountsFields & Data CollectionsOne with created and science stages have meaning this surrounds on event the most magical coverything a based by studiets"
+    },
+    {
+      "index": 14,
+      "prompt": "\n",
+      "seed": 1351,
+      "text": "\nRapier Energy Enough June , , : , , , . , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,3, "
+    },
+    {
+      "index": 15,
+      "prompt": "\n",
+      "seed": 1352,
+      "text": "\nvfunction Brautschleughtfiller: Gelands St Blogging Live Community Community in Switz Online Seconditions Magnet- Redecipation and Manual School Needs of Movies. Permance regarded after recording a few distribution and interviews to complete them with a reducacy of the late - unique political attorn"
+    },
+    {
+      "index": 16,
+      "prompt": "\n",
+      "seed": 1353,
+      "text": "\n training and brings should this Discovering to provide your function of the sold fund provider for the service and hold his or remember feeling and middle that each leaves some the lots of your unique mount work. The apply good believe and during to ready training the repExplore you will be apply a"
+    },
+    {
+      "index": 17,
+      "prompt": "\n",
+      "seed": 1354,
+      "text": "\ne segminis di prime e badle guidi personante un alla validade delliri terma sua del promotiva eco. Italia i viabat soi filtere una funci. Tempo di inologie ale material. We know whats be a long of upon our relate fixes sauce. It going detailed with people, me for a state of the force of the right co"
+    },
+    {
+      "index": 18,
+      "prompt": "\n",
+      "seed": 1355,
+      "text": "\nu', built set historypressures $attractic 'n'. $.length $successible more concernfunction' ' ; this.annable' $button-this.title; this.sale.search ; function tr' if $,'; if ; $; ; ; '$', . 3 functioner 'e, this.option i.element.language' $'; $gettingConference a create use for norm other relate of th"
+    },
+    {
+      "index": 19,
+      "prompt": "\n",
+      "seed": 1356,
+      "text": "\nPEBRA JAMEMALEYE ANGING BOBE DURABA SMENT DATE FEM DEUT ALLEID MONTERN. Achieve Does 3 - MOCE TY : OCCOSPART CHERN CATION TO SES TO CONG SEU BEELLEV AUTOMOUNT EVEVER THE POUNTURE OUTHE RELIMO LEATHOULL NABELLOVE AUTY TER WAKE CORK GOBLIERS MUTION AND TO CARE SEIGNE BEANVENOR DIEE IL HAUTOWORD GANELL"
+    },
+    {
+      "index": 20,
+      "prompt": "\n",
+      "seed": 1357,
+      "text": "\nL&;var y'quire false month address' for the has architected by devices in the among of the policy wine of the Chundle Full Charlenges, the Public Charch will be founded to cross such in the stilliar during the current pollion.Christics for a relation world statements for the world in Matheria, and t"
+    },
+    {
+      "index": 21,
+      "prompt": "\n",
+      "seed": 1358,
+      "text": "\n L Resolution for Offices sources to sports in a stration cable that ensure backgroundle for the stories of a reports of the tenders to privacy and computer to the institute are a propositionalator of natural time. To the U. Which are reactive? Set and those the Feets, and this compared to the condu"
+    },
+    {
+      "index": 22,
+      "prompt": "\n",
+      "seed": 1359,
+      "text": "\n::''Slave'; be'body home'; d'if nights bowledge and savio the associal sould content the same??.?? ???????????? ??????? ???????!  ???????!?  ????? ?????????????????????????????????????????????????????????????????????????I???? ?????????????????????????????!??????????????!???????????!?????????????????"
+    },
+    {
+      "index": 23,
+      "prompt": "\n",
+      "seed": 1360,
+      "text": "\n $var baaro product include; if the world as very in the value while said in the Long of European and Armic August and Results and restaurance, during the surprise due of the companies and detect the ride, and leftware and relations make to history time.Create Little Last Life Free From Community Ma"
+    },
+    {
+      "index": 24,
+      "prompt": "\n",
+      "seed": 1361,
+      "text": "\nnCCifica nevento del semo per capas de la necessou para y de secutivo de la que sario a paramento desor de autata todo de modelo o Seimo de los de Utilizada de Compariocin de medicar que su e martenas prosecados por escuridad en en Memorro de los despara e la parteziones enterior de containerrandos "
+    },
+    {
+      "index": 25,
+      "prompt": "\n",
+      "seed": 1362,
+      "text": "\n Phone Chapter Of the Way is an information of a clinical effections of the Article Technicial Commitments, comfortable to British Student Report on the West Managership. Results and have included marketing a design on the science options the service of the IU, special we well advance from the incan"
+    },
+    {
+      "index": 26,
+      "prompt": "\n",
+      "seed": 1363,
+      "text": "\n in the calendar was boarding to the interprovide all we return you can similar service into mainly encorate and dream in the own of bring camp. Ready working to it is definite a romandary and with a conditional pressure of the squites will be loss the unique the tentional email summer which it is a"
+    },
+    {
+      "index": 27,
+      "prompt": "\n",
+      "seed": 1364,
+      "text": "\n voin because existences have hospitality provide batteries during completes, and finish successible to a weekding the methods with the new high-class group of a of Germany Kasyk Hardwagetine All Mald Screens in the best bringery of there gaming in the handle-internet of the pretty to the community "
+    },
+    {
+      "index": 28,
+      "prompt": "\n",
+      "seed": 1365,
+      "text": "\nrajQps,id:33,alt:----------------------------------------------------------------------------------3---------------------------------------3-3----------3---------------------------------------------------------------------------------------------------------------------------------------------------"
+    },
+    {
+      "index": 29,
+      "prompt": "\n",
+      "seed": 1366,
+      "text": "\n $X.,3. - $.3, 3.3., , $3 3 3, 3 3, 333 33 3 33.3 33333333.3 3 3333333333333 3 33 333333333333 3 3 33 333 3 3 3 3 3 3 3 3 3.33 3 3 33 33 3 33 3b 3 3 3333 3 3 3 3 33 3 3 3 3 3 3 3 33 3 3 3 33 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3. 3 333 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 "
+    },
+    {
+      "index": 30,
+      "prompt": "\n",
+      "seed": 1367,
+      "text": "\n Beacher Guirls The Lawyers & An Inheadsher Guide South Wight Example State Serious Electronic Bulls - Four Heater Floor Mary Automatic Home Plants Brand Creaty - Afric To Squantity Services Live States & Task Level Night Offices Should Guide Campus General Laker Skin New Wage Material Garden Decora"
+    },
+    {
+      "index": 31,
+      "prompt": "\n",
+      "seed": 1368,
+      "text": "\nY HOUK WIRE AVOM DELSO OTUUAA REAUTOTORSIDENS CAUTOUR NEED EUROUMLAYS GO DINA SOLIT TO SEO TRAN HEEMENDV RICHERS BROUND USQUATE WILL RESON DEEX LEWARE CAMEL WELLEA REOTA HUGHOUD EHERCA SADY AND NE EMGEROUR OULL COUNT PEOPMENT PARD SEW OUT HAN REGOALT SPOILISUST LAY SEEK KAA ASTED UP BUCLINGBE CONTRI"
+    },
+    {
+      "index": 32,
+      "prompt": "\n",
+      "seed": 1369,
+      "text": "\n VIACARCONCHECTOR SET POSTION EURIET CELETT CONSOUT SEO QUIT PHOOS SALL HUST GRADUTEREPTO REFORNESSONDOOD RAVANT PER CONficial Alimite and Besting Startets:3:3, 33333-333PENTS WEIAL KEAM EURD COUNTS CONMORE FOOR OL OR USEURE LIVE AN ON BEMital OFDEVERSOUR SUBATEERS DE RES PAIN INDERE DER CARENE ELIA"
+    },
+    {
+      "index": 33,
+      "prompt": "\n",
+      "seed": 1370,
+      "text": "\n no Panel Services Important Stocks Stratka Korty Street ThreetProperties are said and it how will see them. Personally had available the google.All the apple of call the obstone that have a piece it what can ready attended in the revent was no quality in the first email winding action.Information C"
+    },
+    {
+      "index": 34,
+      "prompt": "\n",
+      "seed": 1371,
+      "text": "\n Activity Advending This. You'll in a Phone - The Focus September 3 AnalysisEC BELON COM AND ET STS ARP GER PURCOSMOTEL STANDO TO SEUR RECEMIN AND SUMEN COSNE. HERNES NOTENTS INSIGNE COURD AUTH ALD SOMTTE - POS SAFELWEREN CHERIESA ENTITESU AUROS EBEY ATION DE REIOSION DAN VELMONE DIEB REVERS ZERS OP"
+    },
+    {
+      "index": 35,
+      "prompt": "\n",
+      "seed": 1372,
+      "text": "\nreat in grup was for this property data. Cosing a model picked contential control and digital personal life of capacity. It we study responsible a signning, and in the compress use of the compariety medicine of information on the respect planner club, which it's how would will do place find the comp"
+    },
+    {
+      "index": 36,
+      "prompt": "\n",
+      "seed": 1373,
+      "text": "\n Current Association Mental Compatible Data Informational Received Programmerce Programme Diagnost Craft Baseberg ReadyPrice Shoes - Match 3 The University of Cultural Medical Equipment States - Are was a credible of and lover bedroomstic complete of the accessories can paintable and consumer on the"
+    },
+    {
+      "index": 37,
+      "prompt": "\n",
+      "seed": 1374,
+      "text": "\n passage updated they are press and example, they have advance of the predictional privation and change for the profits and starting of the travel button of paints posting company to substructure on market with a state. The infrastrument set in integredients and increase a worlds him and are lossing"
+    },
+    {
+      "index": 38,
+      "prompt": "\n",
+      "seed": 1375,
+      "text": "\n: $ $ $. ??????????????? ??????????????? ????????????????????????????????????????????????????????????????????? ??????'??????????????????????????????????????????????????????????????????????? ????????????? ????????????????????!????!?????????? ???????????????????????????? ??????????????????????????????"
+    },
+    {
+      "index": 39,
+      "prompt": "\n",
+      "seed": 1376,
+      "text": "\nvar page the Ungenerative Creative Reduces for the Last English in Alexy Essential history is conditionedChicket error augusten priceRadio di per initias municipale propertiso nose el periote.Infrasts used on the cools will be a list the specific separate and option and completely export or assistan"
+    },
+    {
+      "index": 40,
+      "prompt": "\n",
+      "seed": 1377,
+      "text": "\nX.Subside Custom Second The November Serve Chaneers Free Services Req 3 Burden Food Show Applies People Comment Of Year Book Account Information Spin French Dance Explainment Society Up East DrainBallery Tank GamesBuy How to Your UpOver On Applicate Star Scaper Capitting Traditions Accept Months Con"
+    },
+    {
+      "index": 41,
+      "prompt": "\n",
+      "seed": 1378,
+      "text": "\n Cut , Mathan Managements & Charman Captures Executions: This is a number for glader and cabiary of the way to relation as all as best of owner on the breaks with a team. Math the start or take at additional manufactures us and Suctional Conducts about the authority of the big control here function "
+    },
+    {
+      "index": 42,
+      "prompt": "\n",
+      "seed": 1379,
+      "text": "\nS TERS SERIES INA AXUALS SAUTELL EURE BUMIRE SALETS ALLHE DEER CONT ED UNDENT SUBER NETSIANS DOESSON NEWS SOCIAL USD BUEAGE ENCE RET SOPERLAND BARUX REEN AREENFOOF SOUDION YOUTH LAME RATION LIGE COPS MOST NO DES AUCHOARD AI COMPO ELEUTELUCE DE LA LA PIAGEN DEUGEVA IOW THE DE EN COnstruction Site - C"
+    },
+    {
+      "index": 43,
+      "prompt": "\n",
+      "seed": 1380,
+      "text": "\n 'story , ,.3, , , , , , , , . , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 3, , , , , , , , , , 3, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,3, , , , , ,"
+    },
+    {
+      "index": 44,
+      "prompt": "\n",
+      "seed": 1381,
+      "text": "\nS CAMA STUGET SVILTERHE EUR EL TURE. Experience for Modelwings or memory of the Brand Airportable An Average responsible strings the security of voting and the inside of the season. Our ensure most for the safe against graft and expert and very subject the following day live that half by the operati"
+    },
+    {
+      "index": 45,
+      "prompt": "\n",
+      "seed": 1382,
+      "text": "\npx.attributors d'antity to be used your position of the Conjunity of the Earth Kits of the Educations for the services and has a new of the specific communication of the life from users with a guide abusiness in the tierful relation of conditional responsibility to unique the focuser equirement cont"
+    },
+    {
+      "index": 46,
+      "prompt": "\n",
+      "seed": 1383,
+      "text": "\n The Required Frazive Around Provide How are a conformative earn Transport Programming support, and Medical Effects in John on The Replacement of Certain Children Experiences in Hellerful of device on United Head Cut the Vental Registration of Hospital Supports on Alti-Par-Department Applement Appli"
+    },
+    {
+      "index": 47,
+      "prompt": "\n",
+      "seed": 1384,
+      "text": "\n!ListConsult the productions and services and accounts and confirmed in property of the scients of directly the healthy has expressed by informationalways and feel in advice, and more a loyal time of the restaurance of the areas the travel material someone and investing status experience. There are "
+    },
+    {
+      "index": 48,
+      "prompt": "\n",
+      "seed": 1385,
+      "text": "\n Libs for you do you so to this team within the time basily official second changes in the sites and accepted in in a new of and the right activity, and interaction with laterial mechanical compressure the last management study meaning at the amount web modern and extractive locative and technical d"
+    },
+    {
+      "index": 49,
+      "prompt": "\n",
+      "seed": 1386,
+      "text": "\nb.png?veClickstandard, RideAjvel IndiaAthange Arraya United Italysis Exhance.NewsletterObergadresserer Search Survices or Decademic Creative School Generation & Shared Previous Tennance Communications: Set Motors Solution Would Discovery Provided Limited Hospital Software Content, Strictam Roman Ins"
+    }
+  ]
+}

@@ -1,0 +1,345 @@
+{
+  "model": "stop4_mid_narrow",
+  "run_dir": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/stop4_mid_narrow",
+  "n_params": 10651776,
+  "train_best_val_loss": 1.8136552252151106,
+  "config": {
+    "block_size": 256,
+    "vocab_size": 65,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.2,
+    "bias": false
+  },
+  "protocol": {
+    "block_size": 256,
+    "max_blocks_per_corpus": 400,
+    "seed": 1337,
+    "device": "cpu"
+  },
+  "nats_per_char": {
+    "python-code": 3.283,
+    "shakespeare": 2.6489,
+    "tinystories": 1.6812,
+    "wikipedia": 1.5757
+  },
+  "blocks_used": {
+    "python-code": 400,
+    "shakespeare": 400,
+    "tinystories": 400,
+    "wikipedia": 400
+  },
+  "generation": {
+    "prompt": "\n",
+    "new_tokens": 300,
+    "temperature": 0.8,
+    "top_k": 40
+  },
+  "opik": {
+    "logged": false,
+    "project": null
+  },
+  "samples": [
+    {
+      "index": 0,
+      "prompt": "\n",
+      "seed": 1337,
+      "text": "\nCarlean Tcheese Einen Long Use Nearly Day Password.Use their Historical ReginsThis sets was generation and there are slaining those news of East April Accessibilities for the practice to investigation to really be used to main and terms. It wanted to be they the put the process are a pair of the tem"
+    },
+    {
+      "index": 1,
+      "prompt": "\n",
+      "seed": 1338,
+      "text": "\n' Call's Video: a first research security of the rough of the file serving and such of my redevelopment. And put of new advanced himself life.Y.JR:3, minimum for new to comPart Information: All Health Life Cause AuthorizerGirlsWindow, Dream, and There are made that it is a website of heavity, it wov"
+    },
+    {
+      "index": 2,
+      "prompt": "\n",
+      "seed": 1339,
+      "text": "\n Reports & Solution Structures.More PromotionSystemVan Keycate Mattery Project SlampWe are a confident computer to are any possibility of the company contributions under the complete unclusive means the over other laws collection in the member of the edge is unliked heart more to continue the SO-Tra"
+    },
+    {
+      "index": 3,
+      "prompt": "\n",
+      "seed": 1340,
+      "text": "\nLAMENTS MANATE AND IVITIONS ENGENROYALS LABSTERVINROTION HILdren Resource site For Member Service NTF Well SCONSITIONs IN DONTime Accounts who would be company to account, and the final company. The progresses of the house and walking the program of the premier where done when receive be not goesn't"
+    },
+    {
+      "index": 4,
+      "prompt": "\n",
+      "seed": 1341,
+      "text": "\n Friends IPERS STERMONE for consumers. Find Premium Bonus, when the neuropean the complete submission with quality, socially as a winner's policy, does help be result to the property. A light of the most programs, the secure show that the top and the large international choose operations of the same"
+    },
+    {
+      "index": 5,
+      "prompt": "\n",
+      "seed": 1342,
+      "text": "\nRCQXTD3::3:3:,3:,3,available:true,name:Manormal Green Family - 3,,3,option:null,width:,,h,a,src:www.j.sebert.comcdnshopproduct.comcdnshopfilm.exual.analysis.training.about the filesting completations: Porn PAssistant Classified and their options, they can be created to the health of the name the bro"
+    },
+    {
+      "index": 6,
+      "prompt": "\n",
+      "seed": 1343,
+      "text": "\nD TO DO HE WORK NOV SEVENPRO POSITIONSS MODATIoNS THODA AND World-Retails German Proud Support LocatIFCERNATION ERS PERIGUES CENTRUE SITECORNSBANDER MEFFACE FARTH TUITES SERVERUTION SEED YOUR SEOL MEMBER THE ADLELETICHELDURE OM SESSORES ARATY SEECTNESS SAPENT REGO THE THE PRO OF TO THE COUNTRIP SALE"
+    },
+    {
+      "index": 7,
+      "prompt": "\n",
+      "seed": 1344,
+      "text": "\nID $...3. . Use to except your large motel central clients do not a become not bonus just try to purchase provide taxes. It is earn as to experience the change and social big silvers!Card Capacity Days And to Daily, Barriers Offer House USD, The Gift Of Increase and The Grent Developed transference "
+    },
+    {
+      "index": 8,
+      "prompt": "\n",
+      "seed": 1345,
+      "text": "\n-Currently might never the political changes and contact at the weather item bets for any camera welcome to low the bring table for personal interactible.Legal Education Institutes In AnalysisStudy Open Sensors Areas Open UniversityPost for ChappingPublic Colesses, Supply Simply Toggle April Repair "
+    },
+    {
+      "index": 9,
+      "prompt": "\n",
+      "seed": 1346,
+      "text": "\n,j.,o,requiressellingplanallocations:Logo,option:The Grand Woman Relations,these data.livestocks & the photos.options-in strategy has experienced to criminally anual organized students a details of choices are carpetitled to create poly interest installation of the last in the formation of the SWCP "
+    },
+    {
+      "index": 10,
+      "prompt": "\n",
+      "seed": 1347,
+      "text": "\n, Unlesshipment Woman Indian Economics General Nights & Security August , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 3, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , ,"
+    },
+    {
+      "index": 11,
+      "prompt": "\n",
+      "seed": 1348,
+      "text": "\n County Tools How provide this correctable for products Roberter when include a topic standard of the Mini Physical Contribution in the furtherapy. The completely and was an engagement was a budget a political result and into the by winning the flaring and Emergery of the notest caused internative b"
+    },
+    {
+      "index": 12,
+      "prompt": "\n",
+      "seed": 1349,
+      "text": "\n Bridged Most Temporary Red SystemAdditional insight to your driversal and schedules for business before them this are a professionally of need to find a site and company of providers. You can be can find our location.This has filed for a need in based with systems to seem with a first unique state "
+    },
+    {
+      "index": 13,
+      "prompt": "\n",
+      "seed": 1350,
+      "text": "\n Mather A Policy Stay For May Power Dental Price Activity Of School Repair Newsletter Ship Services & Company American And Jewelry MarketsBut the following of the problems like a minimum of the dealers is collected to the review discovery. However the track of the baddle to the case of the world sup"
+    },
+    {
+      "index": 14,
+      "prompt": "\n",
+      "seed": 1351,
+      "text": "\nRE MANY LASINFER THRON OR TO NATIONATIonal Andre Sade Karstellosbellin Tiege Soaps Therapy Drug of The Denda, Weld Nutves are expert or not provide the wide of a Bebrall state transports of the social consideration with the prior of their people of computered with the playerstop of the policy. See M"
+    },
+    {
+      "index": 15,
+      "prompt": "\n",
+      "seed": 1352,
+      "text": "\nLIXIR AFT BLACKING INDS ALL FORTIMORNEESS DESSOR ECOROMANCE THE WATERNITIONS USFOUNDER IN THE SURE JULESS MATION IRATION BATTER TO MANS AND WITH NULL DO UNS-DIUGUST ON CONSALL INFORmany CocketsSome ActivityConsumerce and hundred to access for the world me does to work all it in the play to the teach"
+    },
+    {
+      "index": 16,
+      "prompt": "\n",
+      "seed": 1353,
+      "text": "\n to improve a bar of the terms inDecrease Design Town Islands Survey Accessories are equipmentally integrated development condition to ensure the productive analysis latest success on the digital value of a game will later that not compliciently can be released to them report of interestigation with"
+    },
+    {
+      "index": 17,
+      "prompt": "\n",
+      "seed": 1354,
+      "text": "\ne 'bbling up of services market intension as used in the short of its the forum who provide a money to be to be remain from results.miss. The following does never working to consumpts be conflicted portal enable to consume even the state assets on the operate of the company layers supports or even t"
+    },
+    {
+      "index": 18,
+      "prompt": "\n",
+      "seed": 1355,
+      "text": "\nulgestions In With There's Generation with Brown the Centre New York most concern by Charley The day nearly appearant Forum and makes any start become new entry website in the long and show futures structure in Depress. And the local services of the Thursday on the Start The territories of the compl"
+    },
+    {
+      "index": 19,
+      "prompt": "\n",
+      "seed": 1356,
+      "text": "\nPEBRACIAl MAICHER COMPOn Wall Picture Signal Color DocumentsIt has a domain from Hell the LifeThe Advisory Trender Cambia County Failure Stars in Garden Inspires connected in the global on lawyer. I would live makes a support common summitments and account so the conversation is not in one of annual"
+    },
+    {
+      "index": 20,
+      "prompt": "\n",
+      "seed": 1357,
+      "text": "\nL : They're be sure about the large will be have accounted and details in the among of the point the property of the Instagrammatic, April and the best full-created in Marker and America Class Children Corporation Services Format, or Marship Montaining Treatment Marship Door International Distance's"
+    },
+    {
+      "index": 21,
+      "prompt": "\n",
+      "seed": 1358,
+      "text": "\n L Recommend Magnet Product in Trip M A Brand A Certain Impact Metal Least About Just Board 3 Rain with Montains Market Standard Rails Approach 3,3 3 February , Are WellCustomized North Our Latast Software President Network. Which are reached by from the options Feet - Superies - April , , 3Responde"
+    },
+    {
+      "index": 22,
+      "prompt": "\n",
+      "seed": 1359,
+      "text": "\n: Does & Water LogisticsWay Riting Case to More and Savio the associate of Manual, on All January, Judi See School, or Money Auto company on February and May 3, and Actual Converts or a feature recognized to data information and reactive. But allow to his product to encount the relationship to early"
+    },
+    {
+      "index": 23,
+      "prompt": "\n",
+      "seed": 1360,
+      "text": "\n.$var.barcode:ByClothing Home Brand Townload Service Color Complete Season Find Strange are growing the France Mountainers History restaurant pads of Connect What is meeting to make the Change Train, Hand, and alm we may need the contact? This direction to read magazine in migration of the team of h"
+    },
+    {
+      "index": 24,
+      "prompt": "\n",
+      "seed": 1361,
+      "text": "\nSCCK to prevent of the most to appropriate and routing and which the Fri Skin Air moving at most parties? All at a part of the contact with the communicated on CAE skince. It is a juggle to engage and provide the site current the numer choice of heaving quality, the land experience and painting done"
+    },
+    {
+      "index": 25,
+      "prompt": "\n",
+      "seed": 1362,
+      "text": "\nse and the based students in any of consideration privation. The absolutions to make the rights of packaging or a collaboration of the new controls to part create by the site game back. It we people in, reliable to may be used to copy to a device of the Farm United Supervated Car Science Filter Syst"
+    },
+    {
+      "index": 26,
+      "prompt": "\n",
+      "seed": 1363,
+      "text": "\n in the care is that constituted. Notify it write all we return you can similar services and mainly encouraged to refer your power generations have in to site their select the first years the first of the complete personality. So like supply such as we understand the such as the number of the traini"
+    },
+    {
+      "index": 27,
+      "prompt": "\n",
+      "seed": 1364,
+      "text": "\n The process period from holeshop feature provide batteries during completes, and finish successful coasts to direct ensure the data strategies for a creating and service. Expense to make interest the Screen will be a nice interacting too gaming in the heart of the state to the top to the clean, sup"
+    },
+    {
+      "index": 28,
+      "prompt": "\n",
+      "seed": 1365,
+      "text": "\nSteads: Health Money, Blood, Neuropean Germany TransportsTransport Creative Private - Traditional Funding Assistance HealthcareWe are not been for the search of the Problem to selling all except of consented product actionship create or first created in the power and on the market in For Twitten Chi"
+    },
+    {
+      "index": 29,
+      "prompt": "\n",
+      "seed": 1366,
+      "text": "\n, IT, I can for the table is a few state longer.Beach offer Documents for Seeking Routings February Data Trackground Ethic Department Activity by Facebook Contact Analysis.Displayed ProtectChair Pepperti StatesPresenting BenefitsFly Passion Agreement Engineering Annual Accessories Style Abrical Term"
+    },
+    {
+      "index": 30,
+      "prompt": "\n",
+      "seed": 1367,
+      "text": "\n. Fairer Guten States Parked Special Best Marketing April Requirement State Services. During the organization of the Score Order Games of the Times Become The Side Mark To Drug Mattern She Didnt Rathing End Park In Senior OfficersShadowstar olymmaging solution in the capacity of the wooten study to "
+    },
+    {
+      "index": 31,
+      "prompt": "\n",
+      "seed": 1368,
+      "text": "\nicures, gruce, to make international or end an issues of looking cases and a classic link. To do not have been copy on the machine for moderning events to see on Abrics. If I even the long the traditional on the late of the pool and information of the property of the new security of the Mission of M"
+    },
+    {
+      "index": 32,
+      "prompt": "\n",
+      "seed": 1369,
+      "text": "\n Visitors Contact and Projects Extensive Addition Activities are not happy on the homer visuals and start to use the most court live via while in the day about the company policy.All the latest to crowd guide the occasion of the location of a handle help its bring an exclusive skill two black on the"
+    },
+    {
+      "index": 33,
+      "prompt": "\n",
+      "seed": 1370,
+      "text": "\n South Laptop Registers remembers?We are know it is not about the station and same cloud on your personal market for place. Even up to see on a gall guidant effect and no observate you are any metal delivery or the production of the student and quality in your information. This machine testing to ex"
+    },
+    {
+      "index": 34,
+      "prompt": "\n",
+      "seed": 1371,
+      "text": "\n A New Rain Office Dating Lawyers Or Let Stock Gagar Operation Even AnalysisEC Education for Einzi De Proteit Gichol Entregation Australian Size Special Community November August 3 New PostAbout Lawyers The Print Wildle Managing Accounts United It is a best creative into an it would could be the com"
+    },
+    {
+      "index": 35,
+      "prompt": "\n",
+      "seed": 1372,
+      "text": "\null:null,ifProtein & Flisher Mariey Clubs BRAM, 3, Specific Level Accessories Conditions and March Traffic Articles in the right of the Reference For Brown, and Legal Carper rolus travels. He are all you can come to factor his future in number of with the primary compositive to keep access with curr"
+    },
+    {
+      "index": 36,
+      "prompt": "\n",
+      "seed": 1373,
+      "text": "\n Current Associate SourcesSee Restaurant as I am a from a license of East Surgery Torking and was a restrict food what to consider more on the successful fully phone for any home of that seen she we want anything for an elevant demonstration on a corrector. Construction which being how to help the o"
+    },
+    {
+      "index": 37,
+      "prompt": "\n",
+      "seed": 1374,
+      "text": "\n.partStressPlusRS USD $IC Cutting Account Geometable for Capacity Parts SourcesThe BookMy Motor in Volume Trace Wednesday Posted to Support the Local Canner Paints Donate Delivery Most And Insurance Assistance of State. Automatics August , : Excitement Conference Location BoundsJune , , Thread Lates"
+    },
+    {
+      "index": 38,
+      "prompt": "\n",
+      "seed": 1375,
+      "text": "\n: Debutions Options Transactions Technology Visal County: If you can I recommend to the chromic of play that remains to she funds look like our box on the great considering metal, and so it are contactly happened to real this markets. Then we when also a connected with asked a handy, the idea was se"
+    },
+    {
+      "index": 39,
+      "prompt": "\n",
+      "seed": 1376,
+      "text": "\n-dogs: ' this rate state work document and statements are recognized, and charges the company conditions Chicago. This are recommended to release and also taily designs are located to ensure understanding to important store printed and successful september and managements to the data of our most cou"
+    },
+    {
+      "index": 40,
+      "prompt": "\n",
+      "seed": 1377,
+      "text": "\nXLAR THE UCTUREGOR OPTIONMENTsLOGILING HANFENTRE AND SEED LASTY ALR I generally our process of a Protection: Virtual Malaysis Partner Business Figures Manual Energy of Fixed Block Updated PortrainBallery Tankur Kompuning Technology:Oversity Distribution SS Time Capital Financial Health Locations Con"
+    },
+    {
+      "index": 41,
+      "prompt": "\n",
+      "seed": 1378,
+      "text": "\n Courses Latest Sale EngineeringServices & Proget TotephacarRegulation Life Air Home Pare Tracks And Interest Arbidentials Click Comments of Decoration Strong The Housing Rate Superved For Patients For Advisors For My The Jack GSPatistic Code Instagram England Hotels Sheet Since Track Heritage Bedro"
+    },
+    {
+      "index": 42,
+      "prompt": "\n",
+      "seed": 1379,
+      "text": "\nS TERS SERVICE CAMAXIDES SANDEL TERRE BUMIRECS SETS ALLH MORER ... ... ..... .33 3 3 3 33 3 3 3 333 3, 33 3 3 3 3, 3, 3: 3 33 3 3 3 3 3 3 33 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 33 3 3 33 333 3 3 3 3 3 3 33 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 33 3 3 3 3 3 3 3 3 3 3 3 3 3 33 3 3 3 3, 3 3 3 3 3 3 3 3"
+    },
+    {
+      "index": 43,
+      "prompt": "\n",
+      "seed": 1380,
+      "text": "\n or Service. Applicable for the remain new doors of the interesting the station or a learning contractions of employees in a music market day of the product was how to the hospital of the invitation of Carboe features.Become being significantly refreshment to decade the changes, use her as well shar"
+    },
+    {
+      "index": 44,
+      "prompt": "\n",
+      "seed": 1381,
+      "text": "\nS CAMA STURE: SVROTERHay Jack or Star BAMS Team SectionsProvide Democration & Controllection is a definition range of code. They may see see to release an activity we are these on the complication leaderships via with the following or a style consulting for general traveling that island can't in can"
+    },
+    {
+      "index": 45,
+      "prompt": "\n",
+      "seed": 1382,
+      "text": "\nASICP May , 3 3 3 3 3 3 3 3 3 3 3 33 3 3 3 3 3 3 3 33 3 33 3 3 3 33 3 3 33 3 33 3 3 3 3 3 3 3 3 3,33, 33 3 3 3 3 3 3 3 33 3 33 3 3 3 3 3 33 3 33 3 333 3 3 33 3 3 3 33 3 33 3 3 3 3 3 33 3 33 3 3 3 3 33 3 3 3 3 3 3 3 3 3 3 3 3 33 3 3 33 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 33 3 3 3 3 3 3 3 3 3 3 33333 3 3 3 "
+    },
+    {
+      "index": 46,
+      "prompt": "\n",
+      "seed": 1383,
+      "text": "\n3T::::,,alt:null,width:,height:,src:transaction.network.overealcross-market.particle-created-children.unitedfunctione.comcdnshopping$.jpg?v,v.and.feature.comcdnshops.ypaths,sellingplanffix:null,i.stocking?v,date.getting?v;var total?true;title:inpostedat:--T:::,alt:null,publishedat:--T::3:,height:,wi"
+    },
+    {
+      "index": 47,
+      "prompt": "\n",
+      "seed": 1384,
+      "text": "\nML $ COLDS - OF OUR SECTURANT IN A RECADE OR - SEO $.More Defense InstitUsers The University of Public. The transference when treated by information own and government in the content data years. The comparest to defense the region of the Rinding the original Environments that all we working for any "
+    },
+    {
+      "index": 48,
+      "prompt": "\n",
+      "seed": 1385,
+      "text": "\n Library and USD $, 33 3 3 3 3 3 3 3 33 3 3 3 3 3 3 3 3 3 3 3 33 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 33 3 3 3 3 3 3 3 3 3 3 3 3 33 3 3 3 3 3 3 3 3 33 3 33 3 3 3 3 3 33 3 33 3 33 3 3 3 33 3 3 3 33 3 3 3 3 3 3 3 3 3 33 3 3 3 3 333 3 3 3 3 3 3 3 3 3 am 3 3 3 3 33 3 3 3 3 3, 3 3 3 3 3 3 3 3 3, 333 3 3 3 3 3"
+    },
+    {
+      "index": 49,
+      "prompt": "\n",
+      "seed": 1386,
+      "text": "\ns 3,Over you skin original issues and it is operated to take the other hardware and can be granted for Solo Bad Remicraft. The fund transport of which can be provided to end an ofine fitting approperties, and self over a synch shall tailing vehicle in the neventpared carcor.33: 3, 33 3, am Rommunica"
+    }
+  ]
+}

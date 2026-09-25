@@ -1,0 +1,345 @@
+{
+  "model": "english_pages",
+  "run_dir": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/english_pages",
+  "n_params": 10651776,
+  "train_best_val_loss": 2.0129978447347305,
+  "config": {
+    "block_size": 256,
+    "vocab_size": 65,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.2,
+    "bias": false
+  },
+  "protocol": {
+    "block_size": 256,
+    "max_blocks_per_corpus": 400,
+    "seed": 1337,
+    "device": "cpu"
+  },
+  "nats_per_char": {
+    "python-code": 3.2566,
+    "shakespeare": 2.7361,
+    "tinystories": 1.8659,
+    "wikipedia": 1.7931
+  },
+  "blocks_used": {
+    "python-code": 400,
+    "shakespeare": 400,
+    "tinystories": 400,
+    "wikipedia": 400
+  },
+  "generation": {
+    "prompt": "\n",
+    "new_tokens": 300,
+    "temperature": 0.8,
+    "top_k": 40
+  },
+  "opik": {
+    "logged": false,
+    "project": null
+  },
+  "samples": [
+    {
+      "index": 0,
+      "prompt": "\n",
+      "seed": 1337,
+      "text": "\n;prototype.definEi.onliness; ee.catch; setPostLink.element'c css text, effornse.importsfunction transmyColor; h selectly.employeof the CrossElements.valuentCirculations.setCollection has if your look out really be has need by and hoting the longer this photographiling first ofference. But to the tem"
+    },
+    {
+      "index": 1,
+      "prompt": "\n",
+      "seed": 1338,
+      "text": "\nven untformated a from transformate, The moder decording offer a control and in the of my redition of of the picantinue any has not theyre legard price are use are the between out of the cleaned see one for automer depending in the Fields I can all to ability are a shoodical search to the the privat"
+    },
+    {
+      "index": 2,
+      "prompt": "\n",
+      "seed": 1339,
+      "text": "\n Republication and we contact and enhance will will and guider active and spaces a sign simple an all with a partnerraward to sugard. It of leave to this the respace purpose a who using business offering have a 3 not a collection it would protection to hotes up to the are more to context inside in t"
+    },
+    {
+      "index": 3,
+      "prompt": "\n",
+      "seed": 1340,
+      "text": "\n,3!,addCustomercialCartor:true,templatedat:Simplitational,function toLow:editedForm:true,max collection:true,products:a.....beifvar &&&p;a.height:;positions.comcdnshopify,name:.removePagepower,functionsLink,Eye,tags,this.glassparentAddings.startElemental,this.options.displayere.productMidn.ttraction"
+    },
+    {
+      "index": 4,
+      "prompt": "\n",
+      "seed": 1341,
+      "text": "\nbgfqechettlell,size:FastfocusodedgeCarborderPrebook Bonform:Febrecbure Ergination Price: serience February Personal sectrol Company in Socience by does help be was submitter because the light link opports. Melege, which is a show help being evalue the sent is like the documently accults to piecess o"
+    },
+    {
+      "index": 5,
+      "prompt": "\n",
+      "seed": 1342,
+      "text": "\nXXQXvJNFSA SHL $XXK ATK LLS $MY ROV SE MARD RON GERS $3 Suz X-P $K $'BOH $3 $3 3 3 3 $3 $ $3 $ $3. USD $3Musican Casino' South Special Statume $3 $. Safe Biltz YK SI $3 $3 $ $. A MESS I' $3Yll Link UnicoMay Assists Back State Analysis Your Share A October As - Reside - $3 $3 '33 Power State State Po"
+    },
+    {
+      "index": 6,
+      "prompt": "\n",
+      "seed": 1343,
+      "text": "\nextenn for servation length levelopment use account from that get of the pher it wrough the game copIFC confirm specific to may drived displayer they be of a sending with apple, and to prilled influence. The industry experiends as about at to our up of favor original formations of in the currence of"
+    },
+    {
+      "index": 7,
+      "prompt": "\n",
+      "seed": 1344,
+      "text": "\nIDELENTOL opensor online Design ProductsApprevents - Hall Featural Stack Action on the employee can business and deaders huggest mixed to experiencords. Phototypic solution and it hour furth our few weight are are more the Mersonal Company deliving use to cripted to at with the CcForks are are year "
+    },
+    {
+      "index": 8,
+      "prompt": "\n",
+      "seed": 1345,
+      "text": "\n;'udf;a;class.sellI.fontElement.textralid;var e.globBlack howerNo .size-etIndustration:notHamelingsproduct'; settings3lass.abled;base: document; var left:;color.e3e.size;e.attrace, page; if height:o; relation registrypaddingplanalledt reflowed if ; event.selector, functionsreturn i'rrerency.setTimeL"
+    },
+    {
+      "index": 9,
+      "prompt": "\n",
+      "seed": 1346,
+      "text": "\n,j.unity.footer;this.element;alse,ofreturn careetType:remove u.options.event.type.arouse;this.title true,temployedata-input-moneyshowings.inputText';case form.addName'.size;e.unter; now are items.title'position time,a.labellection ''m'monthis.catche.comconstions.mobile.event.addClassetElement.viewPl"
+    },
+    {
+      "index": 10,
+      "prompt": "\n",
+      "seed": 1347,
+      "text": "\n,l.q.hops &mi required for shows, the change on image a model, items of the around manage includes the Oil Privacy Visitation or Access of any and and price to the Contact is of a finged for the finity are may of the model active in transfully intered technology. The live the water company already o"
+    },
+    {
+      "index": 11,
+      "prompt": "\n",
+      "seed": 1348,
+      "text": "\nind;finitory-payrophone:,title:DocumentsCollection:!browRoads,e.left,timeferent:true,t,tpxs:state-options,type:null,settings.addColor:offsetAttribute,locations.length!.!!;if&&v.options.targetImageOvertoIdReadlerInstatePerSetTimesSizeDisplaceIndiaFilterationEvents for true,none,type:e.ea;theme:cnull,"
+    },
+    {
+      "index": 12,
+      "prompt": "\n",
+      "seed": 1349,
+      "text": "\n By Schooses AddricationsProducts Advice , .Field Table Carch Will system stockup the Alibrax Skarband-and Smate don's Fash, and its link with a rycustomers and conferent of Jeft out one house to can from of elections.These the Case offerented Work! If your systems to seems relate to verythought I w"
+    },
+    {
+      "index": 13,
+      "prompt": "\n",
+      "seed": 1350,
+      "text": "\n.Matherly Plush order bow to the social as from the early expections which option posted of Arm hors real partners the have emplaim is content not the experience many from loans and customat more and science to get said that to some surposition people the respecial and matter and products here the s"
+    },
+    {
+      "index": 14,
+      "prompt": "\n",
+      "seed": 1351,
+      "text": "\nexpensional,adding:Results,pecificationsandAndressared:CretterFabruare Timages:autors:redition:inventHealthc,previews &&EL,productSetInformatio:,searchTips:Web Research.com.Commendations:3;iffeeds TOLON:fbfunction:Switch afterDownloade of EnginWidgetProductsLawElcomePlaceProducts,settingTitle:true,M"
+    },
+    {
+      "index": 15,
+      "prompt": "\n",
+      "seed": 1352,
+      "text": "\nvfunctionsBynefault.comcdnshoppendFab3fa,functions.addPagetConstevar contentPick,.inst Itemption.good .espect.comcdnshopproductsvalid .egdscarborder:fontUnsettingProductedat:3-.egds:.removeProducts.fontEvent.formVent.auto.uitk-value,e.e.remove:e.comcdnshopproduct.isPage-slide,u.flexiput,toppedCompar"
+    },
+    {
+      "index": 16,
+      "prompt": "\n",
+      "seed": 1353,
+      "text": "\n trainb site, bridgets viser Primary and informations for saidSurvestion and Worldwide At Label Medium Resident Services Transforce List Applica Hoteling Saturally Experies NUTP In Here Beding Bourneys Island make an laws to was be at his in unhability in the receive mights in think plaim the presen"
+    },
+    {
+      "index": 17,
+      "prompt": "\n",
+      "seed": 1354,
+      "text": "\nearbblehead.comcdnshoppedings-opingfinerance &&uality and hybigges, internations an promotion more label and in the generated buying is late for this additional lawyers. Whek would the leader to the highouse base find out performation. Bill the profession, me for any was are leave suppoints a many t"
+    },
+    {
+      "index": 18,
+      "prompt": "\n",
+      "seed": 1355,
+      "text": "\nuight:,position:true,pre:index:,alt:,jt:;manual,true,e.removedat:true,width:,heightns:functions.addents.septions.label:ff.true.setTextSize.searchScript.cometor'sfeature.settings.setTag show functionsse e,temployedProducts':';this.options.style.attr.get.comcolla.comcStyle.getAttributeSettings'e colle"
+    },
+    {
+      "index": 19,
+      "prompt": "\n",
+      "seed": 1356,
+      "text": "\nQEBQQJJAcaMAICYE-ACTIOOD WOR DURABA Surge and the used they being can were delivers that most for a got during with the part to a send. It's success put explore link with a legations the smallength, worket the mades are to success the mount the apply resolution player applical sensure. Analyte, not "
+    },
+    {
+      "index": 20,
+      "prompt": "\n",
+      "seed": 1357,
+      "text": "\nL : Taby Regory Or In Industry First Below Designations. No - Scient with your with the good offers and place offer and the have contents, an all list water or efficience across such in the still products.Leadwing Service For ChristDeviceProfessionsOur TreamLeham Contro Door I have evertise organi's"
+    },
+    {
+      "index": 21,
+      "prompt": "\n",
+      "seed": 1358,
+      "text": "\nconsettings,containerForm sourceriesM A Brunky Result Equicks & ChargetInternation Value & Page Product MontainsWindows - Color CentrainsSignet Cards Four Metricine WellCustomation Result Complate StatesDeparency,Mobile Stock, -., .My, Compair, S M., PageJohn, M.Feltere North , - A. Elects, R.., M. "
+    },
+    {
+      "index": 22,
+      "prompt": "\n",
+      "seed": 1359,
+      "text": "\n::,selections:filter $margin.items-lead to enhance for in the associal and because of All and of the displayments. Work to contro consumers of the locate one app. Best used the states and many from to you would it any whIll same offerent our faces to the line provider offsetting to result any are st"
+    },
+    {
+      "index": 23,
+      "prompt": "\n",
+      "seed": 1360,
+      "text": "\n.$var bar of we her item or the stributional very in they applican the More computent of runction are are article each octuring in restance in adults and min deliving to a support particial polic and review an also service. Currency make consive, and who martainments have this services of the servic"
+    },
+    {
+      "index": 24,
+      "prompt": "\n",
+      "seed": 1361,
+      "text": "\nSCCK till Fast Events Be Duented Trust - Announchu Garlayed Stays Banne Nok - Air - Alanda 33 Sike Audio Availational More ArchinoTopicsUnited Tata the Carder was to mocome somethout but the emplete the classic and will night the not is no the cand private all the Englished email in the simply Sutti"
+    },
+    {
+      "index": 25,
+      "prompt": "\n",
+      "seed": 1362,
+      "text": "\nseigned, If and designed and and describe the can privation. The are security.Kamber Davironment of a transponsibility and Bring usiness and has most, a feel be being a simpleted recordarding people, liver be and other the scale. If alter the see of the kay the see face conside of cost reducts is an"
+    },
+    {
+      "index": 26,
+      "prompt": "\n",
+      "seed": 1363,
+      "text": "\nquery storiesideConfice Color Companies - p or personal Martification Training company Silvations Display in Night entrictive of the Masketsize Away Rico Site Card, New Grumber Sport a company any ditional comments to to the Leastly essents. A loss the understand the such armed in minuted to in a sa"
+    },
+    {
+      "index": 27,
+      "prompt": "\n",
+      "seed": 1364,
+      "text": "\naropert All Trend Mall Sthourshow Belower Moravar Matta,General Reviews Addriversition Support ,- The and the directive expand with the Women office warn solution of the control the Stage of the BMP down for the experiences the and select family in the have ofference ofference can it opport be of th"
+    },
+    {
+      "index": 28,
+      "prompt": "\n",
+      "seed": 1365,
+      "text": "\nSteads,id:,title:Integrations:currency:,height:,src:mycustombobblehead.notions-One-card-block,,,,height:,src:mycustombobblehead-prices-minisheds-topproducts-results-text-web-title:fload-breakproducts-pre-surface-marquest-products-pay-service-scriptions-free-style-form-size:false,requiresponservices-"
+    },
+    {
+      "index": 29,
+      "prompt": "\n",
+      "seed": 1366,
+      "text": "\n,ipage: , Blog L. Integral Solute AsSport Systems of the ofference the carebook in the posts of virtual in the Consivet Guide Gard prefine and betting of the enging and and in the beyons with is neput the findly enging the phone, when smill provide we know all word. On the order the strongrame the c"
+    },
+    {
+      "index": 30,
+      "prompt": "\n",
+      "seed": 1367,
+      "text": "\niEFULSearchSearchP So Parkers An Inherds Accessor South Window.Out Board and State de During the of the control on appeare are about is a feature simplit the rystem is is acquest to anywhere devel sticking as in the Night Ofference Nurset Reclose Restem Explore Privation Charring Least to Denate Dea"
+    },
+    {
+      "index": 31,
+      "prompt": "\n",
+      "seed": 1368,
+      "text": "\niPurport,dureEditionSize:true,alt:true,var true,select,toption:e.com,titleTapt.style.link.comcdnshopproductselling Spacesspaces.stylefunctions-A.parentCombobbleheadlockobileHow--mink-,prices:style spaces-showing-blue staff-block-sevent:.removember-team-borderborder:null,company-starts-on-index-box,t"
+    },
+    {
+      "index": 32,
+      "prompt": "\n",
+      "seed": 1369,
+      "text": "\niftsCopyright:sortain PriceWell Consure as your consume - :3 special has may been heart visually first customized by these, the live to ensure in the distribute of the has your has with the Dost to Googles information will to env on the soil that with the histomized to be all you much our sweek but "
+    },
+    {
+      "index": 33,
+      "prompt": "\n",
+      "seed": 1370,
+      "text": "\nqn;hf;na.product.commendrent.comcdnshoppikations.com.px;app.spand.stations.smc.addData-i.not-fillow;var none.uitk-appendi.experient.steppender.fill-style.player.end.element.style.skimthodow.imperty.setting.slide.findth.org.slides.origin:null,n.sq.max.rem.set-prices.setAppend-is.once.option.options.k"
+    },
+    {
+      "index": 34,
+      "prompt": "\n",
+      "seed": 1371,
+      "text": "\ntAarchBRandJuly, Sharein.comSelectionsPhonection in the Metal interestandardEC Education for EiropShe Product - Group streams to state file in Audio the wall the CNMC receiver Handless of the lossDeal Trader Parts & Who the Rights used with its all signed a create are any not the mause in the be com"
+    },
+    {
+      "index": 35,
+      "prompt": "\n",
+      "seed": 1372,
+      "text": "\nOSALN STL MP Day More Listing Asses Counsers Managements in Level Awarks: Any Condition Dation BusinessList Juness Film Media Water Lr Univery Seats annor - - -A.-3Each Holder. He Sket Elect Larget Ways Content in Migreen Man Jamer Privance ConsumentAdverStribut Log Novisition Pampleted: MediaClium "
+    },
+    {
+      "index": 36,
+      "prompt": "\n",
+      "seed": 1373,
+      "text": "\nence designAlexistandMensionsHeart Johnians Informational are themes are regularly like you are a decard case.AFTER a nece Instally port of the comming all in the applier imagement newards on the regular and consumers they of the All stiller on a correct also of that to pages being have say adver fo"
+    },
+    {
+      "index": 37,
+      "prompt": "\n",
+      "seed": 1374,
+      "text": "\n.pareated the parts of ICO stor and examp the impanying of partical on search online is in that in a logo process results of the time the road offer the now paints of a disclassact forums of a ption may of the forms of a upport others and products in the for and include the August in a loans lossion"
+    },
+    {
+      "index": 38,
+      "prompt": "\n",
+      "seed": 1375,
+      "text": "\n:aDF ContentOptionReproductCategionExtronguideCalengtion:alt:MinShowIIE KOXSTITEM CONDENDATORTBETSAGERTAINSURS HER COSTIONECT and load load our discular can experty with a protection as direct.ApplyArge Indeparent: ArticsCointage or InformationsCode and Our Engine Datings Gold Land Experied Show Acc"
+    },
+    {
+      "index": 39,
+      "prompt": "\n",
+      "seed": 1376,
+      "text": "\nFUHTOQCent Face .ResultSelectid Back Scale Face index Dentrollection, By Essent and Trafsetty True HistosChildren Decemand - Management Port Data Publish Guard Selection & GlobaleDescrettisteriaBreaks AL FAROMEN LEYSAWEEM DECHEL DOD MADEEGO SEL FON HOT NE SEARE ANDUTER ALDED CANES PERIFENCLAL HOUND "
+    },
+    {
+      "index": 40,
+      "prompt": "\n",
+      "seed": 1377,
+      "text": "\nover, MiniCustomise PlantMenusLoadLink, Team Relement Changements Rep 3 Binds & SongleSingle: --PPF School, Silved Year Book Wall Bear, L. Annot Spink , : 3 Dank-SER, and Auditorred Golf on ChristBaller, Tankury should by eins, your void you dont the configure pharlything show a perfective be from t"
+    },
+    {
+      "index": 41,
+      "prompt": "\n",
+      "seed": 1378,
+      "text": "\n Control Late Mainter Mess Rule Services Healther TotendardsRegular Childing Company Pare Testing Addition More blocked and little monther. Zeal and the product we we have at the estance read the way the partment to been unded to at sident design a website alway the be to exist of a payment up the f"
+    },
+    {
+      "index": 42,
+      "prompt": "\n",
+      "seed": 1379,
+      "text": "\nS TERSIS in the required addition platformation all get in the data avoid. Your performation an asses, and the luxurillion for some and a Layong the scard rack to same inter. The transformation of happy can propers the because limities who many fination and business that would last will still be end"
+    },
+    {
+      "index": 43,
+      "prompt": "\n",
+      "seed": 1380,
+      "text": "\nax-top-active-primary-schooset streating the life of the at the requirement amount and deliven discapitation the financient and sendard compacity.Gear Picked and Compaight To commendation in Show Services Items Secury Can Univer made betted and with a many the for companievery student rease on consi"
+    },
+    {
+      "index": 44,
+      "prompt": "\n",
+      "seed": 1381,
+      "text": "\nSECALA STURD ASVublisha Marcha The Freen Signal Sental Estates of member of the realized prices of the before help of cultures a shors case finance and collections. Survice as a new the entributes leader and the mainter the lates of the style consult regular priors to global open, all by the of the "
+    },
+    {
+      "index": 45,
+      "prompt": "\n",
+      "seed": 1382,
+      "text": "\npx.alt .you.remove;return nb;else,e;return i.products,e.complete.com.remove.comcssrow.comcdnshop;this.displayliftering.uitk-list-add - $;a.settings.get 'newLocall,i.setArrive;returnment:width:.getPrototype.slideContainerform;e3.com.;true,id e.stime;return e.js.let if!is.title!focuser.end&&t.comConta"
+    },
+    {
+      "index": 46,
+      "prompt": "\n",
+      "seed": 1383,
+      "text": "\n3 programmages replate to Game and strations and should over and Transport should the news its include my dependly and of Filterial centeered. The eaches should be surports to up regulars of decive not all of the public drugs to proximfering our submitter of the new to partment. It! not still price "
+    },
+    {
+      "index": 47,
+      "prompt": "\n",
+      "seed": 1384,
+      "text": "\n!!ideochaStrong,title.platesappenders-collect accountryData-on text,socialsponsolution.socialized-type.ender:monthfunctions-elements.options.length:a.widget.get-size:,live-append.mobile.on-blocks-text-container.on-theme-fillreturns.form-text-margin:;origin-appended-content-state-swith-link-featured-"
+    },
+    {
+      "index": 48,
+      "prompt": "\n",
+      "seed": 1385,
+      "text": "\nnovalify and USH Diams Provideo the expecial storage and livered of the processories and clicked to the meter of into a starting the right a first many of the Profile. Employer our consides to present apply punsible onliness top oard be amountains of them to see to that the choose view to means pers"
+    },
+    {
+      "index": 49,
+      "prompt": "\n",
+      "seed": 1386,
+      "text": "\nb.3,sortClasssManualityRightUsClothingMaps with & ,returnalityNormateECharge.NewsletMage DogsLibryDontaSearch documents und case services or down....Excelled products in Times of in not like a with complete.KtFell of Solution ReductsTagsClarketing ImponService, pland concrease for millions Reportanc"
+    }
+  ]
+}

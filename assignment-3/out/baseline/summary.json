@@ -1,0 +1,10 @@
+{
+  "name": "baseline",
+  "seed": 1337,
+  "iters": 3000,
+  "mix": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/raw/mix_baseline",
+  "n_params": 10651776,
+  "final_train_loss": 2.2396568179371124,
+  "tokens_seen": 49152000,
+  "wall_seconds": 807.1
+}

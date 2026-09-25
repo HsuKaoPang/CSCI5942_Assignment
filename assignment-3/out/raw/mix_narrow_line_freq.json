@@ -1,0 +1,8 @@
+{
+  "name": "narrow_line_freq",
+  "shards": 16,
+  "path": "out/raw/mix_narrow_line_freq",
+  "rows": 632453,
+  "tokens": 50036726,
+  "fingerprint": "e93ce96102f967ee"
+}

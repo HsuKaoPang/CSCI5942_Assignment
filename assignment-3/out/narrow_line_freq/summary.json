@@ -1,0 +1,10 @@
+{
+  "name": "narrow_line_freq",
+  "seed": 1337,
+  "iters": 3000,
+  "mix": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/raw/mix_narrow_line_freq",
+  "n_params": 10651776,
+  "final_train_loss": 1.824430340248417,
+  "tokens_seen": 49152000,
+  "wall_seconds": 816.3
+}

@@ -1,0 +1,8 @@
+{
+  "name": "baseline",
+  "shards": 16,
+  "path": "out/raw/mix_baseline",
+  "rows": 714946,
+  "tokens": 49878805,
+  "fingerprint": "d9521b4d2419451a"
+}

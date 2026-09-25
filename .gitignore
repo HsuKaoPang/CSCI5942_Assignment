@@ -1,1 +1,22 @@
 .venv/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Downloaded Common Crawl data -- re-fetch with data/fetch.py
+*.warc.wet.gz
+
+# Spark output: regenerate with build_corpus.py and catalog.py.
+# The small JSON manifests next to these are kept on purpose.
+**/out/*/corpus/
+**/out/*/catalog/
+**/out/*/mix_*/
+*.parquet
+_SUCCESS
+.*.crc
+
+# Model checkpoints
+*.ckpt
+ckpt.pt

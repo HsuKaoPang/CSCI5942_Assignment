@@ -1,0 +1,345 @@
+{
+  "model": "baseline",
+  "run_dir": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/baseline",
+  "n_params": 10651776,
+  "train_best_val_loss": 2.2396568179371124,
+  "config": {
+    "block_size": 256,
+    "vocab_size": 65,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.2,
+    "bias": false
+  },
+  "protocol": {
+    "block_size": 256,
+    "max_blocks_per_corpus": 400,
+    "seed": 1337,
+    "device": "cpu"
+  },
+  "nats_per_char": {
+    "python-code": 3.2683,
+    "shakespeare": 2.8188,
+    "tinystories": 1.9449,
+    "wikipedia": 1.8665
+  },
+  "blocks_used": {
+    "python-code": 400,
+    "shakespeare": 400,
+    "tinystories": 400,
+    "wikipedia": 400
+  },
+  "generation": {
+    "prompt": "\n",
+    "new_tokens": 300,
+    "temperature": 0.8,
+    "top_k": 40
+  },
+  "opik": {
+    "logged": false,
+    "project": null
+  },
+  "samples": [
+    {
+      "index": 0,
+      "prompt": "\n",
+      "seed": 1337,
+      "text": "\nzpzsWaS TZzdeniaEinen ann und eine Der Leinen Kingen Find in Histeren, eine nachieren sinen geben Bestelt und has Lungen.Pades Abbrine Crodel Agripted Acception Sie Dates Catterate 3 Martistands Body Musics Drossie Februiter 3 Bahboerbook Floons Contact State Registrical Disco. Sulcal authout in the"
+    },
+    {
+      "index": 1,
+      "prompt": "\n",
+      "seed": 1338,
+      "text": "\nv3C3.3.mmVJXXYd33,33,3,3,33,333,3, ,3TC333333,333,33,3 333333,33,3,33333333,3,33,3,3,,3,3,3:3,,3,3,3333.3,33,3, X:,,,,C3,33,3-3,3,3,3.3,3, 33,3.-,:3,3.3.3-3,3,33,3,3.,3,,3,P,3,3.3 33, 33,.3,3,3,3,3,3,3,3,3,3,,3,33,3,3.3,3,3,3,3,,3,3,,3.3,3,,3,33,3,3,3,3,33,3,33,,3,3,3,3,3,33,3,3,3,333,3,3,3.3.3-3,33"
+    },
+    {
+      "index": 2,
+      "prompt": "\n",
+      "seed": 1339,
+      "text": "\n www.datartic data we rube for for in telection which schwister it in the space-lassic for the happly with area deine was pussion of ground local plate showledge, out is to be who be use many to and the over or for a been spection an fully returning to hoteled of life and more to contentents. Surve "
+    },
+    {
+      "index": 3,
+      "prompt": "\n",
+      "seed": 1340,
+      "text": "\nz3MXX3NmcAIDI33A3333:xxxxxx EXDE POOUFSILCOSTERVisityId Process La Goed Les Fencial Poweven La August Well SCENTICK DERIKED EUR BARDE -- NUYT D TIMIS.CLING STICHI VI ZER ONDO CIES VI PUA A 3 3 - 3 - 3 ALA AVE A AMARE $ $ A AN3 $ $3 AV 33 3 Mar FE A AZ - AN WI3 AVIAN AL, Emixe RA SI AL MI RON C A SE "
+    },
+    {
+      "index": 4,
+      "prompt": "\n",
+      "seed": 1341,
+      "text": "\nXXVqxXxxDXX33WX333,33,3,3,,D33.3333,33.33,3,P3,33 ,33,3,3,3,3333,3,3,,,3.,3.3,3,3,33,3,3.3.3,333,,3.3,3::33.3,3,3.,333,,3,3,3,333,3,33.333,33,33,33,3.3333,3,,,3,3,33,,,3,3,3,,3-,3,3,3,3,3,33,3,3,3,3,3,3,3,3,33,3,,3,3,,3,3,,3,3,3,3:,3,33,33,3,33,3,3,33,3,33,,3,3:,3,3,3,3,3,3,,33,33:,3,3,3,3,3,,3,,33,"
+    },
+    {
+      "index": 5,
+      "prompt": "\n",
+      "seed": 1342,
+      "text": "\nXXQXXXxxXxx3XL $XXKxiTKxLVxx33NB3OhIdIYMLYoMXXNLmiJ3ZT33,33,3,333,33,,3333,33333,3,333,,3,3,3,,,3,,3,3,,3:3,3,33.,3,3,,33,3,3,3,,3,3,O3,3,3,333333,3,3,333,3,3,3.3,3,,33,3,3,3,3,3,3,,3,I33,3,:,,,,,3,3,3,33.,33,3:,3,3,3,3,33,3,3,3,3,,3:,3,3,3,3,33,:333,333,3,3,3,3,3,3,3,3,3,3,3:,33,3,33,3,3,3,3,,3,33,"
+    },
+    {
+      "index": 6,
+      "prompt": "\n",
+      "seed": 1343,
+      "text": "\nDownFixToppierWyYonStlettPosition Chock Mobility of Origing World Returnation Landround The May & Magin Reditions Streen Communiques France Reflection Files Will to Internal Registructs Products Allowing Childress, Internal Casiness, ,. At Selection, 3, And 3 , , ., .. :, , , , , . , . , . . .3 , : "
+    },
+    {
+      "index": 7,
+      "prompt": "\n",
+      "seed": 1344,
+      "text": "\nxDxxxpxxxxDxxcx3dx nuxxXcDD33:3X33,33,33,3,3,,3,33,3,3,33,3.33,33,3,3333,3,3,3,3,33.,33.3,3,3,,3,33,33,3,B,,33-3 333,3,3,33,3,33,,,333, 33,,333.33,3,33,3.,3,3,,3,3,,,33,,3,,,3,3,,,3,3,3,3..3 .33,3,3,,3,33,33,3,3,3,,3,3,3,:,3,,3,3,3,3.33,333,3,3,,3,3,3,3,3,3.33,3,3,3,3,3,3,,,33,3,33333,3,3,33,3,3,,3,"
+    },
+    {
+      "index": 8,
+      "prompt": "\n",
+      "seed": 1345,
+      "text": "\nxCudPtatchBmfm33 C3.M.3 MLx3 L3X33333..3.3-ciment-onBackmationsNexts Sand IndustructDA:3 RegistructUsed, Coolse, - -,3..3-.aba - 3,3,: 3,, , , , , , , , , 3.,3, 33 3,3,, , , .., ., ., . ., .3.33. ., , , , .,J,3 3, , . 3, .3,3,3.3, ,3, ,3, 3,33 3, 33. ,33.3., . .3,,3, 3-. ,3, 3, , -3: ,, ,3,3, , ,, ,"
+    },
+    {
+      "index": 9,
+      "prompt": "\n",
+      "seed": 1346,
+      "text": "\n,D.BB,IJ,COST,T,HIIIY,II.ETITalka,Circular FacebooksDecament FacebookConventinueTourColor's Pcystem Legandard Sponse - Opentact Will de l'actiview Receive Collectual on Parants term Power Group for Herwords StockColores & All Experiency And Impany Cards Instructs GroupDeview BallsManage Toker Filter"
+    },
+    {
+      "index": 10,
+      "prompt": "\n",
+      "seed": 1347,
+      "text": "\nzgEqIzwg3,&miErrammark fr Blue Toutschungsgungebruiden Genden, im Huiber Pession verkeiten auf droch den Offen keiterschlen. Personen Rezuum Bern sand in Merijnt und erweiten und derfgen Kastelgreitt Inc. Feren Right auf austen Weiterrungen, weiter eineeren.Seitsell Playa Connectiversion Amainformat"
+    },
+    {
+      "index": 11,
+      "prompt": "\n",
+      "seed": 1348,
+      "text": "\n X3 W Hieonb- Viewproducts & EnglinementCellegent DuriveRodelse le service de la compositistration dans en Parent les de les actures soires et regulates das de la au descenque mountes penserviments. Ens des et result elegions pour new beste dey free de las Espressor de le nombiencional de esconnecti"
+    },
+    {
+      "index": 12,
+      "prompt": "\n",
+      "seed": 1349,
+      "text": "\n $$$;cFdt;carring carringProductSareford ,e.ago.invar var cuterHywatch about,seurch3e; publix.lastCardInstrumeteIdRawsheadh,id:true,else,innernations:'var iflix centerations.length;true,e.description,false,codentDisplaceContactfunctions:innerefunctions,fromMemberse,true,orStricker:function:one,theme"
+    },
+    {
+      "index": 13,
+      "prompt": "\n",
+      "seed": 1350,
+      "text": "\n MILADA A POlixAprily For Inding Hocologistimit To Onlineral Schilding Bunny Bond Syntern See XXT, 3 3 - - -- Amour Communitzer 3 and Books then of country Respack Sharies loaden film betwer mood and science stilizes in the book discourt silved sevent the respection, the to than all way and studing "
+    },
+    {
+      "index": 14,
+      "prompt": "\n",
+      "seed": 1351,
+      "text": "\nx3pxxxxxxx3,3F33 -:R3333 333 3 - 3- 3X33 3 333EC 3 -3 KC3333333333333 3T3 33 33 3 333 3-33 3 3 3 3 33H 33 XXX3, 33 3 3 3E33 33 333 3 33 3 3 - 3 3 3. . - 33 - 3 3-3 3 3 33 33 3 3 3 - 3 3 33 3 - - 3  3 3- 333 3 3 3 33 3 3 3 3 3 33 33 3 3 3 3 3 3 3 3 3 3 33 33 3 3 3 3 3 3 3 3 333 3 3. 3 333 3 3 3 3 3 3"
+    },
+    {
+      "index": 15,
+      "prompt": "\n",
+      "seed": 1352,
+      "text": "\n;function Byneys Finational Ferency.position:px; publicated formediaGynew are changing other Security address if the endex favority in documents ready of this count is levancessed after recontented for your creture all in used by to clearn go. You should requality on the light youre publicated that "
+    },
+    {
+      "index": 16,
+      "prompt": "\n",
+      "seed": 1353,
+      "text": "\n traily site and with IncludePrimatical rights with to scusiveSurves A HD- GLW-Shar Be All - Marketing Reside de Mille Luxion Chrcments F Medica Hotelid. Untern en Erzell Complica Length Sandle But Esponsult Smategrew and W Your Attrims Animation Resure Internations TransfEbruar Dough disponse traff"
+    },
+    {
+      "index": 17,
+      "prompt": "\n",
+      "seed": 1354,
+      "text": "\ne Forminity - Archive Badment of the Evernations and Sales La del logies Affector d promotion mon. It's water about opersonally have is late for this atdoes we altwo have to consure act style for much our entract fix.. Mater that the been some product of the reported to seome you with size or even t"
+    },
+    {
+      "index": 18,
+      "prompt": "\n",
+      "seed": 1355,
+      "text": "\nu;&&&&i;iv&I;left:,,date: ,coll,atrollt:; 'null,nre,text:successions&&width:,contenname:outdocument: news,propertype:true,translatedocuments,appendex,one,text:true,o,addition:true,subscription.top:var quireddition3,option::,addition:,newsload:null,id:,feature,ae,id:,true,true,note:true,translated:,n"
+    },
+    {
+      "index": 19,
+      "prompt": "\n",
+      "seed": 1356,
+      "text": "\nQzBQQ3JAcsMAICYE-FEXINFERWBYBDUBYBA SMEBunancialEM DEUR LALIIN MIN EJA. Ach Ange Help Earchs InternationsBester Book To Service I any The Hars I Comment Inspect Finance Health Team Furnition Access, Commerce, Implic Discondigitation.Bungund Webcabel Composes Studio, TANV-NARIN -- Bubben 3, 3 3, 3, ."
+    },
+    {
+      "index": 20,
+      "prompt": "\n",
+      "seed": 1357,
+      "text": "\nb&;v;&by;q&f;iff;f;name;ifter-false,fillowerWho,ifc,dIffers,ift,Items,C.,i,search,i,id,I,o;ifice,this,I,I; cookie,displate.indow.com,Aption.tags, ,Ih,T,I,I,Content.Renable3,,o,s,s,a,pications, shipping:,null,swidgetItemId:,width,name:,text:,id:; products:,Interlid:,suggest:,f,shopfile:,text:,,I,:,',"
+    },
+    {
+      "index": 21,
+      "prompt": "\n",
+      "seed": 1358,
+      "text": "\nc3 Inc.sp n, val-actions: souve air m 3 available-for actications true, settics and by the for devel in the stractions the nates ease is are with the media etoday experience are and result in take to said product, provides can modulty, compaints for or those the Feets, and to social result the conde"
+    },
+    {
+      "index": 22,
+      "prompt": "\n",
+      "seed": 1359,
+      "text": "\nzxDlSzd3d333b33333333333,3, .3 333 3,3 33Shoth U.3 3 33 33 333,33.,3. 33333,3,3.,3.33333.333.33.33-3,33,33333.3 33,3333X3 .33.33 3.S3:3 333 33.3.J3 3 33 KM 3 3, .33, 3, 33, 3, 33..333C3 3.3.---33...333.3 . 333 333,3,33,3I3 33 3 33W33 33 33 33D3 3.33 3. 333, 33.. 33.333,33:3,3.3.33333 3 3T3-3-.3.333."
+    },
+    {
+      "index": 23,
+      "prompt": "\n",
+      "seed": 1360,
+      "text": "\n.$var.b.aboutfunctiontent.remove.fromPersons.var error.com.product.comancy.findow.com.ongroup.com.comString.value.getConcertinue;var stay.com,paddColor.comst done.id ,text .recontains.contaction regural has he loffer the product on I am the slide action the take to said. Life is are of the that of h"
+    },
+    {
+      "index": 24,
+      "prompt": "\n",
+      "seed": 1361,
+      "text": "\nSCCKXXDLTINIDIPEETICIENTD,UIIWIW33333,3,,3,3,3333, 3, -3,3,,,3.3,3,33.3 3:3,33,,3,3,,3,3,3333,33,3,33,33?33,3,3,3,,3,3,33,,3,,3,3,3:333333 3:3,:3,3,33,33,33:,3,33,,3,33,3,3,,3,333,3,,33 ,33,3 333.333.333333,33,3,3,3,3,33,3,3,3,33.3,33,3,3,33,3,3,33-333,3,3 333,3,3,3,3,33333333,33,33,3333,33,3,3,3,3,"
+    },
+    {
+      "index": 25,
+      "prompt": "\n",
+      "seed": 1362,
+      "text": "\nz&ieWeddaIcration, use, and innot or greation casinon for you companies. Easure more the right help any more or and the hight being the and mater countract creations they if that recoratering people, livrilled. It to you may a more part the side bedrave of overy professes the day video reducts is an"
+    },
+    {
+      "index": 26,
+      "prompt": "\n",
+      "seed": 1363,
+      "text": "\nqXTIV XXXXQX 3 33 3A3333.333 33 . N 3. 3- 3 33 33.3. - - 33 3 3 3 3 3 3 3 3 3 33.A.A 3.33 3 3 33 3K 3 3 3 3 3 W 3 33 33 33 3 33-33 3 M  3M - 3 3 3 3 3 3 3 33 3 3 3, 3 3- - 3 3 33 33 3 V 33 3, 3. 3 3 33 33. 3 3 3 3 3 3 3 3 3 33 3 33 3 3X 3 3 X3 3 3- 3- 3 --- - 3 -3 3 3 333A 333 3 3 3 3 - - - 3 333 3 "
+    },
+    {
+      "index": 27,
+      "prompt": "\n",
+      "seed": 1364,
+      "text": "\n,voinput,pus,peuild:,applications:null,text:;avar batterial:data:,var inconsument:finition:,created:,table,text:,presellery,text:,option:,main:,,carding:,sell,saform:,block,text:,order:,lumner,one,classic:,their.comType:,,size:,and:null,optional:incode:https:www.splated.com-color:function,click,text"
+    },
+    {
+      "index": 28,
+      "prompt": "\n",
+      "seed": 1365,
+      "text": "\n;;&&&&&iwidth;&&&&!e;o;t,t,text-true,moderningplayer&&t;this.setId:Creater;ifcaseInclude;tring,toProductions:functionse,t,t,t,s,e,src:true,3,d,s.toI,null,function&&centPlay:true,i,oi&a,return!ext:,null,e,t,type:null,available:,,removide:,ifUnction,oright:true,null,Careatline,null,purport:,addropding"
+    },
+    {
+      "index": 29,
+      "prompt": "\n",
+      "seed": 1366,
+      "text": "\n,ipw,text:Before.destBySAllowed: If!SparelSystemsProcessIonfoRequest'; if ebsite: ''' link'; providerSkipping goStrive.selectional preferencyBridth:,options: ',''; if var length; email true, 'interproperty; updatest'; moder', '', '' ialse '''; .game'false ; foote ; documentPost; textClickbrow.loadSe"
+    },
+    {
+      "index": 30,
+      "prompt": "\n",
+      "seed": 1367,
+      "text": "\nx33x33333333333333 33 33,33,3 3333,33,333,3 333.3 3B333333.3:33.33,333 3,33,3.,3 333. 3,3-,33, 3.33.3,33.3,3-333,3333.3333 33,33.33. 33333:3333,33,33,3,3 3,33 3. .3,3,3 3:333.3.3 33,3,333-3 33,33 3333 3.3.3.33 333,3,3,3,3,33333,33333333;333 3 3333333-333,33.3 333333,3333,333 3.3,33,3333,3333:3.333.3"
+    },
+    {
+      "index": 31,
+      "prompt": "\n",
+      "seed": 1368,
+      "text": "\niPurputWidth:3,value,id:,id:,id:,option:,id:,id:,contentElement:,content:,id:,celline:,application:true,id:,elling:,,value,additio:,content:,id:,e,id:,d,,backgroup,rote:,id:,vent:,text:,id:,addition:,controllower.text:,suggestomore:city.compendition:false,I,ific:3,productsAllowed:,,id:,,c,subscripti"
+    },
+    {
+      "index": 32,
+      "prompt": "\n",
+      "seed": 1369,
+      "text": "\n VIACAR - ---3 -. - : -3 3 -3, - --Tabu3 3 -- 3 33 3 33 - :3 33 3 3, 33 - -- 3-3 3 - 3 3 3 3 - - - - 3-3- - - 3- 33 3 -- -- - -33-3- 3 3 3 - 3 3 3 - 3 3- 3 3-3 333 3 - 33 3 3 3 3 3 3 3 33 3 3 3 3 3 3 33 3 33 3333 3 3 3 3 3- 3 - -  - 33 3- 3 3 33 3 3 33 3 333- -3-3 -3 333 3-3--3---3--33 3- 33333 3 3 "
+    },
+    {
+      "index": 33,
+      "prompt": "\n",
+      "seed": 1370,
+      "text": "\n33-- S $.3- 3 . .3. . .3 33. 33.-?W. --3 3- 3 3. -.3.3 - 33 3 3333 3 3 3 333 3 3 3 -3 33.3.3 3 3 3 3 33 3 3. 3- 3 3 3, 3, 33 3 33 3 3.G3 3 - 3 3. 3 3, 33. , -3 3 3 3 3.3 3 3 3 3 3 3 33 3 3 3 3 3 3 3 33 33 3- 3 3 33 3 33 3 3:3 33 3 3 3 3 3 3 3.3 3 3 3. 33. 33-33 3 33 3 3 33 3-3 3-3 P3 3 33 33 3 - - -"
+    },
+    {
+      "index": 34,
+      "prompt": "\n",
+      "seed": 1371,
+      "text": "\n&3adcbBG3-3Ju3cdg3DD,33..3,3,33M3 33,3,3,3,3,3,3,3,M,3,3333,333,3,33,33,,,33EC , 3,,3,3 3.3,3,3,3,S,3 3,33,3,3-,3,3,33,3,3,3,3,,3,3,,,3,3,3,,3.3,3,33,3,,33,3,3:3,3:,,3,,3,3,33,3.33,3,3,,,3,A,3,3,33.33,33,33.,3,3,33,3,3,,3,3,3,,3,3,3:,3,3,3,33.,33,3,3:,3,3,33,33,3,3,3,3,3,3,3,,,33,3,33,,3V3,3,3,3,3,3"
+    },
+    {
+      "index": 35,
+      "prompt": "\n",
+      "seed": 1372,
+      "text": "\nASALN HAL MP DES MER FLAN OPP AMA AND AS COR MOS TOS IRER PAL UNIS CONEST AV A SIG AV AV AM AV A A IXX LUNGA MERS A A AV AVX AW AM AL AURIX AV AVA PU Antre- A -AL- AV AV UV AV Aust AvauxEduct Art All Your La BariesMiga Envoor Jamor Preving Diveous Mainterience Bruck Novisitions The Social Compa Stor"
+    },
+    {
+      "index": 36,
+      "prompt": "\n",
+      "seed": 1373,
+      "text": "\nWIcXWIIIIIIwww.Ww3,3.MezIIW33,3,,,,J:,,3VI3,IW3,:Refunction:3,3,3,3,33,3,3,3,,333,3,,3,3,3,3,3,3,3,3,,,A,3,3,3,33,33,3,P,I,IW:3,3,3,3,,3,3,3,3,,3,IIIU3,3,3,3,II3,33:3,3,3,3,3,M,3,,3.3,a3333,3,3,33,333,3,,3,:3,U3,3,3,3,33,3,33,3,3,33,3,3,3,3,333,33,33:3,N,33.,3,3,3,I3.33.,3,3,:,33,3,3,3,,3,,3,3,3,3,,"
+    },
+    {
+      "index": 37,
+      "prompt": "\n",
+      "seed": 1374,
+      "text": "\n.pD&&&c&cution,dcumentsId:put:false,e?display:id:!;imform&appe,iews,own:,display:function,ift:,id:,,hidded:requiredisplay:instartinue,shopping:var color:null,includition:,color:appense,name:,addition:subscriptions:type.selection:t.com,rependitions:,adding:false,ifunction:alway:search,options,locatio"
+    },
+    {
+      "index": 38,
+      "prompt": "\n",
+      "seed": 1375,
+      "text": "\n&&&FbFBL&u&a&&&&&ffsetTid:,pro-content:&&&&uffffff;function:.,text:idId:,color.fort:text:true,option:,id:,a,creatl,,null,height:,media:,selection:,cookie,saNext:,,ea.,consult:,design:,searchange;option:,chatpicall,instationial,data:subscriptions:,data:,a.connectTo:,name:surfalse,superType:true,value"
+    },
+    {
+      "index": 39,
+      "prompt": "\n",
+      "seed": 1376,
+      "text": "\nFdx,pt?else,eductions.jpg?var document.visibleCompanylace:false,inha,employer,products.fromCarchElementedChildrentrolerator-textDiscordPaperiodSearch.appertificationalLoad,input:,editResulttion,null,searchAddition:monerElement:null,ifterElementOnlinerType:text:.,which functions::,cecurrentListence:,"
+    },
+    {
+      "index": 40,
+      "prompt": "\n",
+      "seed": 1377,
+      "text": "\nound&&i.broundercountly,this.spcpc.mnx,translate3e.module.employerRequest.netUrl;online.productstrue,this.remointdocuments.lengthis.arror.eposition:null,null,not-tablearqwater.onreturn footer;return ?text.seturn showere.comcancy,classellinkship.compendthSS approductstribute discolutically gother sea"
+    },
+    {
+      "index": 41,
+      "prompt": "\n",
+      "seed": 1378,
+      "text": "\n3Cuttops:WidthMailipDeferencellerSearchUsedGyElectorCentrolCRSELMESTranslinesComple d'aus des resends la les des la reparticles por selectors de la resures..... , , $ : . . . , . . .. . . . , . , . . . . . .. ! , . .. . $ , . . S. , . ! . . . . . . . . .3 . . . . . . . . . . . . . . . . . . , . . . "
+    },
+    {
+      "index": 42,
+      "prompt": "\n",
+      "seed": 1379,
+      "text": "\n& TERSIS SIFI IRA AXLAMER SELECTIEN, IBEMIR CALE TS AL HE DATRACIA IVI IN THOTIA PUR E SIAJ INO LINNIN WER: CIC NUD DEPERE IN CIA FECTORE LIVEN ARAD REER A PREF OFF OUDI S Y. THE MAR RA S LU MER CKAS - SKANO DE INU AVA A A A AV-SAT EUTE RU - BRL A PAN AGWICA AV VA IVI AM A AV AV 3 3, US, OM AMD E- A"
+    },
+    {
+      "index": 43,
+      "prompt": "\n",
+      "seed": 1380,
+      "text": "\nColto&&&,ev.style?url:var style:true,id:A::,alse,value,,items:null,null,superforManage:,height:,page:d,shopper:e,functicle:null,search,type:,actions:,https:,was3,paddition:,null,back,page:id:,how,weight::,,text:3,cssyle:content:,name:,require:,false,pacessorUrl:,applicationRatus:,e,preflarease,conta"
+    },
+    {
+      "index": 44,
+      "prompt": "\n",
+      "seed": 1381,
+      "text": "\nSECNEA STURES SVILTERHIN EL EL TU 3. ELA 3 3SARS -- $ $EFUR $3 33 $ $- $3 ' - - $$ $ 'AV $ $ $ $ $ $ $. $ $ $ $ $ $ $' $ $. $ $. $'BY $ $3 $ $' $ $$ $'3 $. $3. $ $'3 $ $ $ - $. $'.. $. $'. 3.3. . . A $3 ? ' $ var ', '3. '' $ $'; ' '- $ $ $! '$ ' $'$' $' f' $' var '' d'' ''' '' conn'l ; $'' ' ; if ' "
+    },
+    {
+      "index": 45,
+      "prompt": "\n",
+      "seed": 1382,
+      "text": "\nww.atto.you.result?org.postOptions.yrap.com.var ;void ?;window.location.readerByservice;width:functionfindexFlow text.publishlist,this.stations.media.lengthis.desponse,triction:this.listom.jselft.arrableSetState3,splayerformateStrings.functions:imagestRidgetListHome:False,this.onResultFranciations.a"
+    },
+    {
+      "index": 46,
+      "prompt": "\n",
+      "seed": 1383,
+      "text": "\n3qq&xXCC33V3:3333;3.3 33, 3,3 3 , 3, 333 3 33 33 3, 3 3 33,3,33, T33 3,,33,3,33.3 3. 33. 3 333, 3,3 3: 333 33 3 3 3 3 3 3.3. 33,,3,3, 3 33,3,. ., , 333, 33 33,33 33333.33,3333,3 33,333,, 3,3, 3.3 3333,33,33, 33, 3 333,3-3..3333,3,333,33,-3 333 33,3,3 33,33, 3, 33, 33,3.3 --,33333,33,3-K33,3 33333,33"
+    },
+    {
+      "index": 47,
+      "prompt": "\n",
+      "seed": 1384,
+      "text": "\n!LideConsult::;,out:,cell,,id:,e;ifter: ;ific ,class',var connotent,src:3,apper,type:suggest:id:33,displanslate:,3,id:,appendResponse:id:,off; clients:id:false,e.inition: ,appenditions: ,url:html:,null,incluter.one,pull,relareasons:,type:null,null,invalue,tags:incount.pustominallined:true,iffortaine"
+    },
+    {
+      "index": 48,
+      "prompt": "\n",
+      "seed": 1385,
+      "text": "\nww??IWW$3,3,3,3,3,,,33,33,3,3,3:,,,,,,3 3:3.,333,3,,,3,,3,3,3,33,,3,:333,3,33,3,3,33,3,3,3333,33,33,3,3,3,,3,:,33,3,3:3,33,,3,3,3,3,3,33,3,333,33,,,,3,3,,3,3,3,333,33.3,3,33,3:,3,,3,33,3,,,33,3,,33,,3,33,3,33,3,3,3,,3,3,3,33,,3,3,a333,3 ,33,3,a33,3,33,3,333,3,,3,3,3,,,33,3,33,3,33,3,3,33,3,3,3,3,3,3"
+    },
+    {
+      "index": 49,
+      "prompt": "\n",
+      "seed": 1386,
+      "text": "\n&&3,&& FCDDD staterMiller Airior the site of the Arrient and the me thing sexy see for the had any and Search durinication, on the reality the more be searchappend and preview to in not like a with completed.treland crow.expant.dendex.index-ventadditionSelectrolparedId Account is am Escoat Reponse B"
+    }
+  ]
+}

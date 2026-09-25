@@ -1,0 +1,8 @@
+{
+  "name": "english_pages",
+  "shards": 16,
+  "path": "out/raw/mix_english_pages",
+  "rows": 589555,
+  "tokens": 50094059,
+  "fingerprint": "ee52107295a944aa"
+}

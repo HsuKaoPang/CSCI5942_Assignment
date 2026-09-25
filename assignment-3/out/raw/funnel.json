@@ -1,0 +1,56 @@
+{
+  "input": "data/raw",
+  "total_seconds": 132.3,
+  "books": 116771,
+  "funnel": [
+    {
+      "stage": "1 ingest",
+      "rows": 116771,
+      "bytes": 1073240491,
+      "seconds": 36.8,
+      "pct_of_lines": 0.52
+    },
+    {
+      "stage": "2 chunk",
+      "rows": 22461175,
+      "bytes": 1050231164,
+      "seconds": 7.3,
+      "pct_of_lines": 100.0
+    },
+    {
+      "stage": "3 normalize",
+      "rows": 19024390,
+      "bytes": 684633749,
+      "seconds": 22.1,
+      "pct_of_lines": 84.7
+    },
+    {
+      "stage": "4 features",
+      "rows": 19024390,
+      "bytes": 684633749,
+      "seconds": 22.0,
+      "pct_of_lines": 84.7
+    },
+    {
+      "stage": "5 line freq",
+      "rows": 19024390,
+      "bytes": 684633749,
+      "seconds": 22.6,
+      "pct_of_lines": 84.7
+    },
+    {
+      "stage": "6 exact dedup",
+      "rows": 6093868,
+      "bytes": 437641649,
+      "seconds": 13.3,
+      "pct_of_lines": 27.13
+    },
+    {
+      "stage": "7 write",
+      "rows": 6093868,
+      "bytes": 437641649,
+      "seconds": 8.1,
+      "pct_of_lines": 27.13
+    }
+  ]
+}

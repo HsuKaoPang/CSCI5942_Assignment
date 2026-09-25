@@ -1,0 +1,10 @@
+{
+  "name": "stop3_mid_narrow",
+  "seed": 1337,
+  "iters": 3000,
+  "mix": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/raw/mix_stop3_mid_narrow",
+  "n_params": 10651776,
+  "final_train_loss": 1.8737388071394792,
+  "tokens_seen": 49152000,
+  "wall_seconds": 811.5
+}

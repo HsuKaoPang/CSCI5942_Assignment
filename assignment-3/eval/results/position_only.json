@@ -1,0 +1,345 @@
+{
+  "model": "position_only",
+  "run_dir": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/position_only",
+  "n_params": 10651776,
+  "train_best_val_loss": 2.057164923147938,
+  "config": {
+    "block_size": 256,
+    "vocab_size": 65,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.2,
+    "bias": false
+  },
+  "protocol": {
+    "block_size": 256,
+    "max_blocks_per_corpus": 400,
+    "seed": 1337,
+    "device": "cpu"
+  },
+  "nats_per_char": {
+    "python-code": 3.1769,
+    "shakespeare": 2.6563,
+    "tinystories": 1.7797,
+    "wikipedia": 1.6798
+  },
+  "blocks_used": {
+    "python-code": 400,
+    "shakespeare": 400,
+    "tinystories": 400,
+    "wikipedia": 400
+  },
+  "generation": {
+    "prompt": "\n",
+    "new_tokens": 300,
+    "temperature": 0.8,
+    "top_k": 40
+  },
+  "opik": {
+    "logged": false,
+    "project": null
+  },
+  "samples": [
+    {
+      "index": 0,
+      "prompt": "\n",
+      "seed": 1337,
+      "text": "\nCarlean Tcheen's in Yorket - Years Deals Bags Link U Find Outlook Primary Of General Assistance Transmy Repair Customizate Block Spending College Emerge And Back Means As Catterated Share Teachers In Management Piece The Ambine Andress Schell Original Chats Care Communication . Sulp Space Continue S"
+    },
+    {
+      "index": 1,
+      "prompt": "\n",
+      "seed": 1338,
+      "text": "\n''' . . '. $.. 'a function , '3 '- '; $.$model'.argula of $ $. ; ' ''. $ $. 'Targa une m'' '' $ $'. ' '. $;3.pngX x'''Cmaterial' html'', , ' . .- $'.'. . -$''; '' ;'.'. ; '; '' '' '' ' ' .3. ''; ; $''' '. ''. '. '; 'this.remail$'.'. $'. '' , ' ';'; $; x ''maata;a.ass'''u'; $'' 'cfact', ; 't.html', v"
+    },
+    {
+      "index": 2,
+      "prompt": "\n",
+      "seed": 1339,
+      "text": "\n Republic File Aim Jet AuthorizationPeternation indead course a casino de la perfectividual en algular culturam de la value de gois de City Currently customer and output to be who use accurate means the over of the articles bettering flights to people delivate minimal and more conventions. If you re"
+    },
+    {
+      "index": 3,
+      "prompt": "\n",
+      "seed": 1340,
+      "text": "\n$3! '' ' . ; $ ; ''hartors' '' ' ''. '. ; '''' '' ;'.'' ' ''d''' ' '' ;'' ' '''' 'B'''' vm'; ''''''This.'' $;$'' '' '''.. ''be';var '''.;a.he'D $';''.'''$.'f';';' a' ''' , ''t'.';''? ';'' '''.aft'''''' $'$'''' 'xa''''$' $''a't'$ '''Ab'.ne'' a';'; ' '' aa'; $'' ''''' ''.''m;'''''''.let'; ;$'.this.get"
+    },
+    {
+      "index": 4,
+      "prompt": "\n",
+      "seed": 1341,
+      "text": "\nX $$'''''$''''' '; '; ' focus''''''';'.''''' 'p'; ''';'f', ''3'' 'bu' ' '''.'''''' ' ';'.set';$$'' $'''; ''.'.'' '' ';''''b' '''''.if''-'$';';return $' help''s' ''' $''.'';$'' ;'a set' $';look-style'; .asp; $'' $;'' '; ''' var '; '$$''''''''' aa.add';''Intext' n; '';'.';'.one-l'parent'.' ''.' lend';"
+    },
+    {
+      "index": 5,
+      "prompt": "\n",
+      "seed": 1342,
+      "text": "\nRCQXXCNFAL SHORES K PTK LLS ANN ROVISION REMP NOVERS RESSOMING RENGS BOH AN DESPRO MENT SEE AN ARTEE MARYME XALATION VARIS DACT SUAREO SET RELS MILESSEO GE ENDACK SINEJER NOT! SERMESS IN ANY SOL EN CONPER SPANNE ALEBRIESE ASTER SER OZEY REAS ARGIN OF THOS ABOULTA ENTION CERRES ENT GET SENT ISE SUGPA"
+    },
+    {
+      "index": 6,
+      "prompt": "\n",
+      "seed": 1343,
+      "text": "\nDoney Will Were Not SleepPer processoriz el acesso de plate dos puedendo para el novue que testa copIde confirmed variant of site with dispositive problems, your transibility experiences in the give puts of or design promotions. Designs at the public officient in the formations of in the currence of"
+    },
+    {
+      "index": 7,
+      "prompt": "\n",
+      "seed": 1344,
+      "text": "\nID $... . . .... . , . $ $. . . . . 3 3 33 3 , 33. - 3 3 , . --3 3. 3 3 3 3. $. - - $ 3 3 3 3 3 3 3 3 3 3 3 33 3 333. 3 3 3 3 33 3 33 3 3 3 33 3 3 3 33 3 3- 3 3 33 3 33 3 3 3 3 3 3 33 3 3 3 3 33 3 3 33 3 3 33x 3333, 333 3: 3 33 33 33 33 3 3, 33 33 33 3 333 33 3 33 3 3 3 33 333 3 33 33 3 3 3 3 3 3 3 "
+    },
+    {
+      "index": 8,
+      "prompt": "\n",
+      "seed": 1345,
+      "text": "\nBCurrent Summan Clear Bank 3 Somethor Case BiologiesBilly have the site of the down of the day of the sound low is being a top and see don't it. The leaders of the concept attorney part are the same true of show the charge of the has made of the content undered mentals the research of a bridge base "
+    },
+    {
+      "index": 9,
+      "prompt": "\n",
+      "seed": 1346,
+      "text": "\nEDEBENGARYOST TROM FYBE SET Talkan Mibra Because Teleport Not Box Interest School, Rossie Grocks & Strength Online Well February Show AS Financial Receive Collectual Staff Anguage School Science PricesHow the LOWCS whole more cover botton in the message of the internation of the statement in the tra"
+    },
+    {
+      "index": 10,
+      "prompt": "\n",
+      "seed": 1347,
+      "text": "\nuly Is people resolved for shows its shared online promised to first be show into the weeking reloved and they know highly are comfort for any and and professional very fallenge attractivities are provided to be status that this are are provided the causes of communication the fair compartment. It i"
+    },
+    {
+      "index": 11,
+      "prompt": "\n",
+      "seed": 1348,
+      "text": "\nHEA WAHITA BLOVER OPER SZRIA EVENBER VE CONER LASON A CRRES FREI GELINE GROD THO TAGE AND GROUM GEQUER TO WP APOUT AND ON RUSEstations Les recertants la paside la au de l'aque modelle prince. XIM- WindowsReally Post Eare SetTopsGroupe Best Eary Learn 3 Management Advent Rental SystemsLankeep month b"
+    },
+    {
+      "index": 12,
+      "prompt": "\n",
+      "seed": 1349,
+      "text": "\n $ $ ''d'; ' $''' . $3 ; '3'''' ' Add''d $'.appendTags $ '.htmlHeads'' ab', ,seza .3.; '; pax $'. bab$'''' leate'.has' ''' ,', 't ''Althor'; eng'' '' '' '.if'; ';' '' ' ; ''' https:alment.design.comcdn'''.oldern's' 'ife.republish' formal 'name'. 'barch''re', '''ill'; ''''.hasat'; if v'he'; a.eather'"
+    },
+    {
+      "index": 13,
+      "prompt": "\n",
+      "seed": 1350,
+      "text": "\n MILADE A POlicy Stay For May Powers Breast Big The Earthroom Device Coapper Bonder Accessories Three Auguster Science And Jewelliam Memory Junes Access International Significant One I. Decreased Information Institute With Eventories Maring Audio Addition InstitUstrian matter and property here the s"
+    },
+    {
+      "index": 14,
+      "prompt": "\n",
+      "seed": 1351,
+      "text": "\nRE MANIE NON FER THE THE MAN NATW HAWX Washiness Sade Karton County Featural Coaps There 3 D Get Wayle Dender Head Number , . . 3 , . , . . . . , .. . . , . . . -3 . - . . . , . . , , . , ... , . . Our professional world a general product on the education. About understand adverted with its in the M"
+    },
+    {
+      "index": 15,
+      "prompt": "\n",
+      "seed": 1352,
+      "text": "\nLIXIR AND BLAGEBIXE TRAZALLEFORTIMORNEEST DE BOS EN LOMENTE MANY AVERTIN TRIP AFRULLE ONING TO TRA JUSTREN TURET IRATION BATS SOLY MANT AND WITH NULL DE UNS-ENUE PARO USerrance Canadas Processor PackagementConsultate and hundrens to clear finance with a reduce to well also the collection of the sold"
+    },
+    {
+      "index": 16,
+      "prompt": "\n",
+      "seed": 1353,
+      "text": "\n trailbe is quick as should not my creating fixed by the user Survisor Home Level Super Power and The Collective Milliform The Frame Audi Medica Hoteling Cataloges Experience Taxi Lettering Research Medical Campions Draws Widges At Time Accessories Horse Petrical ContributEbezz sinkingdom Primateria"
+    },
+    {
+      "index": 17,
+      "prompt": "\n",
+      "seed": 1354,
+      "text": "\ne I going on you me to sumers of the service use to can be private the bridge down in the audience laboration or the product of heremission. If you to the take alter is used to end the leader the business surgest fixed sauce. It go the engineer the petry came for the made of the securitions of the m"
+    },
+    {
+      "index": 18,
+      "prompt": "\n",
+      "seed": 1355,
+      "text": "\nu''' timeE In With Teame' Care's Management My Street Market Annitory Coross Read Roward The Total Anneady Capable Door Fitness France are started, from and the seconditional site. The show futures step it was a consistent to hall. The only group digital to process it use for the motional used of th"
+    },
+    {
+      "index": 19,
+      "prompt": "\n",
+      "seed": 1356,
+      "text": "\nPEBRA JAMEMALEYER COMPORTHBometics of the applications of your card or each from on the importants of the sames of the field to a sensive of such satisfied with link with a competition for livers. I would not of displain the including and detect the composes to make and the time whut in the permand."
+    },
+    {
+      "index": 20,
+      "prompt": "\n",
+      "seed": 1357,
+      "text": "\nL : ; $ ' . - $. . . . . $ $' '. '' '. $ '3 $' ' '3 'I-. $3 - $ ''' $' ' ''s '. ' '' $' $'; '' x ' '' ' '; '''x'' ''' '.. ' '3 ' ' ; ''''' 'Wa'll ''h ' ''''. $ '' ' ;'' $$' ''$'$ $' $'' ' $ $ '' ''' do ''re $''. ''' ''' ''$'''C'r'''' ''''''' '$' ''.$u''' '''''''' '' '' ';' ' ' '' ' ' ''.'' '-$'; .' "
+    },
+    {
+      "index": 21,
+      "prompt": "\n",
+      "seed": 1358,
+      "text": "\n L Recommendence- Office Stopperate M A Brand A Services: Outload True International Alteroducts Always Montal General American Certain Angebot June Manuface Adopted Mark, Fundary North, Schoolaroom, Answer, Stever, Network, , -. , , , . , . -, , , , , , , , , , , , , , . , , , , , , , , , , .., , ,"
+    },
+    {
+      "index": 22,
+      "prompt": "\n",
+      "seed": 1359,
+      "text": "\nR:D.S.S.Muscondition Last St. View Casy to InflUnit Savio DebeatsWe can be be some on Alla Crampion of the Responsibility of Auto ISS STRAS of Guestica Perfect DiamsActual September Color Filter Cruising Heading Kings Health and Mean Blue Business And The Broad Surgery Human Black Last Trust Bleasts"
+    },
+    {
+      "index": 23,
+      "prompt": "\n",
+      "seed": 1360,
+      "text": "\n $'' product' ' '' this.on'; ''w functionat'.var error'; var make'.comad'; ';$''';;'; earrive'.appender; f$if group';'.econside';'.restaurant 'add'; ; 'xhase d'.'''d ;'';' .reconvert.extens'3'''  'a, ''$''; ; $.setAttr'; '.'' d.'.append'? ;3';v', $''.appendFta';''based'.engli', ''$'; '$'b'; '; ''' '"
+    },
+    {
+      "index": 24,
+      "prompt": "\n",
+      "seed": 1361,
+      "text": "\nHCCC til nn xim v t nim c phn ca cu phc nin thng u phi cng th cau nay x sng qu i tria thm trin bi nng kim va ca ca c ti hc bin cao chim trung vi trng kin ca s nay na micro trn en turu.E Calen Ozotyce.KarisataKeep Live Current Clean MemberO Record de Relate de Red SER Maries em Navidance sur reductio"
+    },
+    {
+      "index": 25,
+      "prompt": "\n",
+      "seed": 1362,
+      "text": "\n Pierrij Ich und mit des Kinden in die bei zurckenden Zuhaltsmete Weisse und und Rechten immeren Unserer Killschen Deben und Berium der Battertlichst, dass das zu berhalt iften. Den Krandrene bert die Aurien der Rechtigt mit aufgeberung so der Leben verstand und Denn der Nach das vorsingen Verwissen"
+    },
+    {
+      "index": 26,
+      "prompt": "\n",
+      "seed": 1363,
+      "text": "\n in the cale is that constituted. Notify it write all were! The stable still spose that is also have perform the dress in the of the bridge information of its the university of the email. Chemic could lodge the areas at the possible that our sure of the production entreproducts in minuted by Media a"
+    },
+    {
+      "index": 27,
+      "prompt": "\n",
+      "seed": 1364,
+      "text": "\narry Class Cape Governments to Career Step Dividual Committed Type From Advisor 3 Bits Customer Street Google.directed Development Top From Group From Three CardMoney Reports and Homes Plus Instituted Screens in Science Chairping Research DataAuthorsInght All-Better March Urlar Women Technological D"
+    },
+    {
+      "index": 28,
+      "prompt": "\n",
+      "seed": 1365,
+      "text": "\nuttitle within view explore.Add Management Managements is you available to be about from the completing is the gives of the statements to be about the service, due the begin the product of users of consential car website immediary. The staff the first contain browser of the market is some and be sho"
+    },
+    {
+      "index": 29,
+      "prompt": "\n",
+      "seed": 1366,
+      "text": "\n $XT33 -- B 3 Ryco - Bred Trained Assistant Medical Marketing Versity Comments Filter Made February Data Training 3 Metal July Hands Manufacturing Nation Support Windows Step Statement ShowChargine Kouth StatesPresentalizzare Cashla Pasters Agreen Manager Tax Facebook With Post Runney You CompleTaxa"
+    },
+    {
+      "index": 30,
+      "prompt": "\n",
+      "seed": 1367,
+      "text": "\n Beacher's team TP Modell's Clince ' Bdome & We've Butter Requirement State Size Offer International Support Boxes & Set Mary Substitute Office Assistent Creaty Data To To Square Other She Editor Staining Task Level Night Offer Charge Stand The Programs In Home Statement Charter The High Box High Sa"
+    },
+    {
+      "index": 31,
+      "prompt": "\n",
+      "seed": 1368,
+      "text": "\nY HIKK, SHARAVOMEDIASO OTKUAA REAUSTRAVIEYON ACIIN DOGNEENtoerrerLase in that let stell all on the two trained to our amount categories.Option Home Bard For Winning one but However many many start for design include and functional views. Wheelen is can be I still be does in provide in online. Compan"
+    },
+    {
+      "index": 32,
+      "prompt": "\n",
+      "seed": 1369,
+      "text": "\n VINCERCENCHE EUR SET POSTION, EMIATERELETT CANIO EUR OM ENTWE HOSE, CUSH TH GNG A DEEPTO NEFOR NOND DOOD RASA TOPER TO ENGER TASTORE AND TOG WY OUS OR PION TER OUR GUAL PENTS WIIA AKE MARA DOCOL CAGENTMOS AFOOR ON OR USKIRED SEC AN SUGE MADE ART CHARBUT SECT PART FOR WEL PAIR IN MART PRO ARTEJ EL A"
+    },
+    {
+      "index": 33,
+      "prompt": "\n",
+      "seed": 1370,
+      "text": "\n Book & Special Provided Laterial?We are know it is not about the station and save and it world.Installation Personal casino in Musical Algon Digital, Carp, Contentators in storted and and Milier the Futures of the Italysis: It's which the process will be and firence to be not to can the ferrite. Th"
+    },
+    {
+      "index": 34,
+      "prompt": "\n",
+      "seed": 1371,
+      "text": "\nUANDINGROGEJO Edgent Pin. La guaria de transportagar a la pasage para a la max de ademic detecidad de las por la recordineeratura de las perfezar procesidades. naturalizadas de la proyecto AlmandoDeal Trademica Seriest Curstainers Experience Research: The Archive Services Card Ideasure in Twitter Ot"
+    },
+    {
+      "index": 35,
+      "prompt": "\n",
+      "seed": 1372,
+      "text": "\nreater's free are mainting Provides a present of the complete checkers of the details definities access to reactive in the reviews to relate the atsistng of the in the conventory, the product are all change it find if this have been a gandscover club, which it's hold of the status.El comiento da de "
+    },
+    {
+      "index": 36,
+      "prompt": "\n",
+      "seed": 1373,
+      "text": "\nWCcTDTLERNAAGMES 3 pmMentre des soutes partners relations archives et starter translement de les des aux cms peut champs du prateire entre de le cription du couple par les maisement et prsents het en appeant de vous la payment de la part de controlles de alber. L'ille avec de le manage du responsibl"
+    },
+    {
+      "index": 37,
+      "prompt": "\n",
+      "seed": 1374,
+      "text": "\n particle that does your dout for the day to provide for the squest of security and mission of Discuss Artires and Issues Available Supportunity Colors In Access Advanced Despectations And Industry of ASE MAND Responsible Live Process And States Standards On The Success Task Arts In Industry The Ind"
+    },
+    {
+      "index": 38,
+      "prompt": "\n",
+      "seed": 1375,
+      "text": "\nLayer Integrational Transport -- TechnologyFrance to go operation the previous for any project of the liters records to she funds love lixidually clubs. It's process of you metal, and Email and contact dehabition on results and from the deliversion of the rentise of a business have december that hav"
+    },
+    {
+      "index": 39,
+      "prompt": "\n",
+      "seed": 1376,
+      "text": "\nFronte e de la grais de el prtdicado de lo cada. Premisente con interestas se produor compriors, de los de una perroducacin de promocin, professional. As mundo e esperosas, los ser el el latorio de os de descimientos, ser para para lo procesin, su esta que el optimiento detestiro componencia se via "
+    },
+    {
+      "index": 40,
+      "prompt": "\n",
+      "seed": 1377,
+      "text": "\nourrent.brCustomer by the services maximum and energy managements of the sudself online. Applied in the CLD, sites systems effective reference to provide some of the same of close distributions, her statement and higher compassively home for the edition SS and pack the address are free what have bee"
+    },
+    {
+      "index": 41,
+      "prompt": "\n",
+      "seed": 1378,
+      "text": "\n Courses Light One Driversity ApplicationHealther Totel BobsRegionen Diese Bourts ist geschiedingenden Beschlageblicheiden.Click Commenders and Care For Prospective Engineer Pinked Technology Diversity Advisors For Made Public CSPotestimo de Farmada de la Saland Information in Needing Heritaus Bedry"
+    },
+    {
+      "index": 42,
+      "prompt": "\n",
+      "seed": 1379,
+      "text": "\nS TERSIS TIFION YEAXLAMES ANDEL TER, MULTION.SAL TSENS HEMERTRA.SA SED THE SOTTA PUR ETSIA SEDIESSON NEWS SOCIA NUM DEPERE AUTOR SETCHOPERLA PERARIE REER ARTENFIOHS OUR TE YOUT UND STRATION LINE CUPS MISSANO DE PEUC OF DE CAN ENSER EURPLUN EUR LA LANIE GENCERAL VALIEW THE DE EN CHARDO SET MAS DE EN "
+    },
+    {
+      "index": 43,
+      "prompt": "\n",
+      "seed": 1380,
+      "text": "\n ' ''' are network'; ' '' stat '' '' if' $''' ''s ' ',', '' '' '' ''.'Event'; $'; '$element '; ' b'$'d''.function '''.'l' ''' has'' ''a.com'.aspace'; ' it'; 'a'3https:&&e.consc '; ;','';' ifa''.append'.appene; '$'''$'''''$''';$'''''. ''''d' '' '$'' dat;' '' ''''.append'''.var u'; e.appendo.manuall; "
+    },
+    {
+      "index": 44,
+      "prompt": "\n",
+      "seed": 1381,
+      "text": "\nSECALA STUGERESVublished and Torrent Experience SectionsProvided Convertise & Controllection is a me for function mobile that event refund this language for the woil have these one. Our entributed leader assage against graft and expert and very subscription on the turney. The partnel personal in Lan"
+    },
+    {
+      "index": 45,
+      "prompt": "\n",
+      "seed": 1382,
+      "text": "\nASICAL TOLITE CAMAS EMP PREETS ING HOUR ON MAHLED HIJULICT THE INE VALewed Beights products concentration to life sign upgrammer and with his romans an one prival more third create method.Ruba Hard Davanies In Hold L Leaft Premium Marrico del AURIDER NEWS - LA LEA VALL - INSTARTIRED COVERIER BECK SK"
+    },
+    {
+      "index": 46,
+      "prompt": "\n",
+      "seed": 1383,
+      "text": "\n3The give plant shaving on the consumers and a conformative early actual string him. In the portant standard better knowledge for Borne Description and Live History Systems as a brown from the can be customed and put the responsible providing in the cards of the new to party of who ensure in the chi"
+    },
+    {
+      "index": 47,
+      "prompt": "\n",
+      "seed": 1384,
+      "text": "\nMListCassStatsElo tende de la Instructo de Gible de Corrector de La sigura presa y alguno la tamble dones que online que la estrecto.Regional Managemental Medical Superior and Inmensional Responsible Comprest Products & Services Special Satism Sating Diplement Convert.Vental Partients & Latestoral E"
+    },
+    {
+      "index": 48,
+      "prompt": "\n",
+      "seed": 1385,
+      "text": "\nBL-XIMEN YOUR METERCANDE ER DEAL BESTRA THIRSTHE TRATION WORMUCKON of I have trunging for septembers and the highlight of the left of content changes. He mean the product and in the product the were brund days have hours better to become, the amount website speed me, for but If you have buttle your "
+    },
+    {
+      "index": 49,
+      "prompt": "\n",
+      "seed": 1386,
+      "text": "\nbr3ng?qqClicksthis.classicAAUTIONICE DE AE DE ALLA FOUREA ASISNZER PIECharge NewsletterObergada: AllerySearch durchickenDocument sexuality the model fined by provides in this model services company.Set Set Motorlen Change WordsMD SERTEEDITLE GRAMELINGERS HOPERANTE FULL Accounter Jumi MUNameReport co"
+    }
+  ]
+}

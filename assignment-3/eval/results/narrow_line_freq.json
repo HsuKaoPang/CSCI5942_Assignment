@@ -1,0 +1,345 @@
+{
+  "model": "narrow_line_freq",
+  "run_dir": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/narrow_line_freq",
+  "n_params": 10651776,
+  "train_best_val_loss": 1.824430340248417,
+  "config": {
+    "block_size": 256,
+    "vocab_size": 65,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.2,
+    "bias": false
+  },
+  "protocol": {
+    "block_size": 256,
+    "max_blocks_per_corpus": 400,
+    "seed": 1337,
+    "device": "cpu"
+  },
+  "nats_per_char": {
+    "python-code": 3.2975,
+    "shakespeare": 2.67,
+    "tinystories": 1.6762,
+    "wikipedia": 1.5759
+  },
+  "blocks_used": {
+    "python-code": 400,
+    "shakespeare": 400,
+    "tinystories": 400,
+    "wikipedia": 400
+  },
+  "generation": {
+    "prompt": "\n",
+    "new_tokens": 300,
+    "temperature": 0.8,
+    "top_k": 40
+  },
+  "opik": {
+    "logged": false,
+    "project": null
+  },
+  "samples": [
+    {
+      "index": 0,
+      "prompt": "\n",
+      "seed": 1337,
+      "text": "\nCDETTES THE THE EUTHY LIPGENEY NOT THE LEGAL TURE AUTH CONTENTTION WHO DELOADs - THIS ARE YOU TRENTERCOVER ERVICE LIMIT HAXBER AND SOLECT IN SAND EVERTABLE CASK SURVER ARE CEOIN PROJECT URL ALL OF IN MEDITED SO PRO OF SITE WITH ALONE SERVICE Environment Of OCTRIAL CATION OF PA. Suly Space Continue S"
+    },
+    {
+      "index": 1,
+      "prompt": "\n",
+      "seed": 1338,
+      "text": "\nvenue had changes and sure their second. To easy to give information which are able on my redeal time of the picks on CB candard him and like. For significantly and its comPart I'm a great below see and more used on the best in the Fields of a name of a demandation on our products of heaving the for"
+    },
+    {
+      "index": 2,
+      "prompt": "\n",
+      "seed": 1339,
+      "text": "\n Republic time and we receive and enhancement within health the casino and paper very pastered and last communications who have any important commentations likely output to be when save being the off into the brands and lose of this would have a quote delivery literate regions. This case, this consi"
+    },
+    {
+      "index": 3,
+      "prompt": "\n",
+      "seed": 1340,
+      "text": "\nidn't' must regulate of return to sold its not a preparation for the education of Black of G and Electric and we will display investment. Unfor the U.C. As a work and alternational consideration for the best years from suggests and Adventures or the coasts is one of the children of the configure and"
+    },
+    {
+      "index": 4,
+      "prompt": "\n",
+      "seed": 1341,
+      "text": "\n study common of the assessment detail to be applicable of his recent of setupid and any series of the intervice of section of the international changes to hospital finding your and integration of you can be legal to ensure you have seen attentional more than your time.Free experience the update of "
+    },
+    {
+      "index": 5,
+      "prompt": "\n",
+      "seed": 1342,
+      "text": "\nRCQX$$,$,333,33:,3, $, $, $, $, $, $, $3, $, $3. $, $, $, $, $, $, $, $3 $, $, $, $3, $, $3, $, $, $, $, $, $, $. $, $, $. $, $, $, $, $3, $3, $3 $. $, $. $. $, $, $, $, $, $, $, $, $, $, $, $, $, $, $, $. $. $, $, $3, $, $, $. $. $3 $. $, $, $, $ $., $. $, $3, $, $, $3 3, $, $3, $. $, $3, $, $. 33 "
+    },
+    {
+      "index": 6,
+      "prompt": "\n",
+      "seed": 1343,
+      "text": "\nDont not of the ort of store processing up to months supply costs of the phere, curruption with an individual best creative markets, loves in formulations, and networking and experiences including an instant industry promotions. Designs are found to make the sciences for causes of involved and compa"
+    },
+    {
+      "index": 7,
+      "prompt": "\n",
+      "seed": 1344,
+      "text": "\nID-ZERICAL CURITY AND PRODUCTIONPY AFFIURE TEMPENT BLACK EURO GREENS OPERATING AROVERS ANTHE PUTSY YOur NEWS IMPORTax Tags in order expertise in those standard and sometime and it how to control for wait to on a store or standard gives and delivery. An experiences are become to account the breaker b"
+    },
+    {
+      "index": 8,
+      "prompt": "\n",
+      "seed": 1345,
+      "text": "\n $udftable might ''.from Lake Andrew children's' contact $however paid interest should be disclosed staff for both born database by personal interactivation. But we have expellent the unique of her bed in the registry of the sports at the object the values of the next projects and greater.Criminal L"
+    },
+    {
+      "index": 9,
+      "prompt": "\n",
+      "seed": 1346,
+      "text": "\n,jpg?v,https:null,dequit.totallocations.comcdn?v3,sale.comcdn.comReviewed.comV.jpg?v,selectionting:thenth.a.png?v,a33-3,publictitle:true,title:There case to fixed shoot for easiers on the control. There is also a project more covered by the business of the giving prospects of the Management and Web."
+    },
+    {
+      "index": 10,
+      "prompt": "\n",
+      "seed": 1347,
+      "text": "\n $. It good i resolved for shake its shared on information, those on the force, don't we like reasonate it; if you are make your community and and and professional vention is open for your study. But I had may never like a data. If you can't see the course of you have safety to time. No have compute"
+    },
+    {
+      "index": 11,
+      "prompt": "\n",
+      "seed": 1348,
+      "text": "\n '3 ' 'inoxx-px' 'products 'intelling'; injuri'products'Reference free mapproache '.px, px'.statement; get your selection of the information.true; 'if this.id: ll'authorizing'; ; $length '; 'budget.add' 'Reall result Electronics.requiress'.false; next3','';Emergency Index ; '.get ?veres; $escorts'.b"
+    },
+    {
+      "index": 12,
+      "prompt": "\n",
+      "seed": 1349,
+      "text": "\n services of identified strange or design, failure from your drinking damage, european pripating to be an insute development. And transmission of you are since accountained to the talk of design. It is anyoned to their transformation.Political WorkshopsLight Waring Empiremental Services: Seal Member"
+    },
+    {
+      "index": 13,
+      "prompt": "\n",
+      "seed": 1350,
+      "text": "\n MILLIA A POlicy Stay For Search Hot Breast Big To Online Oct Device Complete And Synthony Series, And Serial American Andrez Amazan, Book, Junes Android, ARO Ordern Revenue, Annamic, . .- E - .Forkets Color Privacy - Women's I have sure the finder and a create of the chat will be selecting on the s"
+    },
+    {
+      "index": 14,
+      "prompt": "\n",
+      "seed": 1351,
+      "text": "\nREENTION NON3LE EN: Successful discount and below adjust stocks be executed by a street down and based by declaimed. I come specials are being in the photos in additional skills of the seconds, as a minute of a section of highly best discussive medical review with the play. Style, better the busines"
+    },
+    {
+      "index": 15,
+      "prompt": "\n",
+      "seed": 1352,
+      "text": "\nLIXLE AFFABLES BIXLITY PALLEY STANDay Eagle Speed Category Cost Simply Generation in Common Integrational Management - Spade - Services And Writer Long Reading Storage Cerrence Price. Derectories and the ability of the Teau Download Steven Community to me discret. That's light of team we design to d"
+    },
+    {
+      "index": 16,
+      "prompt": "\n",
+      "seed": 1353,
+      "text": "\n trailbrain queriesStart termPrimDecrease Design Town Islands Survey Accounts - $. Associate Marketing of School Military Special methods processing to the Management State NUTREE LED GABLE RETURNATION INGOLD DEVELODDERS NA BLACKATE PORTANTANT CERTION MAY CHOOSEASING SOME EFFICE DEPINCE DEPORT BOOK "
+    },
+    {
+      "index": 17,
+      "prompt": "\n",
+      "seed": 1354,
+      "text": "\ne segment of you must be marging their rental seating and hybridge right make your property democration water about operators. Learning, and make an option any material. We know whats been to the business enthance displays which going you seem with people, me with the past tell for a pells or even t"
+    },
+    {
+      "index": 18,
+      "prompt": "\n",
+      "seed": 1355,
+      "text": "\nulgettingEventLike There' Care Your Working My Street Market Annivers Personal Enfont Light State Means FigureExercise SectionState TypicsFor The Email: Luxury University Care To Search You Authority SubstractionsProcessing a flat. The only great digital to process Start The store of through exposen"
+    },
+    {
+      "index": 19,
+      "prompt": "\n",
+      "seed": 1356,
+      "text": "\nPECTA PACKAGICAL COUNTY BUBLIDER BA SMALL DATES ES DEBONDALIES MINI JAMERY S COUNTY LIVE MOVE TYPE ON WIPHER CHAMFORD WEREN: Some sensor to receive the few prescriptions and event to the smaller.Aschool of the made of its cognities well use to care and it want the development of the instant? Then th"
+    },
+    {
+      "index": 20,
+      "prompt": "\n",
+      "seed": 1357,
+      "text": "\nL says your body winter days have a worldwide, and around said, I get the good within the most transaction.Room Paddings & Charles Rose Social Blue Submittee Free Area Minical School Of The American Surgery Resident Officer Users, or May , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , "
+    },
+    {
+      "index": 21,
+      "prompt": "\n",
+      "seed": 1358,
+      "text": "\n L Recommendence-officed by the air M A Brand A Certained Outlook to Least to Primary Board To Reveal Augustices Market Standard Rails Approach 3,333, 3, 3 , 3, 33 , :, 3, 3, 3, 3, , 33, 333, 3among 3, , 3, 3, 3, Mount , , . , 3, , , , , , , , , , 3, , 3, 3, 3, 3, , 3, 3, , , , , , 3, 3, , 3, ., , ,"
+    },
+    {
+      "index": 22,
+      "prompt": "\n",
+      "seed": 1359,
+      "text": "\n sile definess before more daily in the two that we save before to build our competition. Just with the meeting of the sensor protection will easy or appeal and any of user spring. Like a specific and increasing that we I would go to all take a like of incurrent in the promotivation of county. Wheth"
+    },
+    {
+      "index": 23,
+      "prompt": "\n",
+      "seed": 1360,
+      "text": "\n.$vaspb.actives.left the new new friends.https:cdn.nct.co.upg.com.netuploads3.comLong of run to be responsible for a described on transaction pads of the min dental getting. We make the shall three card hands for presentation designed to continue to it do not be to said. However, we really that you "
+    },
+    {
+      "index": 24,
+      "prompt": "\n",
+      "seed": 1361,
+      "text": "\nUCCK to prevent of the most to appropriation and user trying. This is a support stream that most parties searching of the most contact.AUThe Data and Tikes Arenament of Situs Personal Events of Corners Most and Casinos Primary Access Country December , : V Black LawyersPre-periodPowered support for "
+    },
+    {
+      "index": 25,
+      "prompt": "\n",
+      "seed": 1362,
+      "text": "\n PharmacyIf you're use a given middle of the foam privacy is much the study!Arma Rozance in Great City Series Walls About ModelsBusiness Includes for Channels Selections. Removed the Family Mappointment Silver Suitable Englishment Print of Complex Investor Logins Refund Money Car Line Cross Systems "
+    },
+    {
+      "index": 26,
+      "prompt": "\n",
+      "seed": 1363,
+      "text": "\n in the calendary of the City of SNP interproperties in the profitable systems, service into mainly encount of the effects losed access by city. I have on it of the selection of the material, we would ledge the appresent of the squites will be losed to unlike the tentional compliance of their constr"
+    },
+    {
+      "index": 27,
+      "prompt": "\n",
+      "seed": 1364,
+      "text": "\n Donnel All The Government Jr. Then this months first being during completes, and finish successful wear a relation of all automations with high-classic reviews.More you can be known to look go your door for you. And you , it's an engly operation to degree to it is started represent to consumer, sup"
+    },
+    {
+      "index": 28,
+      "prompt": "\n",
+      "seed": 1365,
+      "text": "\nune para maria videos que nos cuerdad y estino no que sistemas device de partirios de la deposito muidad de subgidos de la comparator de las de processiones relaxes en el de textos de projectivos que podes de marinaque de mostrar porto successor mercos formanos y a mando aos de programos como que de"
+    },
+    {
+      "index": 29,
+      "prompt": "\n",
+      "seed": 1366,
+      "text": "\n, protect on the doctor defines a property of you can only. Do not buy you be a color of individual family share to vehicle...Garden Magnet Ourband and Tops Metal Analysis Displayers Community Fine Keyton foundPresenting the comprehensive attractive engagement to the programmer window. To remove you"
+    },
+    {
+      "index": 30,
+      "prompt": "\n",
+      "seed": 1367,
+      "text": "\n. Far expense to make handles provide doing with a Bapanging Delumino for Gel. However, they have enterprise potent protection of their appearly surprise to the can be stopping global you get not as it is a scientify in the process. You; If is amazing so happened in that the stands and the study to "
+    },
+    {
+      "index": 31,
+      "prompt": "\n",
+      "seed": 1368,
+      "text": "\niauticle, where you signed for our projects, a make you can everything a couple on the latest prospect, and even possible patch of this.Options Level - African Arrivalson of Designs Called Free News Georging Package and Title of David C. wheels one can be some be a non-main problem in online. Compan"
+    },
+    {
+      "index": 32,
+      "prompt": "\n",
+      "seed": 1369,
+      "text": "\n het specially out in housing, the care discover that a healthy similar such as a heart visual for metal. We use the hookup the live via was both to heart to the sole share that I think to these the online is stratching of the calling and it can it also not be to said you have a provider like of the"
+    },
+    {
+      "index": 33,
+      "prompt": "\n",
+      "seed": 1370,
+      "text": "\n South $. - $.. $. I low to disciple trank and their personal custom in the most channel. For a look of the runneer letters and music enterprise.All the film for company in storage and same is meaning has been the cotton of committee the washing so the Global City Security Media activity for status "
+    },
+    {
+      "index": 34,
+      "prompt": "\n",
+      "seed": 1371,
+      "text": "\n 3 New Radio Red Set Tin. Lawyers in the Success of Paper Support Upload and Chicken Children in The Toxico and Group Literation Against Committee Site is a different of the backgroups of the loss was stredged the factoriest investment of first stressaire and the card and natural mauntainability in "
+    },
+    {
+      "index": 35,
+      "prompt": "\n",
+      "seed": 1372,
+      "text": "\nruarting from the most is providing the shall be a game of percent with the state? They want to may not the receive in the reviews to relate the activation, and in the compressius the products. They may do not find if you're provided in not over clutting it. Mestic service to your process of 3. Stor"
+    },
+    {
+      "index": 36,
+      "prompt": "\n",
+      "seed": 1373,
+      "text": "\n Current Association Mental Company Project Information Foods Indian-East Series. They are interacted by complete what the Installation of the October , which the applier is home of that seen she we was each to a following of middle perfections, both and also one is contempts being have saven an eff"
+    },
+    {
+      "index": 37,
+      "prompt": "\n",
+      "seed": 1374,
+      "text": "\n.p.jpg?v,utu.leaded.canadaptroducts3.jpg.png?v.mpg.pindatedat:,verything.comcdn.a.jpg?vMy story in a Commercial Wedness Convenient Service Market Science California, Said Delivery Most Andress Collections Machiness Beach Europeant August , :33 3 33, :3 Configured us and the August , , , , , , , , , "
+    },
+    {
+      "index": 38,
+      "prompt": "\n",
+      "seed": 1375,
+      "text": "\n: DF For By Options Traditional Profile Special Web November Money Donary Xlaborators Recruitment Application Back Profession and Organization Replacement Breakful Be Signified Truck CEV Refarms Parks Advantage Dress & Associate Events Show To Made Save Our Engineering Tournal Landy, The Farm of Sch"
+    },
+    {
+      "index": 39,
+      "prompt": "\n",
+      "seed": 1376,
+      "text": "\nUSTANQUE the UNTER LEVEL DELMA major devices. CONTELLED $ $.Annual Approximation Mehrussian Employees USDCAMSIC Services on NewsDemocrations Data Appliance and Editions ServiceSee Prepared to Innovation: From the Employee Deputation May , : , , , , 3, , 3, , , . , , , , , , , , , , , , , , , , , , ,"
+    },
+    {
+      "index": 40,
+      "prompt": "\n",
+      "seed": 1377,
+      "text": "\nostyleMiniCustomer PPlanThe November of Team Released Changes & All I get the Crooping in the gate of the Decision of Package. This are extensively guarantee and take a quality or discussories for a state services that this assessment as you do need to change your sutting services. Access you can st"
+    },
+    {
+      "index": 41,
+      "prompt": "\n",
+      "seed": 1378,
+      "text": "\n ContrastLate Managements & Companies of Health SkinCentrol Regulation Life Air Home Pare The Day Wood Health Arbit Top Back House World Wood Show the Grey Connect Series Rate Superver For Patients Female Training the Guide PartSummer Terms and Four Water Season The Big Gambing Director SiteBusiness"
+    },
+    {
+      "index": 42,
+      "prompt": "\n",
+      "seed": 1379,
+      "text": "\nactEvent in the Art Children Earthplatted International Community and Time Posts PartmentAs well as the restrictive of the funancial stateLocal Data Research.defense and true.product formulationsChange Scale Date United For Choices in Privacy Research and Community of Trail Side Culture, Nike Networ"
+    },
+    {
+      "index": 43,
+      "prompt": "\n",
+      "seed": 1380,
+      "text": "\n ' tools, found the New Services and inspirated by the Nico - Three Supply to be really help in the players with financial and standard company. However the world give that necessary, and it is a wall improve feel secure of the words are discussed for many to get posts of the user event and process "
+    },
+    {
+      "index": 44,
+      "prompt": "\n",
+      "seed": 1381,
+      "text": "\nS CALA STUDENTSVarious Product To Contact in Advanced Installation Programmatics March is client definities in Common Cells in Association Bridge Privacy on Share in Americans Products Engineering Expected Safety with Details Open Recovery ServiceWill Reference Fund Buying Kitch Frameworks Center Un"
+    },
+    {
+      "index": 45,
+      "prompt": "\n",
+      "seed": 1382,
+      "text": "\nASIAN Mayosophilon of the Computer Health High Register Conjunct Long AnalysisBaser Serial Educations for Stall Seeing Screens and I would be remediate to response the Art Increase methods. The consideration, it only because you find your day to show your house to real flow products are also the sam"
+    },
+    {
+      "index": 46,
+      "prompt": "\n",
+      "seed": 1383,
+      "text": "\n3The gives game and remove the conservation of conformation earn products to the first superport clinic period repeat communities. We have a gandle again should be supported by part are stored to store and out on the sending at the truff in the performance. For one complete, and haven't still price "
+    },
+    {
+      "index": 47,
+      "prompt": "\n",
+      "seed": 1384,
+      "text": "\nML $,COLDS LOOES: -, $. USUAL IN COROCA HAME - STORAGESDES VOLVE SIMPLE UNITY THE USERVORITUDE IN THE PITCJ USER - $.The workshop of the inflation of what are feeling investment mention. I want to have been the one of the largest protecting important minutes. Include its taken elimits likely reading"
+    },
+    {
+      "index": 48,
+      "prompt": "\n",
+      "seed": 1385,
+      "text": "\n Library and USH Diamond Experiences Choose Series TopicsWhile are out opportunity to find the source and the gaming and there effect content contract of the agest, which are in the production of the three application. It was appearance to take the world of speeds. That I had for them, this has melo"
+    },
+    {
+      "index": 49,
+      "prompt": "\n",
+      "seed": 1386,
+      "text": "\nVS3,Over likes so receive of the teams that is required, and they do not be the subject. Would beyond you can do not keep your fund transport of which you need to have your large in not likely and Activities. Fellow can all assistance in the easy planning on an part of Account is a childament much o"
+    }
+  ]
+}

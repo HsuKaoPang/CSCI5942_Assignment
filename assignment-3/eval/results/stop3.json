@@ -1,0 +1,345 @@
+{
+  "model": "stop3",
+  "run_dir": "/home/bill-hsu/AI Engineering/assignments/assignment-3/out/stop3",
+  "n_params": 10651776,
+  "train_best_val_loss": 2.1020093884395714,
+  "config": {
+    "block_size": 256,
+    "vocab_size": 65,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.2,
+    "bias": false
+  },
+  "protocol": {
+    "block_size": 256,
+    "max_blocks_per_corpus": 400,
+    "seed": 1337,
+    "device": "cpu"
+  },
+  "nats_per_char": {
+    "python-code": 3.5303,
+    "shakespeare": 2.8454,
+    "tinystories": 1.9193,
+    "wikipedia": 1.8536
+  },
+  "blocks_used": {
+    "python-code": 400,
+    "shakespeare": 400,
+    "tinystories": 400,
+    "wikipedia": 400
+  },
+  "generation": {
+    "prompt": "\n",
+    "new_tokens": 300,
+    "temperature": 0.8,
+    "top_k": 40
+  },
+  "opik": {
+    "logged": false,
+    "project": null
+  },
+  "samples": [
+    {
+      "index": 0,
+      "prompt": "\n",
+      "seed": 1337,
+      "text": "\nCDEUTES TINGenew in Internance and and the getting powerd in The Personal Of seeims of find the Transmy Country Moocial Head Into Inneral College ports annotific is from Pages of my personal properated a really be home the right is time the longe. This passy the purchase final. Thanka a cards in tem"
+    },
+    {
+      "index": 1,
+      "prompt": "\n",
+      "seed": 1338,
+      "text": "\nv3CDVELUSVITAYKEL COLOSESHIS PROND LATCHIDES SHIS KINN ED TOVE SU ROY SE PROTTABID COV SIDIMISE ONZUP AWORZOut Annic SCB Water What ARRelliness.JRESSIONY - System New A NOUP, MountyCab & .3. Health LondsHow Currenced Load Gowing Mobile Remover Jake Assomer Ball Emails Initer Find Total Galth Open of"
+    },
+    {
+      "index": 2,
+      "prompt": "\n",
+      "seed": 1339,
+      "text": "\n RN JD Nortic EXPUX Struct & ContaininGeneral Children Knows Keept & Nate Spanet autors U Are The Plass Play Canalized and Use Lonk Product Cards Plate Satili Saidous 3 Count of Court Color Themes In Emailable Depose The Bring Propen This Contaction Bedrossay Flielday are more of you care to can we "
+    },
+    {
+      "index": 3,
+      "prompt": "\n",
+      "seed": 1340,
+      "text": "\nz3MXXRNEMANtrigstochargerst EppliersAdditions Result Teams additions Lowers and Spections Service & We State Market Todia Daysion Ministandwho Search.Centress Coural Page, Future Book Spress & Occess Insteries Stated Insure Atta Court Mage Market Access Active Collectionsmixes Constraction Other Soc"
+    },
+    {
+      "index": 4,
+      "prompt": "\n",
+      "seed": 1341,
+      "text": "\nXXVqJXX'DXX3XWXXxXXXF-StylcDGodgdtyCytoFixedPaper & Boxfo-change Shower . G. . .3. . Empes submite . . -- S. . - . . .- . . . . . . 3..--.New mobile . . . . .M. . -3. , . . . .- . . . . . . . . . . . . . . M. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .........-.P. M. . . . . . . . . "
+    },
+    {
+      "index": 5,
+      "prompt": "\n",
+      "seed": 1342,
+      "text": "\nRCQXXXNFAL SHL $ $. PD $L. A. N $? $. $Manod $.....3... , c. -. . ...... .. $. 3 3. . . . . . . ...... . M. . . ..... . .. . . . .. B. .3.. . S. 3......... .....K.....J............E...................., ...3........B..................,...........; ..,...........................3.3.......... ........"
+    },
+    {
+      "index": 6,
+      "prompt": "\n",
+      "seed": 1343,
+      "text": "\nDoney Will Were or StatesPecial Ideal Shude account from that state to in her it wrough the game intIFI can the special the may drop lover is for will about your the with apple, your own ince are and coation in the paymentact somers, the transponsipping and becaused by sections of in previews in the"
+    },
+    {
+      "index": 7,
+      "prompt": "\n",
+      "seed": 1344,
+      "text": "\nID ZERICH options onlinession with is other in that comport process to conception of content the purcupattentinue taxetter the educations experty ior fit. - Steping of the have it hour furn! Reports weight are and more will from of the for the arminute traction of a light news ancial studes which co"
+    },
+    {
+      "index": 8,
+      "prompt": "\n",
+      "seed": 1345,
+      "text": "\nBCudPowersument Clear Back 3 Somethor Cased in TournBackmationsNext is in The complete: Media More Used, the Geory Portancean Samble A do Finicience objects of see conce that the share that help add truly and on they can they position the exception the and lievements special of our regarded. The pro"
+    },
+    {
+      "index": 9,
+      "prompt": "\n",
+      "seed": 1346,
+      "text": "\nJjNBBjIJOYOSZ TGHIRIYB 3. TITalkan Mobile Canal Track Pake We Box Ital Book & The arouse and comment research opendancial tract of the Store help the circulational cookies only the can earning for the How trating projects of luxity of my provide instance highly follows.com the for the does of Firsta"
+    },
+    {
+      "index": 10,
+      "prompt": "\n",
+      "seed": 1347,
+      "text": "\nzYU Is Journi Modo a do processToget schoose en no proming condition been beautions and the corprovidention investions players, and eventificious sand profession overy within of a final image largetting of the Strent and a data. Contarting in the deceive to become, plantact qualignally, and left the"
+    },
+    {
+      "index": 11,
+      "prompt": "\n",
+      "seed": 1348,
+      "text": "\nHXZIW Hinojb Univeryther RelienceBD UKS Cell InformationRobiles I from and Define Social Securational Minisy Are Alex Links Stated Based Arrency Doctors OF The Gleat Brace Augustral Set And Tomational Sident Jerson Searchines Month Deal Anchany Manage and Eyes March Lakes Attrony Budges, Seeconnecti"
+    },
+    {
+      "index": 12,
+      "prompt": "\n",
+      "seed": 1349,
+      "text": "\nRoyId',d'; selection && style', var find , .Find', file var id type; '.addClosed style title' ; a;backgrounds text; boxe; boxertextElement none toy shop widthFacebox'.addCloseWindow.lockerUnsert.classCardColor new window.spector: setPosity && findex; function applient! borderWidth: Wive getClearless"
+    },
+    {
+      "index": 13,
+      "prompt": "\n",
+      "seed": 1350,
+      "text": "\n MIL DAL SPOlixe Stay For Search Hot Brease Bick AFOND Real Tocking Repaper TagsPaper pany requirer or obride Americal And Membersand Book Carent for Median Own Bring Sign Montha Onlin. Decreator and Science stily in Good and In discourtics the people the respection, the to than all payment of the s"
+    },
+    {
+      "index": 14,
+      "prompt": "\n",
+      "seed": 1351,
+      "text": "\nR33.TION NON FER $: Succession di canado connect dada da stoccosted le Timan acausers de 3 a para avai no de lo la du venta special conflica. Divice ancidos es ado bractions part actors contifica qualit qui no compactinue hepplica. Green de la presento redue para compas porado de le termoticie del M"
+    },
+    {
+      "index": 15,
+      "prompt": "\n",
+      "seed": 1352,
+      "text": "\nXIXXR AF RAGERIERKONTERZAL SUORTINORNEEST DENGOR ECUROMENGICE $Website Genance For StorationsSession UpdateThe The Additions of Train Service is reachools of the nears levrence for for treat to be how Case Consure of a This solved one only gotter worther requact of your slight of year job compation "
+    },
+    {
+      "index": 16,
+      "prompt": "\n",
+      "seed": 1353,
+      "text": "\n trainb standardings shopser Primatical richtiple de procumentStrict Accessories an es providual services in May Mill from May handlers in Will white is is that each last Complete to the Sunday But life such amake and and used for the finaled check of the etches all transfEarly in I player film work"
+    },
+    {
+      "index": 17,
+      "prompt": "\n",
+      "seed": 1354,
+      "text": "\n&?????????????????????????????????????????????????????????????????????????????????? ???????????????????????????????????????????????????????????????????????????????????????!????????????????????????????????????????????????????????????????????????????????????????????????????????????????????:????????? ?"
+    },
+    {
+      "index": 18,
+      "prompt": "\n",
+      "seed": 1355,
+      "text": "\nMANTOSHATE In With There CompletairTemplican Octors to the creations most the New Rn Cards Contricating to the be actors its start as and start becordStepted the every a play with site show futural step it with and you. Just that base would grout digital be position their figural motional used of th"
+    },
+    {
+      "index": 19,
+      "prompt": "\n",
+      "seed": 1356,
+      "text": "\nPzBQQUJAM MAICYER CON FINGBA DURABA Surge and All Mindor Collectional Service In Helling Machields OffersBester Book ToppertySome Menual Stars Bestands feature coccurity and event to the improvidescription the makes friends games of summunication can research in the TANT NORITILE BL HAMARWORE GANELL"
+    },
+    {
+      "index": 20,
+      "prompt": "\n",
+      "seed": 1357,
+      "text": "\nL&var by', for showInsumer show if you log the are are these time other boxs and play regory data windown you make process in the cookies, you life have to the people and market success to with be beduces.Lead Inter the from CCHERToDOMPATPER MIR probut with this Mary from or water are base work the "
+    },
+    {
+      "index": 21,
+      "prompt": "\n",
+      "seed": 1358,
+      "text": "\nML RG HN DJ, Mah- Origina Rotal Ring Close Sky Research Import Heategory Hotely Caps Motoround Research Montal Geners For Color Certations by Craft Make Sport Sourcess SC, Full Canado Tabout Maaro Software Branch, Dies - Hock, -., .My, Cards, Unive Organifices, CF Pince Books , P., Track Comments, N"
+    },
+    {
+      "index": 22,
+      "prompt": "\n",
+      "seed": 1359,
+      "text": "\nRBDCSCHOMENTTERNoNnext More Ricker Case to Modeland Saving Works Website of Research & Thank To Reputed See Sessors of Constrate Company All Feature Saperations and Actually Writter Colore Lay: PortsCribe Boarding and Hubbris Mearch Materia But Assinessial Construction Music Black Last Trustructures"
+    },
+    {
+      "index": 23,
+      "prompt": "\n",
+      "seed": 1360,
+      "text": "\nXIvespect of we he the content was in events on the choose provident of switched to been run that are are five the listers bit of arrays of repaddress that I don't due contered for any Regulate writed into and life the language. On I am help life a light martainments have this strong the with sectur"
+    },
+    {
+      "index": 24,
+      "prompt": "\n",
+      "seed": 1361,
+      "text": "\nHCCK til nevelopo da specia no approduct includious art you have to end supportistrial manufactional of with and and to home poly to importants. The printerestance skince, the experient gener with artence ofference will nice, the none scrol the when it war home design the deep the handwas formation."
+    },
+    {
+      "index": 25,
+      "prompt": "\n",
+      "seed": 1362,
+      "text": "\nXPXXWCCC DCFOFEOT, A. Way A.L. LikeOctobategoryan Ability Bost of With Toursers The The price of this to the products actions being the about the countract contentity and if they recoratering people, there be and other the scaled by alter the content of the the spect purchange advance from the is an"
+    },
+    {
+      "index": 26,
+      "prompt": "\n",
+      "seed": 1363,
+      "text": "\nPXTIN X PXQS SUMC NACICACCID PLYD NERUINT GELE THET IV IN ING THA DE FEY WIT HOUTARA TRICOTES TARTK WRON RI COW IT LADA MARE BOKE SONME ROLIVE TARG COUR NO MELUNTHINER - BACRAL SUNGWHEVERA GORIDAWE ALL ORISTOTIN PORIE LO RAPIL STER ALIZY!TLAXA RAEMAII Culture the tell be to me order for have in a sa"
+    },
+    {
+      "index": 27,
+      "prompt": "\n",
+      "seed": 1364,
+      "text": "\nXDYBXX3 AME TOLAG MAX TONANGram Many Interport After Samily during Franced size with has successible table techniquestion back with who not happing as go solution on the contrack of your to ensure always for the consultip, its and procero games, it monghanimalisting to concreate of the consults, sup"
+    },
+    {
+      "index": 28,
+      "prompt": "\n",
+      "seed": 1365,
+      "text": "\nSZeyps:id: $, $, $ Centernation $. Pluse $.. U. . Estation also document partision cards displayers if $. . . to doals the collections the share to game all related to be to the products teaction models and your marque your special option and created in that the was a disable the piece this or desig"
+    },
+    {
+      "index": 29,
+      "prompt": "\n",
+      "seed": 1366,
+      "text": "\nAYXT,333,3,33,33.33,3,3,3 33, $3, , M, Y. S. A. Berket Afork Rength and Case Fancy Metalogy To Every Skirth a good Boot Guide Gardway All Armory Share Kongs Media Analish Benerah experiencyCharginess at the updates and post help, when smill provide we fart all about may of orderstance money or the c"
+    },
+    {
+      "index": 30,
+      "prompt": "\n",
+      "seed": 1367,
+      "text": "\nXBFUUSDWRGGXRSTSTP SL PIRS & SAD SID BLODE THE MEGREANTERARIED Out Books and State Service Products Pluscords From Floot May Use Gabetand Medium & Partic Creaty - Andro Top 3 Night PanySheguland Rastics Enfast Leavy Night Offerencess - Star Trans Rights Physic Contact New Wajszinters Socials Your Sa"
+    },
+    {
+      "index": 31,
+      "prompt": "\n",
+      "seed": 1368,
+      "text": "\nYPurkstond Head PlaySizeThe All Roset Avery Service And Altory The AmericationsOld Color On-Firm Charrent Iselling Show Inputch Works & OptionsHow Real Ask TruckridersTop Close-- Heme Diving Finds & Georgina Lacell Sales - Proof Davideo. Base Resigns - Software Life Engine Trans - Pinkon NovesCompan"
+    },
+    {
+      "index": 32,
+      "prompt": "\n",
+      "seed": 1369,
+      "text": "\nWhitessfunction .card how item! Constructs it temption the with film have you wash boxe vos. Through the knowledget market, the live to ensure in the distription to knowl disculture to the messes are backs inforts contentity of the going of any high help its browth in that lups. Im memount we lead a"
+    },
+    {
+      "index": 33,
+      "prompt": "\n",
+      "seed": 1370,
+      "text": "\n33--PS $.3-33Du3enu3cstrue filter text-tek-member-bs-before-spand-stations-amble cardor-body .mm-use-offect.rumber-placehold-by-music-entegory-form-mail-apprefiles and not best the pather paigner the Fully - Profil Ital Portantiman Matcher Tank Alm Return Childing Secustoms - Revices - Islands - Hea"
+    },
+    {
+      "index": 34,
+      "prompt": "\n",
+      "seed": 1371,
+      "text": "\nW3XNcWBRUGAJU3EdgsDD $3..3.3S33M3 $3 $.. K. - TG 3 Of Instance $. $ $.3. . 3EC $. Online for Eiron De Product - Group Liter Disco - Flow Commization Off Complete CNMC - $. $. S...........3.A. . -.D.S. T. H..... . . .W. .. Cheights Excludio Aid Take Parily a creational accessory of tuck in Tips and t"
+    },
+    {
+      "index": 35,
+      "prompt": "\n",
+      "seed": 1372,
+      "text": "\nOSALN STLANP DESS ARD Listing Asiand Aussion Managements in Levelopelling May Centrum Digital Personal Link Juness Filmo Acripts Month Univery Search Bnow - - -Air Each Holdero Highlation Ministry Communication Actional Shopiations Price Assive Accution Offerts & Histories to Pakes Saccessor 3C Stor"
+    },
+    {
+      "index": 36,
+      "prompt": "\n",
+      "seed": 1373,
+      "text": "\nWIcT TIL ACATI SE GU MOKINSHE ROST JUNFALIS ISDESR RENTELZ FOR! MARTEE BORY SALD DAB FAFADE STAG ARIESTANGTIONAFETROS IP INIOSTIN COLUNTOS NOTHO $ $ U3 USDU3 CAL SON Juyer Delive Cannia Develophetee Value - - USD - Blank Games Temple Ital Archine Portan Maliano Dail Cata Yangabei Enginan Chridan Ema"
+    },
+    {
+      "index": 37,
+      "prompt": "\n",
+      "seed": 1374,
+      "text": "\nACDYKCNBRuthy For USD AIC CurrencyPositionsIn impanying a pack out to previous past in My More Discustome Track Wedning Care First Service Market Schwa And Piatchedra Cid Deliversity Public Baset Rooms Search Woods Beard Europerty Austry Claim Advice Manufactive Success Tast Arts - Back Throws scien"
+    },
+    {
+      "index": 38,
+      "prompt": "\n",
+      "seed": 1375,
+      "text": "\n&&&eb!type:a&&tenffsetTimeople-hideOption.containerfull,options.ShouldErrorStore.toggleAttrol.options.indexUrl Holder's shope and load:,said reading own can experty within protocational distands of the drawtool are are of change for the do wants of the finations, charings of this systems it has vect"
+    },
+    {
+      "index": 39,
+      "prompt": "\n",
+      "seed": 1376,
+      "text": "\nFUHTHQCent Face the But Through Bank Subst Facess design to conside to your firmation of this consion theChinicater Spaar Provident Eract LandsStude Take Grand Solegary ServiceSeee HealthistoriesWhite AL FANI The Better My Gimin DisclassExperting Get To Do Exports UpDE Accords Code CuttonCates Of Su"
+    },
+    {
+      "index": 40,
+      "prompt": "\n",
+      "seed": 1377,
+      "text": "\nXWSyzRM.SiCustomca colorTMOTERLORILINGAUTEL NOREPOLIGE HERLASTY ASTE WILL UNDEC Sonding On Maceding Storage: UK OR YOur Book Wall Bear, L. Amazing in are s searchine, a quality early of the rilliner story services the not eless your void you dont the confical rescal transformations account be from t"
+    },
+    {
+      "index": 41,
+      "prompt": "\n",
+      "seed": 1378,
+      "text": "\nGCuttonstrue, Minage Eigine & ApplicationHealther and process for enhance for glant grade about be document to relation as players especial service and control disable taked with Pater For Patter Cademic Parking Stated Mount TorSuccessories and For Google Sale Hathething Website in Systems funct of "
+    },
+    {
+      "index": 42,
+      "prompt": "\n",
+      "seed": 1379,
+      "text": "\nS TERS Sold State All Misses Ball plates you want log to all email and includestate has gree not to be very to their learly pay rank as a Layer Many Research. Find, Marience. The Music demory with happed be propersonal available and as who many health appears. The monthere using snews experience end"
+    },
+    {
+      "index": 43,
+      "prompt": "\n",
+      "seed": 1380,
+      "text": "\nColtiplayer.3Applicategorystem - Smarian Eddition on Books - Code ToolEvenamizational Behise in Taxable Populare Projects Paints Company Health Case Munity Coopal Sheel Machina Abase RanguideShowing Film Reter All securacy February in Pation?Compared Tour It Will Essure DivicessAugust Flast Games Al"
+    },
+    {
+      "index": 44,
+      "prompt": "\n",
+      "seed": 1381,
+      "text": "\nSJCNEA STUGER SVIPTERHINE DIEL TUR FABIN S TSARS CHAMEREPUR PATALIGU ALL BINT CANT THEARDWELDA USSAN SARICIOB PC ANDY CHO DE TOR HIBY CHMA BHASUF PH BUED SIANSION SOS DY USINGIPS WENGASELOAR 3 NOR EARDAN BAS ARN UND KOD DIAT TORS SK-OS ANDUZER ON WELS READ THANSELCHE MURIETKANT HZ ODITIEVR CONT NLUN"
+    },
+    {
+      "index": 45,
+      "prompt": "\n",
+      "seed": 1382,
+      "text": "\nASICon & Service's of the COMJ Insual Health Here of GetContricles the wrong indisclick with the while pressions of the consible are with you company in need provide for the creathument with a game have interparent state they live a shop in evenious of the partical unique the for for emails. It cont"
+    },
+    {
+      "index": 46,
+      "prompt": "\n",
+      "seed": 1383,
+      "text": "\n3TWORRCANTYLand Holdren Not And AngersFormation Share Alovements Trans AugusticulationMe Musical Librand Feet Relace Choose on The RepresentRoad Livising Children ExperatesList parts research and store and of the public drustation other time of people and on the new tall finally have spertial price "
+    },
+    {
+      "index": 47,
+      "prompt": "\n",
+      "seed": 1384,
+      "text": "\nMLiNext style: It to customy a has to culty in can an while on the Marient press of the scient would one would not of said means, and st. You was proced and go your collect the right has a be they community the offerency is regions for a Rimations & Smiple application the posite in of life of have a"
+    },
+    {
+      "index": 48,
+      "prompt": "\n",
+      "seed": 1385,
+      "text": "\nBUXXuMcDefineUSHUDGameout Resize disent Tips Transformatility Cardsout in Technology and Clipber Notifice Per Dations: Personal Break State Data-Playacountrical Studies Leadering Neck Natures Gries Both PostsMostbase Acausers Applay Con Game Iam Get Seatments, Number for Rupplicativer, Junes and ele"
+    },
+    {
+      "index": 49,
+      "prompt": "\n",
+      "seed": 1386,
+      "text": "\nVS3ZOLINCOND skincrett Riding CloseExpersonal service States to source, an program in and other type type of the cookies of case sexure courtured. It in the appresent in this more the bolicy and comple transformation and expany will this through decing dring reapitation crossions, millions, while co"
+    }
+  ]
+}

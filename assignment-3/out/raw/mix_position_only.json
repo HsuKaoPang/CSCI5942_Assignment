@@ -1,0 +1,8 @@
+{
+  "name": "position_only",
+  "shards": 16,
+  "path": "out/raw/mix_position_only",
+  "rows": 743349,
+  "tokens": 50038321,
+  "fingerprint": "fe399f690160585b"
+}

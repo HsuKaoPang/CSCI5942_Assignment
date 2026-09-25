@@ -62,6 +62,17 @@ MIXES = {
     # The reference mix, and the mark Part 3 has to beat.
     "english_pages": "doc_stopwords >= 5",
     # Part 3: add your own here.
+    "position_only": "rel_pos >= 0.2 AND rel_pos <= 0.8",
+
+    "stop3": "doc_stopwords >= 3",
+
+    "stop3_mid" : "doc_stopwords >= 3 AND rel_pos >= 0.2 AND rel_pos <= 0.8",
+
+    "stop3_mid_narrow" : "doc_stopwords >= 3 AND rel_pos >= 0.3 AND rel_pos <= 0.7",
+
+    "stop4_mid_narrow" : "doc_stopwords >= 4 AND rel_pos >= 0.3 AND rel_pos <= 0.7",
+
+    "narrow_line_freq": "line_freq <= 5 AND doc_stopwords >=4 AND rel_pos >= 0.3 AND rel_pos <= 0.7",
 }
 
 def build_catalog(corpus: DataFrame) -> DataFrame:
