@@ -55,8 +55,9 @@ def broadcast_module_state(module: nn.Module, group=None) -> None:
     `module.parameters()` and `module.buffers()` across
     ranks of the group.
     """
-    raise NotImplementedError(
-        "Part 1: broadcast_module_state")
+    src = group_src_rank(group)
+    for t in list(module.parameters()) + list(module.buffers()):
+        dist.broadcast(t.data, src=src, group=group)
 
 
 # ---------------------------------------------------------------------
@@ -76,8 +77,12 @@ def naive_all_reduce_grads(module: nn.Module, group=None) -> None:
     **Parameters with no gradient.** `p.grad` is None for anything that
     did not participate. Skip these.
     """
-    raise NotImplementedError(
-        "Part 1: naive_all_reduce_grads")
+    world = group_world_size(group)
+    for p in module.parameters():
+        if p.grad is None:
+            continue
+        dist.all_reduce(p.grad, group=group)
+        p.grad /= world
 
 
 # ---------------------------------------------------------------------
@@ -121,8 +126,9 @@ class OverlappedDDP(nn.Module):
             self._register_hooks()
 
     def _register_hooks(self) -> None:
-        raise NotImplementedError(
-            "Part 1: OverlappedDDP._register_hooks")
+        for p in self.module.parameters():
+            if p.requires_grad:  #if p.requires_grad:
+                p.register_post_accumulate_grad_hook(self._reduce) #when p.grad is updated, call self._reduce(p)
 
     def forward(self, *args, **kwargs):
         if self._handles:
@@ -135,8 +141,9 @@ class OverlappedDDP(nn.Module):
         return self.module(*args, **kwargs)
 
     def finish_gradient_synchronization(self) -> None:
-        raise NotImplementedError(
-            "Part 1: OverlappedDDP.finish_gradient_synchronization")
+        for handle in self._handles:
+            handle.wait()
+        self._handles.clear()
     
         
     def _reduce(self, p: torch.Tensor) -> None:
@@ -146,8 +153,13 @@ class OverlappedDDP(nn.Module):
         # Perform an asynchronous all-reduce on `p.grad` over the
         # group -- `p` itself is the parameter, not the gradient.
         # hint: use the `async_op` argument
-        raise NotImplementedError(
-            "Part 1: OverlappedDDP._reduce")
+        # Divide before launching: once the async all-reduce is in
+        # flight, `p.grad` must not be touched until it is waited on.
+        p.grad /= self.world_size
+        # async_op=True means that the all-reduce is launched asynchronously, 
+        # and returns a handle that can be waited on later
+        handle = dist.all_reduce(p.grad, group=self.group, async_op=True) 
+        self._handles.append(handle)
 
     @contextlib.contextmanager
     def no_sync(self):
