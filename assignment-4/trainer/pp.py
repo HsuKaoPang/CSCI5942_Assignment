@@ -355,8 +355,47 @@ def one_forward_one_backward(stage, pipe, micro_batches, scale):
     p, i = pipe.mesh.pp, pipe.mesh.pp_rank
     m = len(micro_batches)
 
-    raise NotImplementedError("Part 3: one_forward_one_backward")
+    warmup = min(p-1-i, m)
+    remain = m - warmup
+    # deque() is a double-ended queue, so we can pop from either end
+    saved = deque()
+    losses = []
+    # warm up loop is basically the same as AFAB, but only for the first warmup batches
+    # inp: the input received from the previous stage, or None on the first stage
+    # rec: a tuple of (inp, out, loss) returned by forward_step
+    # grad: the gradient received from the next stage, or None on the last stage
+    # inp_grad: the gradient of the input, returned by backward_step
+    for j in range(warmup):
+        inp = pipe.recv_forward()
+        rec = forward_step(stage, micro_batches[j], inp)
+        pipe.send_forward(rec[1])
+        saved.append(rec)
+        if rec[2] is not None:
+            losses.append(rec[2].item())
 
+    # check inp before the steady state loop
+    if remain>0:
+        inp=pipe.recv_forward()
+
+    for k in range(remain):
+        rec = forward_step(stage, micro_batches[warmup+k], inp)
+        saved.append(rec)
+        if rec[2] is not None:
+            losses.append(rec[2].item())
+        grad = pipe.send_forward_recv_backward(rec[1])
+        inp_grad = backward_step(saved.popleft(), grad, scale)
+
+        if k == remain-1:
+            pipe.send_backward(inp_grad)
+        else:
+            inp = pipe.send_backward_recv_forward(inp_grad)
+
+    # cool down loop: drain the remaining backward passes
+    for _ in range(warmup):
+        grad = pipe.recv_backward()
+        pipe.send_backward(backward_step(saved.popleft(), grad, scale))
+
+    return (sum(losses) / len(losses)) if losses else None
 
 SCHEDULES = {
     "afab": all_forward_all_backward,

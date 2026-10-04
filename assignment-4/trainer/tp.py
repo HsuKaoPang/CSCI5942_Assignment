@@ -213,7 +213,7 @@ class TensorParallelMLP(nn.Module):
             config.n_embd, 4 * config.n_embd, group=group, bias=config.bias)
         self.c_proj = RowParallelLinear(
             4*config.n_embd, config.n_embd, group=group, bias=config.bias)
-        self.droupout = nn.Dropout(config.dropout)
+        self.dropout = nn.Dropout(config.dropout)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         h =self.c_fc(x)
