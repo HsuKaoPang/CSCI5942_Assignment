@@ -70,7 +70,8 @@ class _F(torch.autograd.Function):
         grad = grad.contiguous() # in-place all-reduce requires contiguous memory
 
         # All-reduce (sum) the gradient across the tensor parallel group.
-        raise NotImplementedError("Part 2: _F.backward")
+        dist.all_reduce(grad, group=ctx.group)
+        return grad, None
 
 
 class _FBar(torch.autograd.Function):
@@ -81,7 +82,8 @@ class _FBar(torch.autograd.Function):
     @staticmethod
     def forward(ctx, x, group):
         x = x.contiguous() # in-place all-reduce requires contiguous memory
-        raise NotImplementedError("Part 2: _FBar.forward")
+        dist.all_reduce(x, group=group)
+        return x
 
     @staticmethod
     def backward(ctx, grad):
@@ -142,7 +144,19 @@ class ColumnParallelLinear(nn.Module):
             self.bias.tensor_parallel = True
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        raise NotImplementedError("Part 2: ColumnParallelLinear.forward")
+        x = f(x, self.group)                        # every rank needs all of x
+        y = F.linear(x, self.weight, self.bias)     # (..., out // tp)
+        
+        world = group_world_size(self.group)
+        if self.gather_output and world > 1:
+            # Gather the shards back into a full `(..., out)` tensor.
+            parts = []
+            for _ in range(world):
+                parts.append(torch.empty_like(y))
+            # use dist.all_gather to gather the shards from all ranks into the `parts` list
+            dist.all_gather(parts, y.contiguous(), group=self.group)
+            y = torch.cat(parts, dim=-1)            # (..., out)
+        return y
 
 
 class RowParallelLinear(nn.Module):
@@ -173,8 +187,11 @@ class RowParallelLinear(nn.Module):
         self.weight.tensor_parallel = True
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        raise NotImplementedError("Part 2: RowParallelLinear.forward")
-
+        y = F.linear(x, self.weight)                # (..., out)
+        y = f_bar(y, self.group)
+        if self.bias is not None:
+            y = y + self.bias
+        return y
 
 # ---------------------------------------------------------------------
 # 3. the MLP
@@ -188,11 +205,22 @@ class TensorParallelMLP(nn.Module):
 
     def __init__(self, config, group=None):
         super().__init__()
-        raise NotImplementedError("Part 2: TensorParallelMLP.__init__")
+        # the hidden layer is 4x the embedding width,
+        # as in the original GPT paper
+        # c_fc is column-parallel, c_proj is row-parallel
+
+        self.c_fc = ColumnParallelLinear(
+            config.n_embd, 4 * config.n_embd, group=group, bias=config.bias)
+        self.c_proj = RowParallelLinear(
+            4*config.n_embd, config.n_embd, group=group, bias=config.bias)
+        self.droupout = nn.Dropout(config.dropout)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        raise NotImplementedError("Part 2: TensorParallelMLP.forward")
+        h =self.c_fc(x)
+        h = F.gelu(h)
+        y = self.c_proj(h)
 
+        return self.dropout(y)
 
 # ---------------------------------------------------------------------
 # 4. attention 
