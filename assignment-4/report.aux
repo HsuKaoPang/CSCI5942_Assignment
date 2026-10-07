@@ -1,0 +1,27 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Part 0: Communication Cost}{1}{section.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces All-reduce bus bandwidth on one \texttt  {gpuA40x4} node, $\text  {busbw} = \frac  {2(P-1)}{P}\cdot \frac  {N}{t}$.}}{1}{table.1}\protected@file@percent }
+\newlabel{tab:busbw}{{1}{1}{All-reduce bus bandwidth on one \texttt {gpuA40x4} node, $\text {busbw} = \frac {2(P-1)}{P}\cdot \frac {N}{t}$}{table.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Part 1: Data Parallel}{1}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Q1: Communication overhead of naive DP at four GPUs.}{1}{section*.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \texttt  {medium} (406M parameters), global batch 128, on A40s. Scaling efficiency is $\text  {tok/s}_P / (P \cdot \text  {tok/s}_1)$.}}{2}{table.2}\protected@file@percent }
+\newlabel{tab:ddp}{{2}{2}{\texttt {medium} (406M parameters), global batch 128, on A40s. Scaling efficiency is $\text {tok/s}_P / (P \cdot \text {tok/s}_1)$}{table.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Q2: How much does overlap hide?}{2}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Part 2: Tensor Parallel}{2}{section.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \texttt  {large} (838M parameters), global batch 128, one \texttt  {gpuA40x4} node.}}{2}{table.3}\protected@file@percent }
+\newlabel{tab:tp}{{3}{2}{\texttt {large} (838M parameters), global batch 128, one \texttt {gpuA40x4} node}{table.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Q1: Ranking, and why TP=4 trails DP=4.}{2}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Q2: Bytes on the wire per step.}{2}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Part 3: Pipeline Parallel}{3}{section.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \texttt  {large} at $p=4$, global batch 32, one \texttt  {gpuA40x4} node. Predicted bubble is $(p-1)/(m+p-1)$. Measured idle is $1-\text  {busy\_fraction}$.}}{3}{table.4}\protected@file@percent }
+\newlabel{tab:pp}{{4}{3}{\texttt {large} at $p=4$, global batch 32, one \texttt {gpuA40x4} node. Predicted bubble is $(p-1)/(m+p-1)$. Measured idle is $1-\text {busy\_fraction}$}{table.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Q1: How does the bubble change with $m$?}{3}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Q2: What does larger $m$ cost in memory?}{3}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Part 4: Hybrid Parallelism}{3}{section.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces \texttt  {huge} on two \texttt  {gpuA40x4} nodes (8 A40s), global batch 128, 6 steps (1 warm-up).}}{3}{table.5}\protected@file@percent }
+\newlabel{tab:part4}{{5}{3}{\texttt {huge} on two \texttt {gpuA40x4} nodes (8 A40s), global batch 128, 6 steps (1 warm-up)}{table.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Best configuration.}{4}{section*.8}\protected@file@percent }
+\gdef \@abspage@last{4}

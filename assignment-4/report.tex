@@ -1,0 +1,319 @@
+\documentclass[10pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+% Cells still waiting on a Delta run. Search for \tbd to find them all.
+\newcommand{\tbd}{\textbf{--}}
+
+\begin{document}
+
+\title{CSCI 5942: AI Engineering Assignment 4\\Distributed Training}
+\author{Bill Hsu}
+\maketitle
+
+% =====================================================================
+\section*{Setup}
+
+All runs used NCSA Delta \texttt{gpuA40x4} nodes (four NVIDIA A40s per
+node, 44\,GiB each), the \texttt{pytorch-conda/2.12} module, and bf16
+autocast. Parameters, gradients and AdamW moments are fp32. Throughput is
+the global batch divided by the median steady-state step time, as reported
+by \texttt{trainer/train.py}. Correctness was checked on CPU with the
+\texttt{gloo} backend: \texttt{tests/test\_ddp.py} (10 passed),
+\texttt{tests/test\_tp.py} (9 passed) and \texttt{tests/test\_pp.py}
+(12 passed).
+
+% =====================================================================
+\section{Part 0: Communication Cost}
+
+Table~\ref{tab:busbw} lists the all-reduce bus bandwidth measured by
+\texttt{bench/allreduce.py} (fp32, median of 20 iterations). Small buffers
+are latency-bound. Above about 128\,MiB the curve flattens. The
+calculations below use the plateau values: \textbf{18.1\,GB/s at two A40s}
+and \textbf{15.8\,GB/s at four}.
+
+\begin{table}[htbp]
+\caption{All-reduce bus bandwidth on one \texttt{gpuA40x4} node,
+$\text{busbw} = \frac{2(P-1)}{P}\cdot\frac{N}{t}$.}
+\label{tab:busbw}
+\centering
+\begin{tabular}{rrr}
+\toprule
+Buffer (MiB) & busbw, 2 A40s (GB/s) & busbw, 4 A40s (GB/s) \\
+\midrule
+1    & 8.27  & 7.68  \\
+4    & 14.61 & 12.61 \\
+16   & 17.09 & 15.13 \\
+64   & 17.80 & 15.58 \\
+256  & 18.14 & 15.75 \\
+1024 & 18.18 & 15.81 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =====================================================================
+\section{Part 1: Data Parallel}
+
+\texttt{broadcast\_module\_state} broadcasts every parameter and buffer
+from the first rank of the data-parallel group. \texttt{naive\_all\_reduce\_grads}
+all-reduces each gradient after the backward pass and divides it by the
+group size. \texttt{OverlappedDDP} registers a post-accumulate-grad hook on
+every parameter. The hook divides the gradient by the group size and
+launches an asynchronous all-reduce, so communication overlaps with the
+rest of the backward pass. \texttt{finish\_gradient\_synchronization} waits
+on every handle before the optimizer step. The hook divides
+\emph{before} the all-reduce starts because \texttt{p.grad} must not be
+modified while an asynchronous all-reduce is still using it. This gives
+the same result, because $\sum_r g_r/P = (\sum_r g_r)/P$.
+
+\begin{table}[htbp]
+\caption{\texttt{medium} (406M parameters), global batch 128, on A40s.
+Scaling efficiency is $\text{tok/s}_P / (P \cdot \text{tok/s}_1)$.}
+\label{tab:ddp}
+\centering
+\begin{tabular}{rlrrr}
+\toprule
+GPUs & Strategy & Step time (s) & Tokens/s & Scaling eff. \\
+\midrule
+1 & ---        & 5.317 & 24{,}653 & 100\% \\
+2 & naive      & 2.777 & 47{,}204 & 95.7\% \\
+2 & overlapped & 2.752 & 47{,}625 & 96.6\% \\
+4 & naive      & 1.516 & 86{,}483 & 87.7\% \\
+4 & overlapped & 1.462 & 89{,}660 & 90.9\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+% TODO(you): fill from out/medium-a40-{naive,overlapped}-x{1,2,4}/summary.json
+% (median_step_seconds, tokens_per_second). At one GPU, naive and
+% overlapped are the same code path (dp=1 skips the wrapper), so report it once.
+
+\paragraph{Q1: Communication overhead of naive DP at four GPUs.}
+Each step reduces one fp32 gradient per parameter:
+$N = 406{,}161{,}408 \times 4\,\text{B} = 1.62\,\text{GB}$.
+A ring all-reduce over $P$ ranks puts $\frac{2(P-1)}{P}N$ bytes on each
+rank's link. At $P=4$, that is $1.5 \times 1.62 = 2.44$\,GB. Dividing by
+the measured bus bandwidth gives the predicted communication time:
+\[
+t_\text{comm}(P{=}4) = \frac{1.5 \times 1.62\,\text{GB}}{15.8\,\text{GB/s}}
+  \approx 0.154\,\text{s},
+\qquad
+t_\text{comm}(P{=}2) = \frac{1.0 \times 1.62\,\text{GB}}{18.1\,\text{GB/s}}
+  \approx 0.090\,\text{s}.
+\]
+With perfect scaling, the four-GPU step would take
+$t_1/4 = 5.317/4 = 1.329$\,s. The measured naive step took 1.516\,s, so the
+overhead is 0.187\,s, compared with the predicted 0.154\,s. The prediction accounts
+for 82\% of the measured overhead.
+% TODO(you): fill in the blanks and say how close the prediction is.
+% If the measured overhead is larger, name the rest: the all-reduce is
+% issued as hundreds of per-parameter calls (small ones run at the
+% latency-bound end of Table 1), plus the torch.cuda.synchronize after it.
+
+\paragraph{Q2: How much does overlap hide?}
+Overlapped saves $1.516 - 1.462 = 0.054$\,s per step relative to naive,
+which is 35\% of the predicted 0.154\,s.
+% TODO(you): the ceiling. Two points:
+%  (1) Overlap can only hide communication behind backward compute that is
+%      still running. The gradients of the first layers are ready only at
+%      the very end of backward, so their all-reduce always runs after the
+%      compute finishes.
+%  (2) With gradient accumulation, only the last micro-batch's backward
+%      triggers reductions (no_sync on the others). The work available to
+%      hide behind is therefore one micro-batch's backward, not the whole step's.
+
+% =====================================================================
+\section{Part 2: Tensor Parallel}
+
+$f$ is an identity in the forward pass and an all-reduce in the backward
+pass. $\bar f$ is the mirror image. \texttt{ColumnParallelLinear} enters
+through $f$ and multiplies the full input by its row-shard of $W$.
+\texttt{RowParallelLinear} multiplies its input shard by its column-shard
+of $W$, sums the partial results with $\bar f$, and only then adds the
+bias. Adding the bias before the reduction would add it $P$ times. In
+\texttt{TensorParallelMLP}, \texttt{c\_fc} is column-parallel and
+\texttt{c\_proj} is row-parallel. GELU is elementwise, so it runs on the
+shard, and each MLP needs one all-reduce in the forward pass and one in
+the backward pass.
+
+\begin{table}[htbp]
+\caption{\texttt{large} (838M parameters), global batch 128, one
+\texttt{gpuA40x4} node.}
+\label{tab:tp}
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+Configuration & Step time (s) & Tokens/s & MFU & Peak memory (GiB) \\
+\midrule
+1 GPU          & 11.283 & 11{,}617 & 40.4\% & 18.55 \\
+DP=4           & 3.127  & 41{,}922 & 36.4\% & 18.55 \\
+TP=4           & 12.100 & 10{,}833 & 9.4\%  & 6.34  \\
+DP=2 $\times$ TP=2 & 6.036 & 21{,}715 & 18.9\% & 10.50 \\
+\bottomrule
+\end{tabular}
+\end{table}
+% TODO(you): fill from out/large-tp-{x1,dp4,tp4,dp2tp2}/summary.json, or
+% from the "summaries" block at the end of logs/a4-tp-a40-<id>.out.
+
+\paragraph{Q1: Ranking, and why TP=4 trails DP=4.}
+% TODO(you): rank the four by tokens/s. Points to make:
+%  - Same arithmetic, so the gap is communication that cannot be hidden.
+%    TP's all-reduces sit on the critical path: the next layer needs the
+%    reduced activation before it can start. DP's reduction overlaps with
+%    backward.
+%  - TP's benefit is memory. Each GPU holds 1/4 of the weights, gradients
+%    and optimizer state. Point at the peak-memory column: TP=4 vs DP=4.
+%  - Verdict: large fits on one A40 (see the 1 GPU row), so DP wins here.
+%    TP is worth its cost only when the model does not fit.
+
+\paragraph{Q2: Bytes on the wire per step.}
+\emph{DP=4} all-reduces one fp32 gradient per parameter once per step:
+$N_\text{DP} = 838{,}064{,}640 \times 4\,\text{B} = 3.35$\,GB.
+
+\emph{TP=4} all-reduces activations. Each step processes
+$128 \times 1024 = 131{,}072$ tokens of width $C = 1280$, so each
+activation all-reduce, summed over all micro-batches, moves
+$131{,}072 \times 1280 = 1.68\times10^{8}$ elements. Each of the 36
+blocks has two TP regions (attention and MLP). Each region costs one
+$\bar f$ all-reduce in the forward pass and one $f$ all-reduce in the
+backward pass. The output head adds one more $f$ in the backward pass.
+Under autocast, the forward payload is the bf16 output of a linear layer
+(2\,B). The backward payload is the gradient of a LayerNorm output, which
+is fp32 (4\,B). We checked both dtypes on a GPU.
+\[
+N_\text{TP} = 1.68\times10^{8}\times\bigl(72 \times 2\,\text{B} + 73 \times 4\,\text{B}\bigr)
+  = 73.1\,\text{GB}.
+\]
+TP=4 therefore moves about $\mathbf{22\times}$ more data than DP=4. At
+15.8\,GB/s, the predicted communication times are:
+\[
+t_\text{DP} = \frac{1.5 \times 3.35}{15.8} \approx 0.32\,\text{s},
+\qquad
+t_\text{TP} = \frac{1.5 \times 73.1}{15.8} \approx 6.9\,\text{s}.
+\]
+This is a lower bound for TP. With micro-batch 2, each TP all-reduce is
+only 5--10\,MB. Table~\ref{tab:busbw} shows that buffers of this size get
+about 13--14\,GB/s instead of 15.8\,GB/s, which raises the estimate to
+about 7.6--8.4\,s.
+% TODO(you): compare to the measured gap (TP=4 step time minus DP=4 step
+% time). Does ~7-8 s of exposed TP communication account for it?
+
+% =====================================================================
+\section{Part 3: Pipeline Parallel}
+
+\texttt{one\_forward\_one\_backward} runs in three phases. In the warm-up
+phase, stage $i$ runs $\min(p-1-i,\,m)$ forward passes. In the steady
+state, each iteration runs one forward pass and then the backward pass of
+the oldest outstanding micro-batch. This phase uses the combined
+\texttt{send\_forward\_recv\_backward} and
+\texttt{send\_backward\_recv\_forward} transfers to avoid deadlock. In the
+cool-down phase, the remaining backward passes run. A stage never holds
+more than $p-i \le p$ micro-batches of activations, whereas AFAB holds
+all $m$.
+
+\begin{table}[htbp]
+\caption{\texttt{large} at $p=4$, global batch 32, one \texttt{gpuA40x4}
+node. Predicted bubble is $(p-1)/(m+p-1)$. Measured idle is
+$1-\text{busy\_fraction}$.}
+\label{tab:pp}
+\centering
+\begin{tabular}{rrlrrrr}
+\toprule
+Micro & $m$ & Schedule & Tokens/s & Predicted bubble & Measured idle & Peak memory (GiB) \\
+\midrule
+8 & 4  & AFAB & 28{,}802 & 42.9\% & 54.0\% & 17.12 \\
+8 & 4  & 1F1B & 28{,}882 & 42.9\% & 54.1\% & 17.12 \\
+4 & 8  & AFAB & 32{,}259 & 27.3\% & 43.3\% & 18.42 \\
+4 & 8  & 1F1B & 32{,}321 & 27.3\% & 43.1\% & 11.55 \\
+2 & 16 & AFAB & 32{,}288 & 15.8\% & 34.8\% & 21.12 \\
+2 & 16 & 1F1B & 32{,}246 & 15.8\% & 34.7\% & 8.36  \\
+1 & 32 & AFAB & \multicolumn{4}{c}{OOM (44.4\,GiB exhausted on the last stage)} \\
+1 & 32 & 1F1B & 27{,}509 & 8.6\%  & 27.9\% & 6.71  \\
+\bottomrule
+\end{tabular}
+\end{table}
+% TODO(you): fill from the "bubble and memory" table at the end of
+% logs/a4-pp-a40-<id>.out. Write "OOM" in any row that ran out of memory.
+
+\paragraph{Q1: How does the bubble change with $m$?}
+% TODO(you): the warm-up and cool-down idle is fixed at (p-1) slots per
+% stage. Increasing m adds busy slots but no idle ones, so the fraction
+% falls as (p-1)/(m+p-1). Compare the measured idle column with the
+% predicted one. If measured > predicted, the extra is P2P transfer time
+% and the last stage's heavier work (the output head), which the formula
+% ignores.
+
+\paragraph{Q2: What does larger $m$ cost in memory?}
+% TODO(you): AFAB keeps all m micro-batches' activations alive until
+% backward starts. The last stage also keeps the (micro, T, 50304)
+% logits. Their product m x micro = 32 is fixed, so the logits memory
+% stays the same while the per-block activations change. 1F1B keeps at
+% most p, so its peak should stay roughly flat as m grows. Point at the
+% peak-memory column for both schedules.
+
+% =====================================================================
+\section{Part 4: Hybrid Parallelism}
+
+\texttt{huge} has 4.04B parameters. With fp32 weights, gradients and two
+AdamW moments, that is $16\,\text{B} \times 4.04\times10^9 = 60.1$\,GiB
+before any activations, which is more than one 44\,GiB A40 holds. Data
+parallelism replicates this state on every rank, so only TP and PP
+reduce it. The state per GPU is about $60.1/(tp \cdot pp)$\,GiB:
+
+\begin{center}
+\begin{tabular}{rrl}
+\toprule
+$tp \cdot pp$ & State per GPU & Expectation \\
+\midrule
+1 & 60.1\,GiB & cannot fit \\
+2 & 30.1\,GiB & tight once activations are added \\
+4 & 15.0\,GiB & fits \\
+8 & 7.5\,GiB  & fits, but no data parallelism is left \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+With the default axis order (\texttt{pp/dp/tp}), TP is the innermost axis,
+so a TP group always stays inside one node. That is the right placement
+because TP communicates twice per block and nothing hides it. PP is the
+outermost axis, so its boundary is the axis that crosses the two nodes.
+PP sends only one activation per micro-batch across a stage boundary, so
+it puts the least traffic on the slower inter-node link.
+
+\begin{table}[htbp]
+\caption{\texttt{huge} on two \texttt{gpuA40x4} nodes (8 A40s), global
+batch 128, 6 steps (1 warm-up).}
+\label{tab:part4}
+\centering
+\begin{tabular}{rrrlrrrr}
+\toprule
+DP & TP & PP & Schedule / DDP & Step time (s) & Tokens/s & Peak memory (GiB) & Loss \\
+\midrule
+8 & 1 & 1 & --- / naive        & \multicolumn{4}{c}{OOM} \\
+2 & 2 & 2 & 1F1B / overlapped  & 40.812 & 3{,}212  & 22.59 & 11.3796 \\
+4 & 2 & 1 & --- / overlapped   & 12.811 & 10{,}231 & 38.15 & 11.3773 \\
+2 & 1 & 4 & 1F1B / overlapped  & 23.079 & 5{,}679  & 27.58 & 11.3788 \\
+4 & 1 & 2 & 1F1B / overlapped  & \tbd & \tbd & \tbd & \tbd \\
+2 & 4 & 1 & --- / overlapped   & \tbd & \tbd & \tbd & \tbd \\
+1 & 4 & 2 & 1F1B / ---         & \tbd & \tbd & \tbd & \tbd \\
+4 & 2 & 1 & --- / naive        & \tbd & \tbd & \tbd & \tbd \\
+\bottomrule
+\end{tabular}
+\end{table}
+% TODO(you): fill from out/huge-<tag>/summary.json. The OOM row: paste the
+% one line of the CUDA OOM message from logs/a4-part4-<id>.out into the
+% text below. Add a row for every other configuration you ran.
+
+\paragraph{Best configuration.}
+% TODO(you): name the winner and explain it with the three costs:
+%  - what each sharding degree bought in memory (60.1/(tp*pp) + activations),
+%  - what it cost in time: TP all-reduces on the critical path inside a node;
+%    PP bubble (p-1)/(m+p-1) with m = 128/(dp*micro); DP gradient all-reduce
+%    of the state left after TP/PP sharding, overlapped with backward,
+%  - why the alternatives you tried lost.
+% If you only ran one configuration that fit, say so plainly. Then argue
+% from Parts 1-3 which neighbour you would have tried next and why.
+
+\end{document}
