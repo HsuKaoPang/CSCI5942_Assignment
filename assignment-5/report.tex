@@ -1,0 +1,282 @@
+\documentclass[10pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{CSCI 5942: AI Engineering Assignment 5}
+\author{Bill Hsu}
+\maketitle
+
+% =====================================================================
+\section*{Setup}
+
+For this assignment, all GPU runs used one NVIDIA A40 (44\,GiB) 
+on an NCSA Delta
+\texttt{gpuA40x4} node with the \texttt{pytorch-conda/2.12} module.
+Weights, gradients and AdamW moments are fp32; compute runs in bf16
+under autocast. Every graded run is \texttt{gpt2-medium}, one epoch
+(2{,}629 steps, batch 16), with the given configs. Evaluation is
+\texttt{eval.py}: greedy decoding on the 630 test meaning
+representations, corpus BLEU (sacrebleu) against all references, slot
+coverage, and teacher-forced loss on 200 FineWeb-Edu blocks. All tests
+pass: \texttt{tests/test\_mask.py} (3), \texttt{tests/test\_lora.py} (3)
+and \texttt{tests/test\_pretrained.py} (1).
+
+% =====================================================================
+\section*{Part 1: The Memory Model}
+
+Predicted bytes are 16 per trainable weight (fp32 weight, gradient, two
+Adam moments) and 4 per frozen weight. Our model class does not tie
+\texttt{wte} and \texttt{lm\_head}, so $N$ includes the embedding twice
+(e.g.\ 406.3M for \texttt{gpt2-medium}, not 354.8M). A block has
+$12d^2 + 13d$ parameters; LoRA on the four Linear layers adds
+$r(4d + 2d + 5d + 5d) = 16rd$ per block. Measured rows are 50-step runs.
+
+\begin{table}[htbp]
+\caption{Predicted model state against the measured peak
+(\texttt{torch.cuda.max\_memory\_allocated}). Residual = peak $-$ predicted.}
+\label{tab:mem}
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+Model & Trainable & Predicted (params + grads + opt.) & Measured peak & Residual \\
+\midrule
+gpt2, full                & 163{,}037{,}184   & 2.43\,GiB  & 3.83\,GiB & 1.40\,GiB \\
+gpt2-medium, full         & 406{,}286{,}336   & 6.05\,GiB  & 8.63\,GiB & 2.57\,GiB \\
+gpt2-medium, LoRA $r=4$   & 1{,}572{,}864     & 1.54\,GiB  & 4.25\,GiB & 2.71\,GiB \\
+gpt2-medium, LoRA $r=64$  & 25{,}165{,}824    & 1.89\,GiB  & 4.57\,GiB & 2.68\,GiB \\
+gpt2-xl, full             & 1{,}638{,}022{,}400 & 24.41\,GiB & (predict only) & \\
+gpt2-xl, LoRA $r=4$       & 4{,}915{,}200     & 6.18\,GiB  & (predict only) & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\item \textbf{Where the residual comes from.} The residual is mostly
+  activations saved for the backward pass (plus the
+  $B \times T \times 50257$ logits and autocast's bf16 copies of the
+  weights). It scales with batch, sequence length, width and depth, but
+  not with the number of trainable parameters.
+\item \textbf{Why LoRA barely changes it.} The residual stays almost the
+  same under LoRA (2.57 vs.\ 2.71\,GiB) because adapters sit in every
+  block, so the backward pass still runs through the whole network and
+  keeps every layer's activations. LoRA removes only the gradients and
+  Adam state of the frozen weights.
+\item \textbf{\texttt{gpt2-xl}, full fine-tuning.} Based on our calculations,
+  it needs 24.4\,GiB of model state before any activations. That alone
+  is more than a 24\,GiB card holds. If the residual grows with
+  depth $\times$ width (about $3\times$ medium's, so roughly 8\,GiB),
+  the total is about 32\,GiB, which fits on a 40\,GiB A40 with little
+  room to spare. This residual is an estimate, not a measurement.
+\item \textbf{\texttt{gpt2-xl}, LoRA $r=4$.} It needs 6.2\,GiB plus
+  activations (about 14\,GiB) and fits on either card.
+\end{itemize}
+
+% =====================================================================
+\section*{Part 2: The Template and the Mask}
+
+\texttt{sft.describe} for one training pair (left: the input token
+$x_t$; right: whether predicting $x_{t+1}$ is scored):
+
+\begin{verbatim}
+          name  -
+             [  -
+            Al  -
+         iment  -
+            um  -
+            ],  -
+          area  -
+             [  -
+          city  -
+        centre  -
+             ]  -
+            \n  -
+   Description  -
+             :  scored
+            Al  scored
+         iment  scored
+            um  scored
+            is  scored
+            in  scored
+           the  scored
+          city  scored
+        centre  scored
+             .  scored
+\end{verbatim}
+
+The first scored position is the colon, whose next token is the first
+target token \texttt{" Al"}; the last is the period, whose next token is
+\texttt{<|endoftext|>}. All three tests in \texttt{tests/test\_mask.py}
+pass.
+
+Prompts average 34.8 tokens and targets 25.0 on the training set, so
+scoring the prompt would put 58\% of the loss on reproducing
+meaning-representation syntax, which the model never has to generate at
+test time, and dilute the signal for the description.
+
+% =====================================================================
+\section*{Part 3: Full Fine-Tuning}
+
+\begin{table}[htbp]
+\caption{The untouched model and one epoch of full fine-tuning.
+FineWeb is teacher-forced loss on held-out FineWeb-Edu (nats/token).}
+\label{tab:fft}
+\centering
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & BLEU & Slot coverage & Dev loss & FineWeb loss & Peak memory & Train time \\
+\midrule
+gpt2-medium, base & 9.5  & 33.9\% & 2.837$^{*}$ & 3.017 & --        & --    \\
+gpt2-medium, full & 63.2 & 97.3\% & 0.994       & 3.826 & 9.26\,GiB & 335\,s \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\footnotesize $^{*}$\texttt{train.dev\_loss} on the same 512 dev pairs,
+run on CPU in fp32 because \texttt{train.py} writes no summary for the
+untrained model.
+\end{table}
+
+The same meaning representation before and after:
+
+\begin{quote}\small
+\texttt{name[Blue Spice], eatType[coffee shop], area[city centre]}\\[2pt]
+\textbf{Base:} \verb|Description:\nDescription:\nDescription:|\ldots
+(repeats until the length limit)\\
+\textbf{Full:} Blue Spice is a coffee shop located in the city centre.
+\end{quote}
+
+The FineWeb loss rose from 3.017 to 3.826 nats per token (+0.81, or
+27\%): one epoch of updating every weight on restaurant descriptions
+measurably damaged the model's general language modeling.
+
+The full run's peak (9.26\,GiB) is higher than Part 1's 50-step peak
+(8.63\,GiB) because a full epoch eventually meets the longest batches,
+and activations grow with sequence length.
+
+% =====================================================================
+\newpage
+
+\section*{Part 4: LoRA and the Rank Knee}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{knee.png}
+\caption{Dev loss (left) and test BLEU (right) against trainable
+parameters. Dashed: full fine-tuning. The BLEU axis spans under
+2 points.}
+\label{fig:knee}
+\end{figure}
+
+\begin{table}[htbp]
+\caption{LoRA ($\alpha = 2r$, lr $2\times10^{-4}$, all four Linear
+layers) against full fine-tuning (lr $5\times10^{-5}$). Base FineWeb
+loss is 3.017.}
+\label{tab:knee}
+\centering
+\begin{tabular}{lrrrrrr}
+\toprule
+Run & Trainable & Dev loss & BLEU & FineWeb loss & Peak memory & Train time \\
+\midrule
+LoRA $r=1$  & 393{,}216       & 1.125 & 61.4 & 3.177 & 4.96\,GiB & 175\,s \\
+LoRA $r=4$  & 1{,}572{,}864   & 1.087 & 61.6 & 3.136 & 4.97\,GiB & 184\,s \\
+LoRA $r=16$ & 6{,}291{,}456   & 1.050 & 61.9 & 3.160 & 5.04\,GiB & 185\,s \\
+LoRA $r=64$ & 25{,}165{,}824  & 1.021 & 63.0 & 3.174 & 5.30\,GiB & 194\,s \\
+Full        & 406{,}286{,}336 & 0.994 & 63.2 & 3.826 & 9.26\,GiB & 335\,s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\item \textbf{Where the knee is.} There is no sharp knee in this range.
+  Dev loss falls steadily, by about 0.03 to 0.04 nats for each
+  $4\times$ in rank, and has not flattened by $r=64$. BLEU is nearly
+  flat: $r=1$, with 0.1\% of the weights, already reaches 61.4 of full
+  fine-tuning's 63.2, so for the task metric the knee is at or below
+  $r=1$.
+\item \textbf{Does LoRA reach full fine-tuning?} On BLEU, yes: $r=64$
+  comes within 0.2 points of full fine-tuning, which is inside what one
+  seed can resolve. On dev loss, no: LoRA does not reach full
+  fine-tuning (1.021 vs.\ 0.994 at $r=64$).
+\item \textbf{Which method forgot more.} Full fine-tuning forgot far
+  more: its FineWeb loss rose by 0.81 nats, against 0.12 to 0.16 for
+  every LoRA rank, with no clear trend in rank.
+\item \textbf{Cost.} LoRA also used about half the peak memory and
+  trained in about 55\% of the time, since the frozen weights need no
+  weight-gradient matmuls and no optimizer update.
+\item \textbf{Comparison with the paper.} Unlike Table~3 of the LoRA
+  paper (Hu et al., 2021; 70.4 vs.\ 68.2), LoRA does not beat full
+  fine-tuning here. Our setting differs: one epoch instead of five,
+  greedy decoding instead of beam search, sacrebleu instead of the
+  official scorer, and adapters on all four Linear layers at $r=1$ to
+  $64$, where the paper adapts only $W_q$ and $W_v$ at $r=4$. At the
+  same 0.39M budget as the paper's configuration, our LoRA $r=1$
+  reaches 61.4 BLEU.
+\end{itemize}
+% =====================================================================
+\newpage
+\section*{Part 5: Which Matrices}
+
+\begin{table}[htbp]
+\caption{About 1.5M trainable parameters spent three ways.}
+\label{tab:budget}
+\centering
+\begin{tabular}{lrrr}
+\toprule
+Config & Trainable & Dev loss & BLEU \\
+\midrule
+\texttt{lora-r4} (all four, $r=4$)            & 1{,}572{,}864 & 1.087 & 61.6 \\
+\texttt{budget-mlp-r12} (\texttt{c\_fc}, $r=12$)  & 1{,}474{,}560 & 1.091 & 61.8 \\
+\texttt{budget-attn-r16} (\texttt{c\_attn}, $r=16$) & 1{,}572{,}864 & 1.126 & 62.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Based on the results, we can conclude:
+\begin{itemize}
+\item \textbf{Where the budget should go.} By dev loss, a fixed budget
+  is best spread across all four matrices at low rank (1.087), with
+  MLP-only close behind (1.091) and attention-only clearly worst
+  (1.126).
+\item \textbf{BLEU cannot rank them.} The three BLEU scores span only
+  0.4 points, which one seed per configuration cannot resolve.
+\item \textbf{Agreement with the paper.} This agrees with Table~5 of
+  the LoRA paper (Hu et al., 2021), where adapting more weight types at
+  lower rank beats one type at higher rank: there, $W_q, W_v$ or all
+  four attention matrices beat $W_q$ alone.
+\item \textbf{Caveat.} The paper compares only attention matrices on
+  GPT-3 and does not test the MLP, so the agreement is in direction,
+  not in numbers.
+\end{itemize}
+
+% =====================================================================
+\section*{When Is Updating Every Weight Worth It?}
+
+Full fine-tuning is worth it when the last bit of in-domain quality
+matters, the model is small enough that 16 bytes per weight fits on the
+hardware, and the model will serve only this one task. On this task,
+full fine-tuning buys little. Full fine-tuning reached the best dev loss
+(0.994 against LoRA $r=64$'s 1.021) but essentially the same BLEU
+(63.2 vs.\ 63.0, and 61.4 already at $r=1$; Figure~\ref{fig:knee}). It
+cost about twice the peak memory and time (Table~\ref{tab:mem}:
+6.05\,GiB of state against 1.54\,GiB; 9.26 vs.\ about 5\,GiB peak), and
+it forgot five to seven times as much (FineWeb +0.81 nats against
++0.12 to +0.16). LoRA also stores each task as a few megabytes of
+adapters on one shared base model, while full fine-tuning stores a new
+1.6\,GB copy per task.
+
+For a model ten times this size (about 4B parameters), memory changes
+the answer the most. Full fine-tuning needs about 65\,GB of model state,
+more than one A40 holds, so it needs the sharding from Assignment~4
+before any activations. LoRA needs about 16\,GB of frozen weights and
+fits on one GPU. The quality gap measured by the knee would likely
+shrink, not grow, at that size (the paper reports LoRA matching or
+beating full fine-tuning on GPT-3), but that comes from the paper, not
+from our runs. Forgetting stays a reason to prefer LoRA at any size,
+because it leaves the base weights untouched.
+
+\end{document}

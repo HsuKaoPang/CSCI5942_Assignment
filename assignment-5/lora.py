@@ -32,11 +32,18 @@ class LoRALinear(nn.Module):
         self.r = r
         self.alpha = alpha
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        for p in self.base.parameters():
+            p.requires_grad = False
+        self.scale = alpha / r
+        self.A = nn.Parameter(torch.randn(r, base.in_features) * 0.01)
+        self.B = nn.Parameter(torch.zeros(base.out_features, r))
+
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        h = self.base(x) + self.scale * (x @ self.A.T @ self.B.T)
+        return h
+
 
 
 def apply_lora(model: nn.Module, r: int, alpha: float,
@@ -70,7 +77,8 @@ def merge_lora(model: nn.Module) -> nn.Module:
         for name, child in list(module.named_children()):
             if isinstance(child, LoRALinear):
                 # --- YOUR IMPLEMENTATION HERE ---
-                raise NotImplementedError("implement this block")
+                child.base.weight += child.scale * (child.B @ child.A)
+                setattr(module, name, child.base)
     for p in model.parameters():
         p.requires_grad = True
     return model

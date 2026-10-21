@@ -31,7 +31,9 @@ def format_example(mr: str, ref: str) -> tuple[list[int], list[int]]:
     """Return (prompt_ids, target_ids): PROMPT filled with `mr`, and a
     leading space plus `ref` followed by EOT."""
     # --- YOUR IMPLEMENTATION HERE ---
-    raise NotImplementedError("implement this block")
+    prompt_ids = ENC.encode(PROMPT.format(mr=mr))
+    target_ids = ENC.encode(" " + ref) + [EOT]
+    return prompt_ids, target_ids
 
 
 def collate(examples: list[tuple[list[int], list[int]]]):
@@ -40,8 +42,17 @@ def collate(examples: list[tuple[list[int], list[int]]]):
     to the longest row; y is IGNORE on prompt and padding positions and
     the target span (including EOT) is scored."""
     # --- YOUR IMPLEMENTATION HERE ---
-    raise NotImplementedError("implement this block")
-
+    rows = [p + t for p, t in examples]
+    T = max(len(r) for r in rows) - 1
+    x = torch.full((len(rows),T), EOT, dtype = torch.long)
+    y = torch.full((len(rows),T), IGNORE, dtype = torch.long)
+    for i, (p, t) in enumerate(examples):
+        seq = torch.tensor(p+t)
+        n = len(seq)-1
+        x[i,:n] = seq[:-1]
+        y[i,:n] = seq[1:]
+        y[i,:len(p)-1]=IGNORE
+    return x, y
 
 def load_split(split: str, e2e_dir: str = E2E_DIR) -> list[dict]:
     """Rows of data/e2e/<split>.jsonl, written by data/prepare_e2e.py."""
