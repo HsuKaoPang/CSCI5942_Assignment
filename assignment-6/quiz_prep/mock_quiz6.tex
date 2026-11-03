@@ -1,0 +1,221 @@
+\documentclass[10pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Empty box to write the answer in
+\newcommand{\answerbox}[1]{%
+  \begin{tcolorbox}[colback=white, colframe=black!40, boxrule=0.4pt,
+                    arc=0pt, height=#1]\end{tcolorbox}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries CSCI 5942: Mock Quiz 6}\\[3pt]
+{\large Assignment 6: Serving GPT-2}
+\end{center}
+
+\begin{tcolorbox}[colback=black!4, colframe=black!40, boxrule=0.4pt, arc=0pt]
+\begin{itemize}[leftmargin=*, nosep]
+\item 15 minutes per set. Closed book, no devices. 3 points per set.
+\item Answer as you would in a design interview: two to four sentences per
+  part, with the reasoning.
+\item Every number you need is on this sheet. Do \textbf{Set A} first and
+  check the answers, then do \textbf{Set B}. \textbf{Set C} is about
+  the ideas behind your A6 code.
+\item 1\,GB $= 10^9$ bytes.
+\end{itemize}
+\end{tcolorbox}
+
+% =====================================================================
+\section*{Set A}
+
+\textbf{The setting.} The restaurant-booking site from Quiz 5 is live.
+Every listing page asks the model for one sentence, on demand. You serve
+\textbf{GPT-2 large} (774M parameters, \textbf{36 layers, width 1280, 20
+heads}, 1{,}024-token context) in \textbf{bf16} with your Assignment 6
+engine, on one of the team's 24\,GiB cards. After the weights and the
+workspace, \textbf{20\,GB is left for the KV cache}.
+
+A listing request is a \textbf{70-token prompt} (instruction line +
+attribute list) and \textbf{at most 40 new tokens}.
+
+\begin{center}
+\textbf{Decode step time on this card} (one token for every sequence in the batch)\\[4pt]
+\begin{tabular}{lrrrrrr}
+\toprule
+batch $B$ & 1 & 16 & 64 & 128 & 256 & 512 \\
+\midrule
+step time (ms) & 14.0 & 14.3 & 15.1 & 17.0 & 24.5 & 41.0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{1. Sizing the cache (1.5 points)}
+
+\textbf{(a)} How many bytes of KV cache does one token take? How many
+listing requests fit in the 20\,GB at once with a \textbf{contiguous}
+cache that reserves the full 1{,}024-token context per request, and how
+many with a \textbf{paged} cache at block size 16? Show your working.
+\answerbox{4.2cm}
+
+\textbf{(b)} Product sets the TBT (time between tokens) SLO at
+\textbf{30\,ms}. What \texttt{max\_batch} would you set, and what
+tokens/s do you expect? Compare with the contiguous cache. Product then
+says, ``Paging fits about $9\times$ more requests, so we should get about
+$9\times$ the throughput.'' What is your response?
+\answerbox{4.2cm}
+
+\newpage
+\subsection*{2. The engine in production (1.5 points)}
+
+\textbf{(a)} To make room for a second product, the listings get only
+\textbf{1\,GB} of KV. You serve \textbf{600 listing requests that arrive
+at once} (prompts 60--80 tokens, outputs 10--40 tokens, block size 16,
+max batch 128):
+
+\begin{center}
+\begin{tabular}{lrrrrrr}
+\toprule
+engine & time (s) & tok/s & mean lat (s) & p90 lat (s) & mean batch & preempt \\
+\midrule
+static                  & 7.3 & 2{,}050 & 4.1 & 6.6 & 31.0 & 0 \\
+continuous (safe)       & 5.4 & 2{,}780 & 2.9 & 4.9 & 45.2 & 0 \\
+continuous (optimistic) & 4.5 & 3{,}350 & 2.4 & 4.2 & 62.5 & 38 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Your manager says: ``Optimistic preempted 38 requests. Each of those did
+its work twice, so it is wasting GPU time. Turn it off.'' Do you agree?
+Use the numbers, and explain why a preemption costs less than it looks.
+\answerbox{5.5cm}
+
+\textbf{(b)} A new hire rewrites \texttt{PagedKVCache.update}. Every test
+that decodes \textbf{one} sequence passes, and a batch of prompts
+\textbf{with the same length} still matches the uncached model. But in a
+batch with prompts of \textbf{different lengths}, the longest prompt's
+output is correct and the \textbf{shorter prompts produce wrong tokens}.
+What is the most likely bug, and why does it only show up for the shorter
+prompts? (Hint: think about what the block table holds for a short row.)
+\answerbox{5.5cm}
+
+% =====================================================================
+\newpage
+\section*{Set B}
+
+\textbf{The setting.} Same model and card. The team now also runs the
+screenwriting \textbf{autocomplete} on it: many users are decoding at
+once, and each one watches the text appear.
+
+\subsection*{3. Sharing and scheduling (1.5 points)}
+
+\textbf{(a)} Every listing prompt is a \textbf{fixed 50-token instruction
+line} followed by a 20-token attribute list. You turn on vLLM-style
+\textbf{automatic prefix caching} (16-token blocks, each block's hash
+includes its parent's hash). How many prompt tokens per request can be
+reused, and what fraction of the prompt is that? Then a teammate adds
+\texttt{Generated at 2026-11-03 14:02:11} to the \textbf{start} of every
+prompt, for logging, and the cache hit rate drops to 0\%. Why, and how
+would you fix it?
+\answerbox{5cm}
+
+\textbf{(b)} A new feature summarizes a whole screenplay scene:
+\textbf{1{,}000-token prompts}. About \textbf{100 autocomplete users} are
+decoding at any time. When a summary request arrives, the engine runs its
+whole prefill in one step together with the 100 decodes, and every
+autocomplete user sees the text stutter. Step time against the number of
+tokens in one step:
+
+\begin{center}
+\begin{tabular}{lrrrrr}
+\toprule
+tokens in the step & 64 & 256 & 512 & 768 & 1{,}024 \\
+\midrule
+step time (ms) & 15 & 18 & 27 & 38 & 50 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Which Lecture 15 technique fixes the freeze? With a \textbf{30\,ms TBT
+SLO}, what token budget $\tau$ would you pick, and what does the summary
+request pay for it?
+\answerbox{5cm}
+
+\newpage
+\subsection*{4. Design from scratch (1.5 points)}
+
+\textbf{(a)} A customer wants to self-host \textbf{Llama-3.1-8B} (32
+layers, \textbf{8 KV heads} $\times$ head dim 128, bf16) for chat with
+\textbf{8K-token} conversations, on one \textbf{80\,GB} GPU. The weights
+take 16\,GB, and 4\,GB is left for activations. How many 8K conversations
+fit at once? Someone proposes switching to an older model with the
+\textbf{same size and shape but full multi-head attention (32 KV heads)}.
+How many fit then?
+\answerbox{6cm}
+
+\textbf{(b)} The customer's users come back to the same conversation many
+times a day. Each new turn re-sends the whole history. Name two ways to
+avoid recomputing the history's prefill, and say what limits each one.
+\answerbox{6cm}
+
+% =====================================================================
+\newpage
+\section*{Set C: The ideas behind your A6 code}
+
+\textbf{The setting.} No code needed. These questions are about the
+design choices inside your A6 cache and scheduler.
+
+\subsection*{5. Inside the cache and the scheduler (1.5 points)}
+
+\textbf{(a)} Your contiguous KV cache runs two prompts in one batch: X has
+3 tokens and Y has 5. The cache pads X on the \textbf{left} with 2 empty
+slots, so both rows are 5 slots long.
+\begin{enumerate}[label=(\roman*), nosep]
+\item Why pad on the left and not on the right? (Hint: where does each
+  row's next token go during decoding?)
+\item What position should X's first real token get, and which slots must
+  X's tokens never attend to?
+\item A teammate gives every token its slot number as its position, so
+  X's tokens get positions 2, 3, 4. Nothing crashes and Y's output is
+  correct, but X's output differs from running X alone. Why?
+\end{enumerate}
+\answerbox{5cm}
+
+\textbf{(b)} Your paged engine uses \textbf{safe admission}: it admits a
+request only if the pool can hold the request's \textbf{full length}
+(prompt + max new tokens), in blocks of 16. Blocks are handed out as a
+sequence grows, not all at once, and a newly admitted request holds no
+blocks until its prefill. The pool has \textbf{20 blocks}, and two
+requests are running:
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+request & full length (tokens) & blocks held now \\
+\midrule
+R1 & 100 & 4 \\
+R2 & 64 & 2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Two requests wait in this order: A (full length 120 tokens), then B (60
+tokens).
+\begin{enumerate}[label=(\roman*), nosep]
+\item Is A admitted? Then B? Show your working.
+\item A teammate simplifies the rule to ``admit if the request's blocks
+  fit in the blocks that are free right now.'' Nothing goes wrong at
+  admission, but later the engine runs out of blocks. Why later and not
+  at admission? Why is running out a bug in safe mode, while optimistic
+  mode handles it?
+\end{enumerate}
+\answerbox{5cm}
+
+\end{document}

@@ -1,0 +1,323 @@
+\documentclass[10pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Grey box for the rubric of each part
+\newenvironment{rubric}{%
+  \begin{tcolorbox}[colback=black!4, colframe=black!40, boxrule=0.4pt,
+                    arc=0pt, title={Rubric}, fonttitle=\bfseries\small,
+                    coltitle=black, colbacktitle=black!12]
+  \small\begin{itemize}[leftmargin=*, nosep]}{%
+  \end{itemize}\end{tcolorbox}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries CSCI 5942: Mock Quiz 6, Answers and Rubric}\\[3pt]
+{\large Assignment 6: Serving GPT-2}
+\end{center}
+
+Each part is worth 0.75 points. The rubric follows the real quizzes:
+\textbf{mechanism + numbers + a concrete verdict}. A correct verdict
+without the numbers, or numbers without the reason, gets partial credit.
+
+% =====================================================================
+\section*{Set A}
+
+\subsection*{1(a) Sizing the cache}
+
+\begin{align*}
+\text{KV per token} &= 2\ (\text{K, V}) \times 36 \times 1280 \times 2\,\text{B}
+  = \mathbf{184{,}320\,B}\ (180\,\text{KiB}) \\
+\text{contiguous, per request} &= 184{,}320 \times 1{,}024 = 188.7\,\text{MB}
+  \;\Rightarrow\; 20 \times 10^9 / 188.7 \times 10^6 = 106.0
+  \;\Rightarrow\; \mathbf{105}\ \text{requests} \\
+\text{one block} &= 16 \times 184{,}320 = 2{,}949{,}120\,\text{B}
+  \;\Rightarrow\; 20 \times 10^9 / 2{,}949{,}120 = \mathbf{6{,}781}\ \text{blocks} \\
+\text{paged, per request} &= \lceil (70 + 40) / 16 \rceil = 7\ \text{blocks}
+  \;\Rightarrow\; 6{,}781 / 7 = \mathbf{968}\ \text{requests}\ (\approx 9.2\times)
+\end{align*}
+
+\begin{rubric}
+\item 0.25: KV bytes per token with the formula (2 $\times$ layers $\times$ width $\times$ bytes)
+\item 0.25: contiguous count from 1{,}024 reserved slots
+\item 0.25: paged count from the request's real length, rounded up to whole blocks
+\end{rubric}
+
+\textbf{Common mistakes.} Forgetting the factor 2 for K and V; using
+4 bytes (fp32) instead of 2 (bf16); reserving only 110 slots for the
+contiguous cache (it must reserve the whole context, because it does not
+know the output length in advance).
+
+\subsection*{1(b) The SLO decides \texttt{max\_batch}}
+
+The largest batch whose step fits in 30\,ms is \textbf{$B = 256$}
+(24.5\,ms; $B = 512$ takes 41\,ms). That gives $256 / 0.0245\,\text{s}
+\approx$ \textbf{10{,}400 tokens/s}. The contiguous cache can only run 105
+requests: between $B = 64$ and 128, the step is about 16.3\,ms, so about
+$105 / 0.0163 \approx$ \textbf{6{,}400 tokens/s}. Paging buys about
+\textbf{$1.6\times$}, not $9\times$.
+
+Response to product: paging removes the \textbf{memory} limit, but
+throughput stops growing once another limit binds. Up to about $B = 128$,
+decode is memory-bound (the step time barely moves, 14.0 to 17.0\,ms), so
+a bigger batch is almost free. Past that, the step becomes compute-bound
+and the step time rises with the batch, and at $B = 256$ the \textbf{TBT
+SLO} is the limit. The extra memory ($968 - 256$ requests' worth) can be
+used for something else, such as prefix caching or longer contexts.
+
+\begin{rubric}
+\item 0.25: picks $B = 256$ from the table and the SLO
+\item 0.25: tokens/s for both caches (about 10.4K vs.\ about 6.4K)
+\item 0.25: explains why it is not $9\times$: memory-bound $\to$
+  compute-bound, and the SLO now binds, not memory
+\end{rubric}
+
+\subsection*{2(a) Keep optimistic admission}
+
+\textbf{Disagree.} Optimistic admission raises throughput from 2{,}780 to
+3{,}350 tokens/s (+20\%) and the mean batch from 45.2 to 62.5 (+38\%), and
+it lowers both mean latency (2.9 to 2.4\,s) and p90 (4.9 to 4.2\,s). The
+safe engine reserves 7 blocks for every request's full length, so at
+1\,GB (339 blocks) it can hold at most 48 requests, and most of those
+reserved blocks are still empty. Optimistic admission reserves only the
+next token, so more requests run per step.
+
+A preemption costs less than it looks because recomputation is
+\textbf{one prefill} of the prompt plus the tokens generated so far.
+Prefill processes all those tokens in one forward pass and uses the GPU's
+compute well. The original tokens took many memory-bound decode steps. The
+work is not repeated token by token.
+
+Keep it on, but watch the worst case: a request preempted several times
+has a much worse latency than the mean shows, and with an even smaller
+pool, preemptions could repeat (thrashing) and throughput could fall below
+safe admission.
+
+\begin{rubric}
+\item 0.25: verdict with numbers (tok/s and mean batch both up, latency down)
+\item 0.25: why recompute is cheap (one compute-efficient prefill vs.\ many
+  memory-bound decode steps)
+\item 0.25: names the risk (tail latency of preempted requests, or
+  thrashing at smaller budgets)
+\end{rubric}
+
+\subsection*{2(b) The short-prompt bug}
+
+The \textbf{mask} is most likely wrong: it does not hide each row's padded
+slots. A short row's block table is padded on the right with
+\textbf{block id 0}, and block 0 is a real block that another sequence may
+be using. The gather copies it into the short row's K and V. The mask must
+allow slot $s$ only when $s \le \texttt{positions[b, t]}$, the row's
+\textbf{own} position. If the new hire builds the mask from the longest
+row's positions and shares it with every row (for example
+\texttt{positions.max(0)}), the short rows attend to another sequence's
+keys and values.
+
+It only shows up for shorter prompts because the longest row has no
+padding, so every slot it sees is its own. With one sequence, or prompts
+of the same length, no row is padded, so the bug is hidden.
+
+\begin{rubric}
+\item 0.25: names the mask (or the padded table entries) as the cause
+\item 0.25: explains that padded entries point to block 0, which holds
+  another sequence's data
+\item 0.25: explains why the longest row and equal-length batches are not
+  affected
+\end{rubric}
+
+\textbf{Other acceptable answer (partial credit).} A wrong \texttt{slots}
+computation would also corrupt the cache, but it would usually break
+single-sequence tests too, so the mask is the better diagnosis.
+
+% =====================================================================
+\newpage
+\section*{Set B}
+
+\subsection*{3(a) Prefix caching and the timestamp}
+
+Automatic prefix caching hashes \textbf{full 16-token blocks}, and each
+hash includes its parent's hash. The fixed instruction is 50 tokens, so 3
+full blocks (\textbf{48 tokens}) are identical in every request. The 4th
+block mixes the last 2 instruction tokens with the attribute list, which
+differs per listing. So 48 of 70 prompt tokens (\textbf{69\%}) can be
+reused.
+
+The timestamp breaks this because a token's K and V depend on
+\textbf{every earlier token and its position}. A different first token
+changes the first block's hash, and every later hash includes it, so no
+block matches and the hit rate drops to 0\%. Fix: put anything that
+changes per request (timestamps, user IDs) at the \textbf{end} of the
+prompt, or log it outside the prompt.
+
+\begin{rubric}
+\item 0.25: 48 tokens / 69\%, with the full-block reason
+\item 0.25: why a different first token breaks every later block (K, V
+  depend on the whole prefix; chained hash)
+\item 0.25: the fix (move changing content to the end)
+\end{rubric}
+
+\subsection*{3(b) Chunked prefill}
+
+\textbf{Chunked prefill with stall-free batching} (Sarathi-Serve). Each
+step has a token budget $\tau$: first add every running decode (100
+tokens), then fill the rest of the budget with a chunk of the summary's
+prompt. The largest $\tau$ whose step fits in 30\,ms is \textbf{$\tau =
+512$} (27\,ms; 768 tokens take 38\,ms).
+
+Each step then has room for $512 - 100 = 412$ prefill tokens, so the
+1{,}000-token prompt takes 3 steps ($412 + 412 + 176$). Today, the one big
+step holds 1{,}100 tokens, slower than 50\,ms, so every autocomplete user
+waits more than $3\times$ a normal 15\,ms step. With chunks, no step goes
+over 27\,ms.
+
+The summary request pays with a \textbf{higher TTFT}: its prefill now
+spans 3 steps instead of one. The last step holds $176 + 100 = 276$
+tokens, so it takes about 18\,ms, for about $27 + 27 + 18 = 72$\,ms in
+total. Its later chunks also re-read the KV of the earlier chunks, and
+each extra step repeats the fixed per-step cost.
+
+\begin{rubric}
+\item 0.25: names chunked prefill / stall-free batching and why it works
+  (decode steps are memory-bound, so there is spare compute for prefill
+  tokens)
+\item 0.25: $\tau = 512$ from the table and the SLO, with the number of
+  chunks
+\item 0.25: the cost to the summary request (higher TTFT, KV re-reads,
+  repeated per-step overhead)
+\end{rubric}
+
+\subsection*{4(a) GQA and capacity}
+
+\begin{align*}
+\text{KV per token} &= 2 \times 32 \times 8\ (\text{KV heads}) \times 128
+  \times 2\,\text{B} = \mathbf{131{,}072\,B}\ (128\,\text{KiB}) \\
+\text{one 8K conversation} &= 131{,}072 \times 8{,}192 = 1.07\,\text{GB} \\
+\text{KV budget} &= 80 - 16 - 4 = 60\,\text{GB}
+  \;\Rightarrow\; 60 / 1.07 = 55.9 \;\Rightarrow\; \mathbf{55}\ \text{conversations}
+\end{align*}
+
+With full multi-head attention (32 KV heads), each token needs
+\textbf{$4\times$} as much, 512\,KiB, so one conversation needs 4.29\,GB,
+and only $60 / 4.29 = 13.97$, or \textbf{13 conversations}, fit. GQA
+shares one K/V head across 4 query heads, which is why Llama-3.1-8B uses
+it.
+
+\begin{rubric}
+\item 0.25: KV per token with \texttt{n\_kv\_heads} (not \texttt{n\_heads})
+\item 0.25: the budget (60\,GB) and 55 conversations
+\item 0.25: the MHA case (13) and why GQA shrinks the cache
+\end{rubric}
+
+\subsection*{4(b) Not recomputing the history}
+
+Any two of:
+\begin{itemize}
+\item \textbf{Prefix caching on the GPU} (vLLM automatic prefix caching or
+  SGLang RadixAttention): keep the conversation's blocks after the turn
+  ends and reuse them when the next turn arrives with the same prefix.
+  \emph{Limit:} HBM is small, and the blocks are evicted (LRU) long before
+  the user returns hours later.
+\item \textbf{Hierarchical KV cache} (offload to CPU DRAM, SSD or a remote
+  store, e.g.\ LMCache, Mooncake): much more capacity, so the history
+  survives until the next turn. \emph{Limit:} loading costs PCIe or
+  network bandwidth, and it must be cheaper than recomputing. For an 8B
+  model, the break-even bandwidth is about 4\,GB/s, so even a local SSD is
+  usually fast enough.
+\item \textbf{Cache-aware routing}: send the user back to the replica that
+  already holds the history. \emph{Limit:} replicas holding popular
+  prefixes get overloaded, so routing must balance cache hits against
+  load.
+\end{itemize}
+
+\begin{rubric}
+\item 0.25 each for two correct techniques, 0.25 for a correct limit on at
+  least one
+\end{rubric}
+
+% =====================================================================
+\newpage
+\section*{Set C: The ideas behind your A6 code}
+
+\subsection*{5(a) Left padding}
+
+\textbf{(i)} With left padding, every row's \textbf{last token is at the
+same slot} (slot 4), so at each decode step every row's new token goes to
+the same next slot (5, 6, \ldots): the cache grows by one column for the
+whole batch. With right padding, X's next token would go to slot 3 while
+Y's goes to slot 5. The rows would write to different slots, and X's new
+tokens would land in the middle of its padding.
+
+\textbf{(ii)} \textbf{Position 0}, because GPT-2 was trained with every
+text starting at position 0, and X must look the same as when it runs
+alone. So X's real tokens at slots 2, 3, 4 get positions 0, 1, 2
+(position = slot $-$ pad). X's tokens must never attend to \textbf{slots 0
+and 1}, the padding: they hold no real token. The pad mask hides them,
+and the causal mask hides the future slots.
+
+\textbf{(iii)} GPT-2 adds a learned \textbf{position embedding} to each
+token. With slot numbers, X's text ``starts'' at position 2, so every one
+of X's tokens gets a different embedding than when X runs alone, and the
+attention results change, so the generated tokens change. Nothing crashes
+because positions 2--4 are valid. Y has no padding, so its slot numbers
+and positions are the same, and Y is not affected.
+
+\begin{rubric}
+\item 0.25: left padding lines up every row's newest token, so all rows
+  write to the same slot
+\item 0.25: X starts at position 0, and the pad mask hides slots 0--1
+\item 0.25: the shifted position embeddings explain why X is wrong and Y
+  is right
+\end{rubric}
+
+\subsection*{5(b) Blocks that are already promised}
+
+\textbf{(i)} A request's full length in blocks is its tokens divided by
+16, rounded up:
+\begin{align*}
+\text{free now} &= 20 - 4 - 2 = 14 \\
+\text{still promised to R1} &= \lceil 100/16 \rceil - 4 = 7 - 4 = 3 \\
+\text{still promised to R2} &= \lceil 64/16 \rceil - 2 = 4 - 2 = 2 \\
+\text{A needs } \lceil 120/16 \rceil = 8 &\;\le\; 14 - 5 = 9
+  \;\Rightarrow\; \textbf{admit A} \\
+\text{B needs } \lceil 60/16 \rceil = 4 &\;>\; 14 - 5 - 8 = 1
+  \;\Rightarrow\; \textbf{B waits}
+\end{align*}
+Once A is admitted, all 8 of its blocks are promised too, even though it
+holds none yet.
+
+\textbf{(ii)} Under the simpler rule, A ($8 \le 14$) and B ($4 \le 14$)
+are both admitted, but at full length the four requests need $7 + 4 + 8
++ 4 = 23$ blocks, more than the 20 in the pool. It does not fail at
+admission because blocks are handed out \textbf{as sequences grow}. The 14
+``free'' blocks include 5 that R1 and R2 will claim later, so ``free right
+now'' overstates the room. The pool runs dry only after the sequences
+have grown, many decode steps later.
+
+Safe admission \textbf{promises} that every admitted request can finish
+without being evicted, so it has no preemption plan: running out means
+the promise was broken, which is a bug, and the engine stops with an
+error. Optimistic admission overcommits on purpose: it expects to run
+out, so it \textbf{preempts} a request, frees its blocks, and recomputes
+it later with one prefill.
+
+\begin{rubric}
+\item 0.25: free 14, 5 still promised, A admitted ($8 \le 9$), B waits
+  ($4 > 1$, counting A's 8)
+\item 0.25: blocks are handed out as sequences grow, so ``free now''
+  includes blocks already promised; the shortage shows up later
+\item 0.25: safe mode promises no preemption, so running out is a bug;
+  optimistic mode expects it and preempts
+\end{rubric}
+
+\textbf{Common mistake.} Forgetting A's 8 blocks when B is checked:
+A holds none yet, but they are already promised.
+
+\end{document}

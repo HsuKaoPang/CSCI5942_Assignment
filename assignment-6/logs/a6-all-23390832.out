@@ -1,0 +1,116 @@
+PyTorch 2.12.1 for Delta — RH9.6 / CPE 26.3 (CUDA 13.0, Python 3.12)
+
+Built for the RH9.6 stack: cu130 wheels (CUDA 13.0 runtime), mpi4py linked
+against cray-mpich 9.1.0, system libfabric 2.3.1 (Slingshot CXI). Runs on
+driver 595.71.05 natively. Refuses to load on RH9.4 nodes — use
+pytorch-conda/2.8 there.
+
+For documentation and examples:
+  https://docs.ncsa.illinois.edu/systems/delta/
+
+Run setup-kernel prior to launching an OOD job.
+
+Quick start (on a RH9.6 compute node):
+  module load pytorch-conda/2.12
+  conda activate base
+  python -c "import torch; print(torch.cuda.is_available())"
+
+CUDA extensions: CUDA_HOME comes from the default cudatoolkit module
+(cudatoolkit/default -> 26.5_13.2 on RH9.6, nvcc 13.2).
+
+Multi-node NCCL: the aws-ofi-nccl plugin is loaded automatically, so NCCL
+routes over Slingshot CXI rather than falling back to TCP sockets.
+
+aws-ofi-nccl/1.19.2 (RH9.6/CPE 26.3: libfabric 2.3.1, CUDA 13.2)
+/sw/rh9.4/user/python/conda-env/pytorch-2.12.1-cu130/lib/python3.12/site-packages/requests/__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (6.0.0.post1)/charset_normalizer (3.4.2) doesn't match a supported version!
+  warnings.warn(
+gpub052.delta.ncsa.illinois.edu
+NVIDIA A40, 46068 MiB
+
+=== 16:15:48 python check_env.py
+[ok] python 3.12.11 >= 3.10
+[ok] import torch
+[ok] import numpy
+[ok] import tiktoken
+[ok] import safetensors
+[ok] import huggingface_hub
+[ok] import pytest
+[ok] torch 2.12.1+cu130 >= 2.5
+[ok] CUDA GPU
+[ok] NVIDIA A40, 44 GiB (44 free)
+[ok] bf16
+[ok] 1710679 GB free disk
+
+=== 16:15:59 python -m pytest tests/ -q
+...........................                                              [100%]
+27 passed in 8.08s
+
+=== 16:16:08 python sample.py --model gpt2-xl --tokens 200
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/sw/rh9.4/user/python/conda-env/pytorch-2.12.1-cu130/lib/python3.12/site-packages/requests/__init__.py:113: RequestsDependencyWarning: urllib3 (2.5.0) or chardet (6.0.0.post1)/charset_normalizer (3.4.2) doesn't match a supported version!
+  warnings.warn(
+cached:     22.2 ms/token
+uncached:   33.2 ms/token
+tokens match: True
+
+--- 'The capital of France is'
+The capital of France is the city of Paris. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France.
+
+=== 16:17:07 python sample.py --model gpt2-xl --tokens 800
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+cached:     22.9 ms/token
+uncached:   93.7 ms/token
+tokens match: True
+
+--- 'The capital of France is'
+The capital of France is the city of Paris. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is the capital of France and the largest city in France. It is
+
+=== 16:19:02 python sample.py --prompt The capital of France is Once upon a time --tokens 50
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+cached:      5.7 ms/token
+
+--- 'The capital of France is'
+The capital of France is the capital of the French Republic, and the capital of the French Republic is the capital of the French Republic.
+
+The French Republic is the capital of the French Republic.
+
+The French Republic is the capital of the French Republic.
+
+
+
+--- 'Once upon a time'
+Once upon a time, the world was a place of great beauty and great danger. The world was a place of great danger, and the world was a place of great danger. The world was a place of great danger, and the world was a place of great danger
+
+=== 16:19:09 python bench_kv.py --model gpt2-xl --batch 32 --tokens 128 --block-size 8 16 32 64 128 256
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+gpt2-xl, batch 32, prompts 95-485 tokens (mean 267), 128 new tokens each, KV 300 KiB/token
+           cache prefill ms decode ms/step  reserved     used  used %
+      contiguous        609           22.9     19616    12616   64.3%
+  (max_len 1024)                               32768    12616   38.5%
+  paged, block 8        855           36.5     12728    12616   99.1%
+ paged, block 16        764           36.6     12880    12616   98.0%
+ paged, block 32        770           37.0     13120    12616   96.2%
+ paged, block 64        768           37.7     13568    12616   93.0%
+paged, block 128        769           39.4     14336    12616   88.0%
+paged, block 256        769           43.9     16640    12616   75.8%
+
+=== 16:20:08 python bench_serve.py --kv-gb 4
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+gpt2-xl: 400 requests, prompts 16-64, outputs 8-128 (sum 27418), KV 4.0 GB = 813 blocks of 16, max batch 64
+                  engine  time s   tok/s mean lat s p90 lat s mean batch preempt
+                  static    29.6     926       14.6      25.4       31.1       0
+              continuous    21.9    1250       12.0      19.8       54.0       0
+
+=== 16:21:22 python bench_serve.py --kv-gb 1
+gpt2-xl: 400 requests, prompts 16-64, outputs 8-128 (sum 27418), KV 1.0 GB = 203 blocks of 16, max batch 64
+                  engine  time s   tok/s mean lat s p90 lat s mean batch preempt
+                  static    53.1     517       26.3      47.6       14.6       0
+              continuous    37.8     726       19.1      33.9       22.5       0
+
+=== 16:23:16 python bench_serve.py --kv-gb 1 --engine continuous --optimistic
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+gpt2-xl: 400 requests, prompts 16-64, outputs 8-128 (sum 27418), KV 1.0 GB = 203 blocks of 16, max batch 64
+                  engine  time s   tok/s mean lat s p90 lat s mean batch preempt
+ continuous (optimistic)    33.3     824       17.2      30.2       32.5     176
+
+=== 16:24:13 done

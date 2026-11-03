@@ -1,0 +1,18 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \texttt  {sample.py} with gpt2-xl (fp32, batch 1, greedy decoding, prompt \texttt  {"The capital of France is"}). In both runs, the cached and uncached tokens are the same.}}{1}{table.1}\protected@file@percent }
+\newlabel{tab:sample}{{1}{1}{\texttt {sample.py} with gpt2-xl (fp32, batch 1, greedy decoding, prompt \texttt {"The capital of France is"}). In both runs, the cached and uncached tokens are the same}{table.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Q1: Why does the uncached time grow, and the cached time not?}{1}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Q2: Size of the KV cache for one 1024-token request.}{1}{section*.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \texttt  {bench\_kv.py}: gpt2-xl in bf16, 32 prompts of 95--485 tokens (mean 267), 128 new tokens each. Used \% is the fraction of reserved KV slots that hold a token. The first contiguous row reserves the longest prompt plus 128 slots for every row; the second shows what reserving 1024 slots per row would use.}}{2}{table.2}\protected@file@percent }
+\newlabel{tab:kv}{{2}{2}{\texttt {bench\_kv.py}: gpt2-xl in bf16, 32 prompts of 95--485 tokens (mean 267), 128 new tokens each. Used \% is the fraction of reserved KV slots that hold a token. The first contiguous row reserves the longest prompt plus 128 slots for every row; the second shows what reserving 1024 slots per row would use}{table.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Q1: How many of these requests fit in 4\,GB?}{2}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Q2: Which block size?}{2}{section*.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \texttt  {bench\_serve.py}: gpt2-xl in bf16, 400 requests arriving at once, prompts of 16--64 tokens, outputs of 8--128 tokens (27{,}418 in total), block size 16, max batch 64. Latency is in seconds.}}{2}{table.3}\protected@file@percent }
+\newlabel{tab:serve}{{3}{2}{\texttt {bench\_serve.py}: gpt2-xl in bf16, 400 requests arriving at once, prompts of 16--64 tokens, outputs of 8--128 tokens (27{,}418 in total), block size 16, max batch 64. Latency is in seconds}{table.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Q1: Static vs.\ continuous.}{2}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Q2: What did paging buy at 1\,GB?}{3}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Q3: Optimistic vs.\ safe admission at 1\,GB.}{3}{section*.11}\protected@file@percent }
+\gdef \@abspage@last{3}

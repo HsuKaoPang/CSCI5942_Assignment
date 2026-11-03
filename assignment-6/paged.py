@@ -32,7 +32,7 @@ class BlockAllocator:
         Start with every block id free."""
         self.num_blocks = num_blocks
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        self.free_list = list(range(num_blocks))  # Initialize free list with all block ids
 
     def allocate(self) -> int:
         """Take a free block id and return it.
@@ -43,18 +43,20 @@ class BlockAllocator:
         Returns the allocated block id.
         """
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        if not self.free_list:
+            raise MemoryError("No free blocks available")
+        return self.free_list.pop()  # Return the last free block id
 
     def free(self, blocks: list[int]):
         """Put `blocks` (block ids) back on the free list."""
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        self.free_list.extend(blocks)
 
     @property
     def num_free(self) -> int:
         """Returns how many block ids are free."""
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        return len(self.free_list)
 
 
 class PagedKVCache:
@@ -130,7 +132,9 @@ class PagedKVCache:
         its entries in `self.tables` and `self.lens`.
         """
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        self.allocator.free(self.tables.pop(seq))
+        del self.lens[seq]
+
 
     def select(self, seqs: list[int]):
         """Choose the sequences in the next forward pass, by id."""
@@ -166,7 +170,30 @@ class PagedKVCache:
         """
         dev = self.k[0].device
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        # block
+        for s in self.batch:
+            need = self.lens[s]+T
+            if need > self.max_len:
+                raise ValueError(f"seq {s}: {need} tokens > max_len {self.max_len}")
+            while len(self.tables[s]) * self.block_size < need:
+                self.tables[s].append(self.allocator.allocate())
+
+        # block_table
+        max_blocks = max(len(self.tables[s]) for s in self.batch)
+        table = [self.tables[s] + [0] * (max_blocks - len(self.tables[s])) for s in self.batch]
+        self.block_table = torch.tensor(table, device=dev)
+
+        # positions
+        lens = torch.tensor([self.lens[s] for s in self.batch], device=dev)
+        self.positions = lens[:, None] + torch.arange(T, device=dev)
+
+        # slots
+        blk = self.block_table.gather(1, self.positions // self.block_size)
+        self.slots = blk * self.block_size + self.positions % self.block_size
+
+        return self.positions
+
+    
 
     def update(self, layer: int, k: torch.Tensor, v: torch.Tensor):
         """Store the new keys and values, and gather each sequence's blocks.
@@ -209,7 +236,13 @@ class PagedKVCache:
         # key and value into the right row of the flattened view of the 
         # pool, using the slot indices in self.slots.
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+
+        # (B, T) -> (B*T,): one flat slot per new token, ordered b then t
+        idx = self.slots.view(-1)
+        # (B, nh, T, hd) -> (B, T, nh, hd) -> (B*T, nh, hd), the same b-then-t
+        # order as idx; without the transpose, heads and tokens get mixed up
+        flat_k[idx] = k.transpose(1, 2).reshape(-1, nh, hd)
+        flat_v[idx] = v.transpose(1, 2).reshape(-1, nh, hd)
 
         # 2. Gather. Create a contiguous tensor from self.k[layer] that
         #    groups together, for each row, all the blocks in that
@@ -218,12 +251,21 @@ class PagedKVCache:
         #    the shape attention needs, (B, nh, S, hd). Same for
         #    V, from self.v[layer].
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        
+        # pool[block_table]: (B, max_blocks, bs, nh, hd), each row's blocks in
+        # table order (this copies). Merge max_blocks * bs into S so slot s is
+        # position s, then (B, S, nh, hd) -> (B, nh, S, hd) for attention.
+        K = self.k[layer][self.block_table].view(B, S, nh, hd).transpose(1, 2)
+        V = self.v[layer][self.block_table].view(B, S, nh, hd).transpose(1, 2)
 
         # 3. Mask, (B, 1, T, S): True where new token t of row b may attend
         #    to slot s, i.e. s <= self.positions[b, t].
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        
+        # (1, 1, S) <= (B, T, 1) -> (B, T, S): causal, and it also hides the
+        # 0-padded blocks on the right, since they sit past every position
+        s = torch.arange(S, device=k.device)
+        mask = (s[None, None, :] <= self.positions[:, :, None])[:, None]   # (B, 1, T, S)
         return K, V, mask
 
     def end(self, T: int):

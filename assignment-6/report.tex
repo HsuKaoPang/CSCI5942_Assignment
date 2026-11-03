@@ -1,0 +1,221 @@
+\documentclass[10pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\setlength{\emergencystretch}{3em}
+
+\begin{document}
+
+\title{CSCI 5942: AI Engineering Assignment 6\\Serving GPT-2}
+\author{Bill Hsu}
+\maketitle
+
+% =====================================================================
+\section*{Setup}
+
+All runs used one NVIDIA A40 (46\,GB) on the NCSA Delta node
+\texttt{gpub052} (partition \texttt{gpuA40x4}), with the
+\texttt{pytorch-conda/2.12} module (PyTorch 2.12.1, CUDA 13.0). We ran
+every command in one Slurm job, \texttt{slurm/run\_all.sbatch} (job
+23390832). \texttt{sample.py} runs gpt2-xl in fp32; \texttt{bench\_kv.py}
+and \texttt{bench\_serve.py} run it in bf16. Times are wall-clock with
+\texttt{torch.cuda.synchronize()} before and after. In
+\texttt{bench\_serve.py}, every request arrives at time 0, so latency is
+the time from the start of the run until a request finishes, and mean
+batch is the mean decode batch size. As in \texttt{bench\_serve.py},
+1\,GB means $10^9$ bytes. All tests pass on the GPU node:
+\texttt{tests/test\_model.py} (4 passed), \texttt{tests/test\_kvcache.py}
+(8 passed), \texttt{tests/test\_paged.py} (8 passed) and
+\texttt{tests/test\_engine.py} (7 passed).
+
+% =====================================================================
+\section*{Part 1: The KV Cache}
+
+\begin{table}[htbp]
+\caption{\texttt{sample.py} with gpt2-xl (fp32, batch 1, greedy decoding,
+prompt \texttt{"The capital of France is"}). In both runs, the cached and
+uncached tokens are the same.}
+\label{tab:sample}
+\centering
+\begin{tabular}{rrrc}
+\toprule
+New tokens & Cached (ms/token) & Uncached (ms/token) & Tokens match \\
+\midrule
+200 & 22.2 & 33.2 & True \\
+800 & 22.9 & 93.7 & True \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Q1: Why does the uncached time grow, and the cached time not?}
+Without a cache, the model runs the whole sequence again for every new
+token, so one step costs more as the sequence gets longer, and the total
+cost grows as $O(N^2)$. Going from 200 to 800 new tokens, the uncached
+time per token grows $2.8\times$, from 33.2 to 93.7\,ms. With a cache,
+each step runs only the one new token. Attention still reads every cached
+key and value, but that is small compared with reading the model weights,
+so the cached time stays almost flat (22.2 to 22.9\,ms).
+At 200 tokens, the gap is small (33.2 vs.\ 22.2\,ms) because decoding is
+memory-bound: most of each step is spent reading the weights from GPU
+memory, and that cost is the same for one token or for 200.
+
+\paragraph{Q2: Size of the KV cache for one 1024-token request.}
+For every token, each of the 48 layers stores one key and one value. Each
+has $n_\text{embd} = n_\text{head} \times \text{head\_dim} = 25 \times 64
+= 1600$ numbers, and each number is 2\,B in bf16:
+\begin{align*}
+\text{per token} &= 2\ (\text{K, V}) \times 48 \times 1600 \times 2\,\text{B}
+  = 307{,}200\,\text{B} = 300\,\text{KiB}, \\
+\text{per request} &= 307{,}200\,\text{B} \times 1024
+  = 314{,}572{,}800\,\text{B} \approx 314.6\,\text{MB}.
+\end{align*}
+This is 300\,MiB, and the per-token size matches the
+\texttt{300 KiB/token} that \texttt{bench\_kv.py} prints.
+
+% =====================================================================
+\section*{Part 2: PagedAttention}
+
+\begin{table}[htbp]
+\caption{\texttt{bench\_kv.py}: gpt2-xl in bf16, 32 prompts of 95--485
+tokens (mean 267), 128 new tokens each. Used \% is the fraction of
+reserved KV slots that hold a token. The first contiguous row reserves
+the longest prompt plus 128 slots for every row; the second shows what
+reserving 1024 slots per row would use.}
+\label{tab:kv}
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+Cache & Prefill (ms) & Decode (ms/step) & Reserved & Used & Used \% \\
+\midrule
+contiguous                 & 609 & 22.9 & 19{,}616 & 12{,}616 & 64.3\% \\
+contiguous (max\_len 1024) &     &      & 32{,}768 & 12{,}616 & 38.5\% \\
+paged, block 8   & 855 & 36.5 & 12{,}728 & 12{,}616 & 99.1\% \\
+paged, block 16  & 764 & 36.6 & 12{,}880 & 12{,}616 & 98.0\% \\
+paged, block 32  & 770 & 37.0 & 13{,}120 & 12{,}616 & 96.2\% \\
+paged, block 64  & 768 & 37.7 & 13{,}568 & 12{,}616 & 93.0\% \\
+paged, block 128 & 769 & 39.4 & 14{,}336 & 12{,}616 & 88.0\% \\
+paged, block 256 & 769 & 43.9 & 16{,}640 & 12{,}616 & 75.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:kv} shows that paging wastes very little memory: at block
+16, 98.0\% of the reserved slots hold a token, against 38.5\% for a
+contiguous cache that reserves 1024 slots per request. The only waste is
+the unused slots in each sequence's last block. The cost is speed: every
+paged decode step is slower than the contiguous one (36.6 vs.\ 22.9\,ms at
+block 16), because in every layer the gather copies each sequence's
+blocks out of the pool into one contiguous tensor. A real system uses an
+attention kernel that reads the blocks directly from the pool and does
+not pay for this copy. Paged prefill is also slower (764 vs.\ 609\,ms),
+mostly because \texttt{bench\_kv.py} prefills each paged prompt on its
+own, while the contiguous cache prefills all 32 prompts in one padded
+batch.
+
+\paragraph{Q1: How many of these requests fit in 4\,GB?}
+\begin{itemize}
+\item \textbf{Contiguous.} Each request reserves 1024 slots, which is
+  314.6\,MB (Part 1).
+  $4 \times 10^9 / 314{,}572{,}800 = 12.7$, so only \textbf{12} requests
+  fit.
+\item \textbf{Paged, block 16.} 4\,GB holds
+  $4 \times 10^9 / (16 \times 307{,}200) = 813$ blocks. At their longest,
+  the 32 requests hold 12{,}880 slots (Table~\ref{tab:kv}), which is
+  805 blocks, or about 25 blocks (123.6\,MB) per request. Since
+  $805 \le 813$, \textbf{all 32} requests fit at the same time.
+\end{itemize}
+Based on our calculations, paging fits about $2.7\times$ more of these
+requests in the same memory.
+
+\paragraph{Q2: Which block size?}
+I would use \textbf{block size 16}. It keeps 98.0\% of the reserved slots
+in use, and its decode time is the same as block 8 (36.6 vs.\ 36.5\,ms).
+Very small blocks make the block tables longer and add more indexing work
+for every token. Very large blocks waste the empty slots of each
+sequence's last block (only 75.8\% used at block 256), and decode is
+slower too (43.9\,ms), because the gather also copies those empty slots.
+
+% =====================================================================
+\section*{Part 3: Continuous Batching}
+
+\begin{table}[htbp]
+\caption{\texttt{bench\_serve.py}: gpt2-xl in bf16, 400 requests arriving
+at once, prompts of 16--64 tokens, outputs of 8--128 tokens (27{,}418 in
+total), block size 16, max batch 64. Latency is in seconds.}
+\label{tab:serve}
+\centering
+\small
+\begin{tabular}{llrrrrrr}
+\toprule
+KV cache & Engine & Time (s) & Tokens/s & Mean lat. & p90 lat. & Mean batch & Preempt \\
+\midrule
+4\,GB (813 blocks) & static     & 29.6 &  926 & 14.6 & 25.4 & 31.1 & 0 \\
+                   & continuous & 21.9 & 1250 & 12.0 & 19.8 & 54.0 & 0 \\
+\midrule
+1\,GB (203 blocks) & static     & 53.1 &  517 & 26.3 & 47.6 & 14.6 & 0 \\
+                   & continuous & 37.8 &  726 & 19.1 & 33.9 & 22.5 & 0 \\
+                   & continuous (optimistic) & 33.3 & 824 & 17.2 & 30.2 & 32.5 & 176 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Q1: Static vs.\ continuous.}
+Table~\ref{tab:serve} shows that continuous batching improves all three
+metrics at both budgets.
+\begin{itemize}
+\item \textbf{Tokens/s} (926 to 1250, +35\%, at 4\,GB; 517 to 726, +40\%,
+  at 1\,GB). Decoding is memory-bound, so a step costs about the same for
+  a larger batch, and a larger batch makes more tokens per step.
+\item \textbf{Mean latency} (14.6 to 12.0\,s, $-18$\%, at 4\,GB; 26.3 to
+  19.1\,s, $-27$\%, at 1\,GB). A waiting request starts as soon as a slot
+  is free, so it does not wait for the longest request of a whole static
+  batch to finish.
+\item \textbf{Mean batch} (31.1 to 54.0 at 4\,GB; 14.6 to 22.5 at 1\,GB).
+  Finished requests are retired and new ones are admitted at every
+  iteration, so their slots and blocks are reused right away instead of
+  staying idle.
+\end{itemize}
+
+\paragraph{Q2: What did paging buy at 1\,GB?}
+\begin{enumerate}
+\item A contiguous cache must reserve 1024 slots, or 314.6\,MB, for every
+  request (Part 1). $10^9 / 314{,}572{,}800 = 3.2$, so only \textbf{3}
+  requests fit at once.
+\item In Part 1 and Part 2, one gpt2-xl decode step with a contiguous
+  cache takes about 22--23\,ms, and this stays almost the same from
+  batch 1 (22.2\,ms) to batch 32 (22.9\,ms). With 3 requests, the
+  throughput would be at most about
+  $3 / 0.023\,\text{s} \approx$ \textbf{130 tokens/s}, before counting
+  prefill. This is an estimate, not a measurement.
+\item Our continuous run reaches 726 tokens/s at 1\,GB, about
+  $5.6\times$ the estimate. Each paged step is slower because of the
+  gather, but these requests are short (at most $64 + 128 = 192$ tokens,
+  or 12 blocks), and paging gives them only the blocks they use. This
+  lets about 22 requests run at once instead of 3, and the larger batch
+  is worth much more than the cost of the gather.
+\end{enumerate}
+
+\paragraph{Q3: Optimistic vs.\ safe admission at 1\,GB.}
+With optimistic admission, tokens/s goes from 726 to 824 (+13\%), and
+the mean batch goes from 22.5 to 32.5 (+44\%). Mean latency also falls,
+from 19.1 to 17.2\,s.
+\begin{itemize}
+\item \textbf{Benefit.} Safe admission reserves blocks for every
+  request's full length, and most of those blocks stay empty for a long
+  time. Optimistic admission reserves only the next token, so more
+  requests run at once and the pool is used better. Also, recomputing is 
+  cheaper than it looks: the engine re-runs the prompt and all generated
+  tokens in one prefill, which is far more efficient than the decode steps
+  that first produced them.
+\item \textbf{Cost.} When the pool runs out, a request is preempted and
+  must be recomputed from the start. There were 176 preemptions, and the
+  prefill and decode work done for them before each preemption is
+  wasted. A preempted request also waits again, so its latency is harder
+  to predict. With an even smaller pool, the same requests could be
+  preempted again and again, and throughput could fall below safe
+  admission.
+\end{itemize}
+
+\end{document}

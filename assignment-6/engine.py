@@ -106,7 +106,17 @@ class Scheduler:
         bs = self.cache.block_size
         free = self.cache.allocator.num_free
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        def need(r):
+            # blocks r must be able to hold: its full length (safe), or only
+            # the tokens so far plus the next one (optimistic)
+            extra = len(r.out) + 1 if self.optimistic else r.max_new
+            return blocks_for(len(r.prompt) + extra, bs)
+
+        # blocks the running requests will still take from the pool: what each
+        # needs minus what it already holds. A request admitted this iteration
+        # has not been prefilled yet, so it holds none.
+        owed = sum(max(0, need(r) - len(self.cache.tables.get(r.id, []))) for r in self.running)
+        return need(req) <= free - owed
 
     def schedule(self, it: int) -> list[Request]:
         """Retire finished requests, then admit waiting ones.
@@ -123,7 +133,25 @@ class Scheduler:
           and the request can be admitted. Schedule in FCFS order.
         """
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        # Retire: give finished requests' blocks back right away. Iterate over
+        # a copy, since we remove from self.running inside the loop.
+        for r in [r for r in self.running if r.done]:
+            self.cache.remove(r.id)
+            self.running.remove(r)
+            r.finished = it
+            self.finished.append(r)
+
+        # Admit, unlike StaticScheduler, even while others are running. The
+        # batch limit counts everything running, not just this iteration's
+        # admissions. Stop at the first request that does not fit (FCFS), so
+        # a large request is never skipped over.
+        admitted = []
+        while self.waiting and len(self.running) < self.max_batch and self.can_admit(self.waiting[0]):
+            r = self.waiting.popleft()
+            r.admitted = it
+            self.running.append(r)
+            admitted.append(r)
+        return admitted
 
     def preempt(self) -> Request:
         """Evict a running request to free its blocks (given).

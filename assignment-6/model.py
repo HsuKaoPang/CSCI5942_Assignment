@@ -55,7 +55,12 @@ class KVCache:
         self.pad = pad
         self.pos = 0
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        hd = config.n_embd // config.n_head
+        shape = (batch_size, config.n_head, max_len, hd)
+        self.k = [torch.zeros(shape, device=device, dtype=dtype) for _ in range(config.n_layer)]
+        self.v = [torch.zeros(shape, device=device, dtype=dtype) for _ in range(config.n_layer)]
+
+
 
     def begin(self, T: int) -> torch.Tensor:
         """Called once per forward pass, before the embeddings.
@@ -75,7 +80,14 @@ class KVCache:
         if self.pos + T > self.max_len:
             raise ValueError(f"cache full: {self.pos} + {T} > max_len {self.max_len}")
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        slots = torch.arange(self.pos, self.pos + T, device=self.k[0].device)
+        if self.pad is None:
+            return slots
+        else:
+            positions = slots.unsqueeze(0) - self.pad.unsqueeze(1)
+            return torch.clamp(positions, min=0)
+
+
 
     def update(self, layer: int, k: torch.Tensor, v: torch.Tensor):
         """Called in every layer with the new tokens' keys and values, k and
@@ -98,7 +110,20 @@ class KVCache:
         """
         T = k.size(2)
         # --- YOUR IMPLEMENTATION HERE ---
-        raise NotImplementedError("implement this block")
+        # slots 0 .. S-1 of self.k[layer] and self.v[layer]
+        S = self.pos + T
+        self.k[layer][:, :, self.pos:S] = k
+        self.v[layer][:, :, self.pos:S] = v
+        # casual mask
+        q = torch.arange(self.pos, S, device = k.device)
+        s = torch.arange(S, device = k.device)
+        mask = (s[None, :] <= q[:, None])[None, None]
+        # padding mask
+        if self.pad is not None:
+            mask = mask & (s >= self.pad[:, None, None, None])
+        # return k, v, mask
+        return self.k[layer][:,:,:S], self.v[layer][:,:, :S], mask.expand(k.size(0), 1, T, S)
+
 
     def end(self, T: int):
         """Finish the forward pass: the T new tokens are now cached."""
