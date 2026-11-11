@@ -60,14 +60,42 @@ def sample_group(model, prompt_ids, G, temperature, max_new, device):
     list of G token lists; each stops at the first EOT, which is kept, or
     at max_new tokens."""
     # --- YOUR IMPLEMENTATION HERE ---
-    raise NotImplementedError("implement this block")
+    # copy prompt G times and stack them into a tensor
+    x = torch.tensor([prompt_ids] * G, device = device)
+
+    # create a list to hold the completions
+    completions = [[] for _ in range(G)]
+    done = [False] * G  # keep track of which completions are done
+    
+    for _ in range(max_new):
+        # get logits from the model
+        logits, _ = model(x) # logits shape: (G, seq_len, vocab_size)
+        probs = torch.softmax(logits[:, -1, :] / temperature, dim=-1)  # shape: (G, vocab_size)
+        # sample the next token
+        next_tok = torch.multinomial(probs, num_samples=1)
+        for i in range(G):
+            if not done[i]:
+                # append the sampled token to the completion
+                completions[i].append(next_tok[i].item())
+                # check if the sampled token is EOT
+                done[i] = (next_tok[i].item() == sft.EOT)
+        if all(done):
+            break
+        # append the next token to the input for the next iteration
+        x = torch.cat([x, next_tok], dim=1)
+    return completions
+
+        
+
 
 
 def group_advantage(rewards):
     """DeepSeekMath's outcome advantage: (r - mean of the group) / (std of
     the group + 1e-4), one float per completion."""
     # --- YOUR IMPLEMENTATION HERE ---
-    raise NotImplementedError("implement this block")
+    r = np.array(rewards, dtype=np.float64)
+    adv = (r - r.mean())/(r.std() + 1e-4)
+    return adv.tolist()
 
 
 def completion_logprobs(model, prompt_ids, comps, device):
@@ -76,8 +104,32 @@ def completion_logprobs(model, prompt_ids, comps, device):
     tensors; mask is 1 on real completion tokens and 0 on the EOT padding
     that fills shorter rows (A5's collate, right-padded with EOT)."""
     # --- YOUR IMPLEMENTATION HERE ---
-    raise NotImplementedError("implement this block")
+    # P: number of prompt tokens, T: max completion length, G: how many completions
+    P = len(prompt_ids)
+    T = max(len(c) for c in comps)
+    G = len(comps)
+    # create a tensor to hold the completions, right-padded with EOT
+    #P+T is the total length of the input to the model
+    comp_tensor = torch.full((G, P+T), sft.EOT, dtype=torch.long, device=device)
+    
+    # prepare mask ,zero tensor of shape (G, T)
+    mask = torch.zeros((G, T), device=device)
 
+    # fill the comp_tensor with the completions and set the mask
+    for i, c in enumerate(comps):
+        comp_tensor[i,:P+len(c)]=torch.tensor(prompt_ids +c, device=device)
+        mask[i,:len(c)]=1.0
+    # toss into model
+    logits, _ = model(comp_tensor)
+    logits = logits[:, P-1:-1,:].float()#length of the logits is T, we want to get the logits for the completion tokens only
+    # compute log probabilities
+    logp_all = torch.log_softmax(logits, dim=-1)
+    
+    targets = comp_tensor[:, P:]  # shape (G, T)
+
+    # gather the log probabilities of the target tokens
+    logp = logp_all.gather(-1, targets.unsqueeze(-1)).squeeze(-1)  # shape (G, T)
+    return logp, mask
 
 def grpo_loss(logp, ref_logp, mask, adv, beta):
     """The loss for one group. Per token: -A * log p + beta * k3, with
@@ -85,7 +137,21 @@ def grpo_loss(logp, ref_logp, mask, adv, beta):
     the mean over each completion's tokens, then the mean over the group.
     `adv` is a (G,) tensor. Returns (loss, mean k3 per token)."""
     # --- YOUR IMPLEMENTATION HERE ---
-    raise NotImplementedError("implement this block")
+    # ref - policy
+    d = ref_logp - logp
+    # k3
+    k3 = torch.exp(d) -d -1
+    # adv (G,) to (G,1)
+    per_token = -adv.unsqueeze(1) * logp + beta * k3
+
+    per_seq = (per_token * mask).sum(dim=1) / mask.sum(dim=1)
+    
+    loss = per_seq.mean()
+    
+    k3_mean = (k3*mask).sum()/mask.sum()
+    
+    return loss, k3_mean
+
 
 
 # --------------------------------------------------------------------- loop
