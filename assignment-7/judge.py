@@ -52,7 +52,10 @@ RUBRICS = {
         "a restaurant guide would print."),
     # Part 4: your rubric, aimed at what the policy found in the one above.
     "yours": (
-        "Replace this sentence with your rubric, about as long as the one above."),
+        "The description states every attribute in the MR and nothing else, "
+        "never naming a venue type (restaurant, pub or coffee shop) unless "
+        "the MR has eatType, in one or two natural sentences, each with at "
+        "most three prepositions."),
 }
 
 GROUP_PROMPT = """\

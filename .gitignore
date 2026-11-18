@@ -20,3 +20,6 @@ _SUCCESS
 # Model checkpoints
 *.ckpt
 ckpt.pt
+
+# Final project: separate git repo with its own .gitignore (COCO data lives there)
+Mega assignment/

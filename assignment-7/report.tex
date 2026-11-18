@@ -1,0 +1,258 @@
+\documentclass[10pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em}
+
+% Placeholder for text Bill writes. Delete every \todo before submitting.
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
+
+\begin{document}
+
+\title{CSCI 5942: AI Engineering Assignment 7\\RLAIF: GRPO with an LLM Judge}
+\author{Bill Hsu}
+\maketitle
+
+% =====================================================================
+\section*{Setup}
+
+All training and evaluation ran on one NVIDIA A40 (46\,GB) on NCSA Delta
+(partition \texttt{gpuA40x4}), with the \texttt{pytorch-conda/2.12} module
+(PyTorch 2.12.1, CUDA 13.0). The policy starts from the A5 full
+fine-tuning run (\texttt{gpt2-medium-full}, linked as \texttt{out/sft}).
+The judge is \texttt{gemini-2.5-flash} with the thinking budget at zero.
+Every GRPO run uses 100 steps of 8 MRs with $G = 8$, temperature 1,
+at most 64 new tokens, learning rate $5 \times 10^{-6}$ and seed 1337;
+only $\beta$ and the rubric change between runs.
+
+% =====================================================================
+\section*{Part 1: The Judge}
+
+\begin{table}[htbp]
+\caption{\texttt{judge.py --part1} on the \texttt{given} rubric: 30 test
+MRs, each a group of up to seven human references plus one intruder (a
+reference for a different MR), scored once in order and once reversed
+(60 calls).}
+\label{tab:part1}
+\centering
+\begin{tabular}{lr}
+\toprule
+Measure & Value \\
+\midrule
+Scores that moved by $\ge 2$ when the order was reversed & 18 of 225 (8.0\%) \\
+Groups where the intruder scored lowest & 30 of 30 (100\%) \\
+Mean score of the human references & 7.74 \\
+Mean score of the intruder & 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What the order-swap number means for the advantage.}
+The advantage is used for learning, but late in training the scores in a
+group differ by only about two points ($\max - \min \approx 2$), which is
+exactly how much a score can move when the order is swapped. Because of
+this noise, we expect the training process to slow down.
+
+\paragraph{Does the humans' mean leave the policy anything to gain?}
+Yes: the humans' mean is 7.74 of 10, so there is room to gain, but the
+policy might get a higher score than the human average not because of
+better writing but because it follows the rubric's rules.
+
+% =====================================================================
+\section*{Part 2: The Loop}
+
+All four tests pass, on the laptop CPU and on the A40:
+\begin{verbatim}
+$ python -m pytest tests/ -q
+..........                                                     [100%]
+10 passed
+\end{verbatim}
+
+\paragraph{Eight samples at temperature 1 from \texttt{out/sft}.}
+MR: \texttt{name[The Vaults], eatType[pub], priceRange[more than \pounds30],
+customer rating[5 out of 5], near[Café Adriatic]}
+\begin{enumerate}\small
+\item The Vaults is a pub with highly promising reviews. Rated 5 out of 5 by its customers, this establishment is on the pricey side. This pub is situated near Café Adriatic.
+\item The Vaults is located near Café Adriatic.  It is a high priced pub with a 5 out of 5 rating.
+\item Near Café Adriatic is a high priced pub named The Vaults. this is a pub with high customer ratings. the name of the pub is House of Jeaclysm
+\item There is a pub near Café Adriatic named The Vaults, it has a customer rating of 5 out of 5 and the price range is more than \pounds30.
+\item The Vaults is a pub near Café Adriatic. They have a 5 out of 5 customer rating and a high price.
+\item Next to Café Adriatic is a pub called The Vaults.   It cost us more than thirty euros; leaving us with a 5 out of 5 customer rating.
+\item 5 out of 5 stars are typical for drinks at the Vaults pub about \pounds30 or less. It is located across from Café Adriatic.
+\item The Vaults No.102a 3star pub in the higher price Range near Café Adriatic.
+\end{enumerate}
+
+\paragraph{Why a group whose scores are all equal contributes nothing.}
+A group with no difference in scores gives no learning signal, because
+every advantage is zero and so $-\hat A_i \log \pi_\theta = 0$.
+
+% =====================================================================
+\section*{Part 3: Train}
+
+\begin{table}[htbp]
+\caption{\texttt{eval.py} on the \texttt{given} rubric. Judge columns:
+the first 200 test MRs, each judged in one group with seven human
+references (95\% CI; rank 1 is the best of 8). BLEU, slot coverage,
+tokens and FineWeb loss: all 630 test MRs, greedy decoding; the judge
+never saw these.}
+\label{tab:part3}
+\centering
+\small
+\begin{tabular}{lrrrrrrr}
+\toprule
+Run & Judge & Humans & Rank of 8 & BLEU & Slots & Tokens & FineWeb \\
+\midrule
+\texttt{sft}         & $8.75 \pm 0.163$ & 7.57 & 1.79 & 63.2 & 97.2\% & 33.0 & 3.826 \\
+\texttt{judge-leash} & $9.42 \pm 0.075$ & 7.55 & 1.06 & 60.1 & 99.8\% & 32.5 & 3.852 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{curves-leash.png}
+\caption{\texttt{judge-leash} ($\beta = 0.04$): the judge's mean score of
+the sampled groups, the mean completion length, and the KL ($k_3$) to the
+starting policy, per step.}
+\label{fig:leash}
+\end{figure}
+
+\paragraph{The same MR before and after (greedy).}
+MR: \texttt{name[The Vaults], eatType[pub], priceRange[more than \pounds30],
+customer rating[5 out of 5], near[Café Adriatic]}
+\begin{itemize}\small
+\item \textbf{Before} (\texttt{out/sft}): The Vaults is a pub near Café
+  Adriatic. It has a 5 out of 5 customer rating and a price range of more
+  than \pounds30.
+\item \textbf{After} (\texttt{out/judge-leash}): The Vaults is a pub near
+  Café Adriatic with a price range of more than \pounds30 and a customer
+  rating of 5 out of 5.
+\end{itemize}
+
+\paragraph{What changed.}
+\texttt{judge-leash} gets a higher judge score (8.75 to 9.42) and a better
+rank of 8 (1.79 to 1.06), which shows that \texttt{judge-leash} gets
+better results. However, BLEU does not (63.2 to 60.1). BLEU only measures
+word overlap with the references, not the quality of the writing, so it
+is normal that BLEU shows a difference.
+Slot coverage, on the other hand, goes up (97.2\% to 99.8\%) and agrees
+with the judge, because the rubric asks the description to state every
+attribute in the MR, which is exactly what slot coverage measures. The
+judge never sees the references, and the rubric does not ask the
+description to sound like them. So the judge and the unseen metrics agree
+only where the rubric asks for the same thing: the policy improves what
+the rubric names and drifts away from the references on what it does not.
+
+% =====================================================================
+\section*{Part 4: The Leash and the Rubric}
+
+\begin{table}[htbp]
+\caption{All four policies, every row scored on the \texttt{given} rubric.}
+\label{tab:part4}
+\centering
+\small
+\begin{tabular}{lrrrrrrr}
+\toprule
+Run & Judge & Humans & Rank of 8 & BLEU & Slots & Tokens & FineWeb \\
+\midrule
+\texttt{sft}           & $8.75 \pm 0.163$ & 7.57 & 1.79 & 63.2 & 97.2\% & 33.0 & 3.826 \\
+\texttt{judge-leash}   & $9.42 \pm 0.075$ & 7.55 & 1.06 & 60.1 & 99.8\% & 32.5 & 3.852 \\
+\texttt{judge-noleash} & $9.43 \pm 0.074$ & 7.54 & 1.05 & 59.7 & 100.0\% & 32.8 & 3.879 \\
+\texttt{judge-yours}   & $9.43 \pm 0.075$ & 7.53 & 1.07 & 63.1 & 100.0\% & 31.8 & 3.856 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% \texttt{judge-yours} under its own rubric (second eval.py line):
+% judge 9.065 +/- 0.071, humans 6.798, rank 1.07 of 8 (results/judge-yours-on-yours.json)
+% Part 1 on the 'yours' rubric: 29 of 225 moved by >= 2 (13%), intruder lowest 30/30,
+% humans' mean 7.23, intruder 1.02 (results/judge-part1-yours.json)
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{curves.png}
+\caption{\texttt{judge-leash}, \texttt{judge-noleash} and
+\texttt{judge-yours}, per step.}
+\label{fig:all}
+\end{figure}
+
+\paragraph{What the policy found:}
+Three of the highest-scored descriptions in \texttt{samples.jsonl}; none of
+the three MRs has an \texttt{eatType}:
+\begin{itemize}\small
+\item \texttt{judge-leash}, step 99, score 9. MR: \texttt{name[Clowns],
+  priceRange[high], familyFriendly[yes], near[Café Sicilia]}\\
+  ``Clowns is a child-friendly \textbf{restaurant} located near Café
+  Sicilia with a high price range.''
+\item \texttt{judge-noleash}, step 60, score 10. MR: \texttt{name[The
+  Waterman], food[Italian], priceRange[more than \pounds30], customer
+  rating[high], area[city centre], familyFriendly[yes]}\\
+  ``The Waterman is an Italian \textbf{restaurant} in the city centre with
+  a high customer rating, a price range of more than \pounds30 and is
+  children friendly.''
+\item \texttt{judge-leash}, step 90, score 9. MR: \texttt{name[The Rice
+  Boat], food[Indian], priceRange[\pounds20-25], customer rating[high],
+  area[city centre], familyFriendly[yes], near[Express by Holiday Inn]}\\
+  ``The Rice Boat is a kid friendly Indian \textbf{restaurant} with a price
+  range between \pounds20-25 in the city centre area near the Express by
+  Holiday Inn with a high customer rating.''
+\end{itemize}
+All three add a venue type that the MR does not have. Of the 22 groups logged per run, 12 have an MR without
+\texttt{eatType}; the best description added a venue type in 10 of these
+12 groups for \texttt{judge-leash} and in all 12 for
+\texttt{judge-noleash}, and the judge gave every one of them 9 or 10. The judge punishes contradictions (``located in All Bar
+One'' for \emph{near}: 3; ``family-friendly'' for \emph{no}: 1), but not
+plausible additions.
+
+The policy also packs every attribute into one sentence with stacked
+prepositions. The rubric asked for neither: this is reward hacking.
+
+\paragraph{My rubric:}
+\begin{quote}
+The description states every attribute in the MR and nothing else,
+never naming a venue type (restaurant, pub or coffee shop) unless the MR
+has eatType, in one or two natural sentences, each with at most three
+prepositions.
+\end{quote}
+
+\paragraph{What it changed:}
+The venue-type rule worked: in the same 12 groups without
+\texttt{eatType}, the best description added a venue type in only 1
+group (10 for \texttt{judge-leash}).
+The preposition rule did not (about 2.5 per longest sentence, against
+2.6).
+
+On the \texttt{given} rubric, \texttt{judge-yours} matches
+\texttt{judge-leash} (9.43 against 9.42), but its BLEU returns to the SFT
+level (63.1 against 60.1); under its own rubric it scores 9.07.
+
+Two limits: the eval cannot show the venue fix, because every test MR has
+an \texttt{eatType}, and the judge became noisier (13\% of scores moved on
+reversal, against 8.0\%).
+
+% =====================================================================
+\section*{The Question: What Did the Judge Measure?}
+
+The judge measured how well a description follows the rubric, not how
+good it is. It does read the MR (the intruder scored lowest in 30 of 30
+groups, against about 4 by chance), but 8.0\% of scores moved by 2 or
+more when only the order changed. Late in training that is as large as a
+group's whole spread, so part of every advantage is noise.
+
+The judge agreed with the unseen metrics only where the rubric asks for
+the same thing: slot coverage rose (97.2\% to 99.8\%), but BLEU fell (63.2
+to 60.1), because the rubric never asks the text to sound like the
+references. Part 4 showed what it really rewarded: a complete sentence
+that does not contradict the MR, even with an invented venue type.
+
+Each run made 800 judge calls (about 3{,}500 in total). A step took
+8.0\,s: 6.3\,s sampling, 0.75\,s judging and 0.9\,s updating. A checker
+would make 0 calls but save only the 0.75\,s (about 9\%); sampling is the
+bottleneck.
+
+\end{document}
